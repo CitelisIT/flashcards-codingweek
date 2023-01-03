@@ -16,6 +16,7 @@
 
 # Package Files #
 *.jar
+!app-all.jar
 *.war
 *.nar
 *.ear
@@ -103,8 +104,14 @@ $RECYCLE.BIN/
 
 ### Gradle ###
 .gradle
-**/build/
+# **/build/
+app/build/classes
+app/build/generated
+app/build/resources
+app/build/tmp
 !src/**/build/
+
+bin
 
 # Ignore Gradle GUI config
 gradle-app.setting
