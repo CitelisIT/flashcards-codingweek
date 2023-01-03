@@ -42,12 +42,12 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.editCreationController">
    <bottom>
-      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="11.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="661.0" BorderPane.alignment="CENTER">
         <buttons>
             <Button layoutX="553.0" layoutY="10.0" mnemonicParsing="false" text="Valider" />
-          <Button mnemonicParsing="false" text="Retour Liste" />
+          <Button mnemonicParsing="false" onAction="#switchToHomeCreation" text="Retour Liste" />
         </buttons>
       </ButtonBar>
    </bottom>
@@ -66,14 +66,24 @@
                <children>
                   <Label text="Question" />
                   <TextField />
-                  <Button mnemonicParsing="false" text="+" />
+                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
+                     <children>
+                      <Button alignment="CENTER" mnemonicParsing="false" text="+ Text" />
+                        <Button mnemonicParsing="false" text="+ Media" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0" prefWidth="227.0">
                <children>
                   <Label text="Réponse" />
                   <TextField />
-                  <Button mnemonicParsing="false" text="+" />
+                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" text="+ Text" />
+                        <Button mnemonicParsing="false" text="+ Media" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

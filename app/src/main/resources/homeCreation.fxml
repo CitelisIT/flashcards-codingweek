@@ -44,7 +44,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.homeCreationController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -58,27 +58,27 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Mode">
           <items>
-            <MenuItem mnemonicParsing="false" text="Apprentisage" />
+            <MenuItem mnemonicParsing="false" onAction="#switchToHomeLearning" text="Apprentisage" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="81.0" prefWidth="640.0">
          <children>
             <Label contentDisplay="RIGHT" prefHeight="16.0" prefWidth="326.0" text="Nom pile" />
-            <ButtonBar prefHeight="24.0" prefWidth="541.0">
+            <ButtonBar prefHeight="32.0" prefWidth="343.0">
                <buttons>
                   <Button mnemonicParsing="false" text="Button" />
                </buttons>
             </ButtonBar>
          </children>
       </HBox>
-      <Label text="Desc" />
-      <ScrollPane prefHeight="425.0" prefWidth="640.0">
+      <Label prefHeight="38.0" prefWidth="30.0" text="Desc" />
+      <ScrollPane prefHeight="374.0" prefWidth="640.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="640.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="640.0">
                <children>
-                  <VBox prefHeight="336.0" prefWidth="625.0">
+                  <VBox layoutY="19.0" prefHeight="317.0" prefWidth="625.0">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
