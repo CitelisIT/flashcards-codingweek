@@ -35,5 +35,11 @@ public class DeckTest {
         assertEquals(1 / 2, deck.getScore());
         deck.remove(0);
         assertEquals(0, deck.getScore());
+
+        Deck deck2 = new Deck();
+        deck2.setName("Deck 2");
+        deck2.setDescription("Deck 2 description");
+        assertEquals(0, deck2.getScore()); // Thanks to the try/catch in Deck.java
+
     }
 }
