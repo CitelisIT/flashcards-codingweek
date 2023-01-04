@@ -3,14 +3,16 @@ package flashcards.controller;
 import java.io.IOException;
 
 import flashcards.App;
+import flashcards.model.DeckManager;
 
 public class HomeLearningController implements Observer {
+    private DeckManager allDeck;
 
-    public HomeLearningController() {
+    public HomeLearningController(DeckManager allDeck) {
     }
 
     public void switchToHomeCreation() throws IOException {
-        App.setRoot("homeCreation");
+        App.setRoot("homeCreation", allDeck);
     }
 
     @Override

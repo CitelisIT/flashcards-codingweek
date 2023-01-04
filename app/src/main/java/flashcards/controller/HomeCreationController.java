@@ -48,15 +48,16 @@ public class HomeCreationController implements Observer, Initializable {
     private Button deleteD = new Button("Delete deck");
     private Button exportD = new Button("Export deck");
 
-    public HomeCreationController() {
+    public HomeCreationController(DeckManager allDeck) {
+        this.allDeck = allDeck;
     }
 
     public void switchToHomeLearning() throws IOException {
-        App.setRoot("homeLearning");
+        App.setRoot("homeLearning", allDeck);
     }
 
     public void switchToEditCreation() throws IOException {
-        App.setRoot("editCreation");
+        App.setRoot("editCreation", allDeck);
     }
 
     public void selectNewOrImport() {
@@ -95,6 +96,7 @@ public class HomeCreationController implements Observer, Initializable {
     public void newDeck() throws IOException {
         Deck newDeck = new Deck();
         allDeck.addDeck(newDeck);
+        allDeck.triggerObserver();
         switchToEditCreation();
     }
 
@@ -159,7 +161,6 @@ public class HomeCreationController implements Observer, Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        allDeck = new DeckManager("Nouveau Deck");
         allDeck.addObserver(this);
         displayedName = new Label("Choisisez une pile");
         displayeDesc = new Label();

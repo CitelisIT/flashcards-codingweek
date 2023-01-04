@@ -46,7 +46,7 @@
    <bottom>
       <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="661.0" BorderPane.alignment="CENTER">
         <buttons>
-            <Button layoutX="553.0" layoutY="10.0" mnemonicParsing="false" text="Valider" />
+            <Button onAction="#validate" layoutX="553.0" layoutY="10.0" mnemonicParsing="false" text="Valider" />
           <Button mnemonicParsing="false" onAction="#switchToHomeCreation" text="Retour Liste" />
         </buttons>
       </ButtonBar>
@@ -62,26 +62,26 @@
    <center>
       <HBox prefHeight="382.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="341.0" prefWidth="227.0">
+            <VBox fx:id="VboxQuestion" alignment="TOP_CENTER" prefHeight="341.0" prefWidth="227.0">
                <children>
                   <Label text="Question" />
                   <TextField />
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
-                      <Button alignment="CENTER" mnemonicParsing="false" text="+ Text" />
-                        <Button mnemonicParsing="false" text="+ Media" />
+                      <Button fx:id="questionAddTextButton" alignment="CENTER" mnemonicParsing="false" onAction="#addQuestionText" text="+ Text" />
+                        <Button fx:id="questionAddMediaButton" mnemonicParsing="false" onAction="#addQuestionMedia" text="+ Media" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0" prefWidth="227.0">
+            <VBox fx:id="VboxAnswer" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0" prefWidth="227.0">
                <children>
                   <Label text="Réponse" />
                   <TextField />
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" text="+ Text" />
-                        <Button mnemonicParsing="false" text="+ Media" />
+                        <Button fx:id="answerAddTextButton" alignment="CENTER" mnemonicParsing="false" onAction="#addAnswerText" text="+ Text" />
+                        <Button fx:id="answerAddMediaButton" mnemonicParsing="false" onAction="#addAnswerMedia" text="+ Media" />
                      </children>
                   </HBox>
                </children>
