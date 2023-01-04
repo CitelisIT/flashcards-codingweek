@@ -2,7 +2,7 @@ package flashcards.model;
 
 import java.util.ArrayList;
 
-public class Card {
+public class Card extends Observable {
     private ArrayList<Content> question = new ArrayList<Content>();
     private ArrayList<Content> answer = new ArrayList<Content>();
     private int apperenceCount = 0;
@@ -37,11 +37,11 @@ public class Card {
         return rightCount;
     }
 
-    public Content getAnswer(int i) {
+    public Content getAnswerContent(int i) {
         return answer.get(i);
     }
 
-    public Content getQuestion(int i) {
+    public Content getQuestionContent(int i) {
         return question.get(i);
     }
 
@@ -61,7 +61,7 @@ public class Card {
         question.add(new Content(data, dataType));
     }
 
-    public float get_score() {
+    public float getScore() {
         return (float) getRightCount() / getApperenceCount();
     }
 }
