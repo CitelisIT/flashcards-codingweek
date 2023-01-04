@@ -167,19 +167,26 @@ public class HomeCreationController implements Observer, Initializable {
      */
     @Override
     public void react() {
+        // Clear the list of decks in the UI
         listDeck.getChildren().clear();
+        // Add a new row to the list with the add button
         HBox initLigne = new HBox(addButton);
         listDeck.getChildren().add(initLigne);
+        // Initialize variables to keep track of current row and column
         int i = 0;
         int j = 1;
+        // Iterate through all decks in the deck manager
         for (int k = 0; k < allDeck.getDeckManagerSize(); k++) {
+            // If there is still space on the current row, add the deck button to it
             if (j < 6) {
                 HBox ligne = (HBox) listDeck.getChildren().get(i);
-                Button deckij = new Button(allDeck.getDeck(k).getName() + i + j);
+                Button deckij = new Button(allDeck.getDeck(k).getName());
                 deckij.setId(allDeck.getDeck(k).getName());
+                // If this button is the one that was previously pressed, highlight it
                 if (deckij.getId().equals(buttonPressed.getId())) {
                     deckij.setStyle("-fx-background-color: lightgreen");
                 }
+                // Set the action for when this button is pressed
                 int index = k;
                 deckij.setOnAction(event -> {
                     buttonPressed.setStyle(null);
@@ -187,11 +194,13 @@ public class HomeCreationController implements Observer, Initializable {
                     deckij.setStyle("-fx-background-color: lightgreen");
                     buttonBar.requestLayout();
                     deckButtonPress(index);
-
                 });
                 ligne.getChildren().add(deckij);
                 j++;
-            } else {
+            }
+            // If there is no more space on the current row, start a new row and add the
+            // deck button to it
+            else {
                 j = 0;
                 i++;
                 HBox ligne = new HBox();
@@ -201,7 +210,9 @@ public class HomeCreationController implements Observer, Initializable {
                 listDeck.getChildren().add(ligne);
             }
         }
+        // Clear the buttons in the button bar
         buttonBar.getButtons().clear();
+        // If the add button is pressed, show the new and import buttons
         if (buttonPressed.equals(addButton)) {
             buttonPressed.setStyle("-fx-background-color: lightgreen");
             displayedName.setText(currentName);
@@ -209,9 +220,13 @@ public class HomeCreationController implements Observer, Initializable {
             ButtonBar.setButtonData(newD, ButtonData.APPLY);
             ButtonBar.setButtonData(importD, ButtonData.APPLY);
             buttonBar.getButtons().addAll(newD, importD);
-        } else if (buttonPressed == null) {
+        }
+        // If no button is pressed, do nothing
+        else if (buttonPressed == null) {
 
-        } else {
+        }
+        // If a deck button is pressed, show the edit, export and delete buttons
+        else {
             displayedName.setText(currentName);
             displayedDesc.setText(currentDesc);
             ButtonBar.setButtonData(exportD, ButtonData.APPLY);
@@ -242,8 +257,12 @@ public class HomeCreationController implements Observer, Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Add this object as an observer of the allDeck object.
         allDeck.addObserver(this);
+        // Set the style of the buttonBar object to "null".
         buttonBar.setStyle("null");
+        // Set up action event handlers for the newD, importD, editD, deleteD, and
+        // exportD objects.
         newD.setOnAction(event -> {
             try {
                 newDeck();
@@ -273,28 +292,39 @@ public class HomeCreationController implements Observer, Initializable {
                 e.printStackTrace();
             }
         });
+        // Clear the list of children for the listDeck object.
         listDeck.getChildren().clear();
+        // Create a new HBox object called initLigne and add it to the listDeck object.
         HBox initLigne = new HBox(addButton);
         listDeck.getChildren().add(initLigne);
+        // Initialize loop variables.
         int i = 0;
         int j = 1;
+        // Iterate through all decks in the deck manager
         for (int k = 0; k < allDeck.getDeckManagerSize(); k++) {
+            // If there is still space on the current row, add the deck button to it
             if (j < 6) {
                 HBox ligne = (HBox) listDeck.getChildren().get(i);
-                Button deckij = new Button(allDeck.getDeck(k).getName() + i + j);
+                Button deckij = new Button(allDeck.getDeck(k).getName());
                 deckij.setId(allDeck.getDeck(k).getName());
+                // Set the action for when this button is pressed
                 int index = k;
                 deckij.setOnAction(event -> {
                     buttonPressed = deckij;
+                    deckij.setStyle("-fx-background-color: lightgreen");
+                    buttonBar.requestLayout();
                     deckButtonPress(index);
                 });
                 ligne.getChildren().add(deckij);
                 j++;
-            } else {
+            }
+            // If there is no more space on the current row, start a new row and add the
+            // deck button to it
+            else {
                 j = 0;
                 i++;
                 HBox ligne = new HBox();
-                Button pileij = new Button(allDeck.getDeck(k).getName() + i + j);
+                Button pileij = new Button(allDeck.getDeck(k).getName());
                 ligne.getChildren().add(pileij);
                 j++;
                 listDeck.getChildren().add(ligne);
