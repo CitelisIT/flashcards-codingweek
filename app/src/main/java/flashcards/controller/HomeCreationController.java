@@ -1,8 +1,13 @@
 package flashcards.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 
 import flashcards.App;
 import flashcards.model.Deck;
@@ -15,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class HomeCreationController implements Observer, Initializable {
 
@@ -28,7 +35,7 @@ public class HomeCreationController implements Observer, Initializable {
     private VBox listDeck;
 
     private DeckManager allDeck;
-    private boolean deckButtonPressed;
+    private int activeDeck;
     private Button buttonPressed;
 
     @FXML
@@ -58,12 +65,24 @@ public class HomeCreationController implements Observer, Initializable {
 
     }
 
-    public void importDeck() {
-
+    public void importDeck() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Import");
+        fileChooser.getExtensionFilters()
+                .addAll(new ExtensionFilter("JSON", "*.json"));
+        File file = fileChooser.showOpenDialog(listDeck.getScene().getWindow());
+        if (file != null) {
+            allDeck.addDeck(allDeck.importdeckManager(file.getPath()));
+        }
     }
 
-    public void exportDeck() {
-
+    public void exportDeck() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Export");
+        fileChooser.getExtensionFilters()
+                .addAll(new ExtensionFilter("JSON", "*.json"));
+        File file = fileChooser.showOpenDialog(listDeck.getScene().getWindow());
+        allDeck.exportdeckManager(allDeck.getDeck(activeDeck), file.toPath());
     }
 
     public void deleteDeck() {
@@ -73,9 +92,12 @@ public class HomeCreationController implements Observer, Initializable {
 
     public void newDeck() throws IOException {
         Deck newDeck = new Deck();
-        System.out.println(newDeck.toString());
         allDeck.addDeck(newDeck);
         switchToEditCreation();
+    }
+
+    public void saveAll() {
+
     }
 
     public void editDeck() {
@@ -119,7 +141,6 @@ public class HomeCreationController implements Observer, Initializable {
             ButtonBar.setButtonData(newD, ButtonData.APPLY);
             ButtonBar.setButtonData(importD, ButtonData.APPLY);
             buttonBar.getButtons().addAll(newD, importD);
-            // buttonBar.getParent().requestLayout();
         }
     }
 
@@ -127,9 +148,7 @@ public class HomeCreationController implements Observer, Initializable {
         buttonPressed = (Button) listDeck.getScene().lookup(allDeck.getDeck(i).getName());
         displayedName.setText(allDeck.getDeck(i).getName());
         displayeDesc.setText(allDeck.getDeck(i).getDescription());
-        buttonBar.getButtons().addAll(editD, deleteD, importD);
-        System.out.println("pressed" + displayeDesc.getText() + displayedName.getText());
-
+        activeDeck = i;
         react();
     }
 
@@ -146,9 +165,21 @@ public class HomeCreationController implements Observer, Initializable {
                 e.printStackTrace();
             }
         });
-        importD.setOnAction(event -> importDeck());
+        importD.setOnAction(event -> {
+            try {
+                importDeck();
+            } catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
         editD.setOnAction(event -> editDeck());
         deleteD.setOnAction(event -> deleteDeck());
-        exportD.setOnAction(event -> exportDeck());
+        exportD.setOnAction(event -> {
+            try {
+                exportDeck();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
