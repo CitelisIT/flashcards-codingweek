@@ -14,10 +14,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import flashcards.controller.Observer;
+
 public class DeckManager extends Observable {
 
     private String name;
-    private transient ArrayList<Deck> deckManager;
+    private ArrayList<Deck> deckManager;
+    private transient ArrayList<Observer> obs = new ArrayList<Observer>();
 
     public DeckManager(String name) {
         this.name = name;
@@ -45,12 +48,11 @@ public class DeckManager extends Observable {
     }
 
     public void save() {
-        String filename = "app/src/main/resources/decks.json";
+        String filename = "decks.json";
         Path path = Paths.get(filename);
         try (Writer writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String jsonFilename = "app/src/main/resources/" + this.name + ".json";
-            gson.toJson(jsonFilename, writer);
+            gson.toJson(deckManager, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }

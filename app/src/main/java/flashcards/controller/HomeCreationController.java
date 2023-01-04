@@ -97,7 +97,8 @@ public class HomeCreationController implements Observer, Initializable {
     }
 
     public void saveAll() {
-
+        allDeck.save();
+        System.exit(0);
     }
 
     public void editDeck() {
@@ -155,6 +156,7 @@ public class HomeCreationController implements Observer, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         allDeck = new DeckManager("Nouveau Deck");
+        allDeck.addObserver(this);
         displayedName = new Label("Choisisez une pile");
         displayeDesc = new Label();
         buttonBar.setStyle("null");

@@ -33,24 +33,31 @@
 -->
 
 <?import com.gluonhq.charm.glisten.control.ProgressBar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.GameLearningController">
    <bottom>
-      <VBox alignment="CENTER" prefHeight="49.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="120.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Score : 0/0" />
             <ProgressBar prefHeight="26.0" prefWidth="472.0" progress="0.0" />
+            <ButtonBar prefHeight="40.0" prefWidth="338.0">
+              <buttons>
+                <Button mnemonicParsing="false" text="yes" />
+                  <Button layoutX="525.0" layoutY="15.0" mnemonicParsing="false" text="oh noes" />
+              </buttons>
+            </ButtonBar>
          </children>
       </VBox>
    </bottom>
    <center>
-      <VBox alignment="CENTER" prefHeight="302.0" prefWidth="224.0" style="-fx-border-color: blue; -fx-border-radius: 8;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="217.0" prefWidth="389.0" style="-fx-border-color: blue; -fx-border-radius: 8;" BorderPane.alignment="CENTER">
          <children>
             <Label text="Question / reponse" />
          </children>
