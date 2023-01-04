@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import flashcards.controller.editCreationController;
-import flashcards.controller.homeCreationController;
-import flashcards.controller.homeLearningController;
+import flashcards.controller.EditCreationController;
+import flashcards.controller.HomeCreationController;
+import flashcards.controller.HomeLearningController;
 
 /**
  * JavaFX App
@@ -32,17 +32,15 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        System.out.println("/" + fxml + ".fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/" + fxml + ".fxml"));
         if (fxml.equals("homeCreation")) {
-            fxmlLoader.setControllerFactory(controllerClass -> new homeCreationController());
+            fxmlLoader.setControllerFactory(controllerClass -> new HomeCreationController());
         } else if (fxml.equals("editCreation")) {
-            fxmlLoader.setControllerFactory(controllerClass -> new editCreationController());
+            fxmlLoader.setControllerFactory(controllerClass -> new EditCreationController());
         } else if (fxml.equals("homeLearning")) {
-            fxmlLoader.setControllerFactory(controllerClass -> new homeLearningController());
-        // } else if (fxml.equals("gameLearning")) {
+            fxmlLoader.setControllerFactory(controllerClass -> new HomeLearningController());
         } else {
-            // fxmlLoader.setControllerFactory(controllerClass -> new gameLearningController());
+            fxmlLoader.setControllerFactory(controllerClass -> new gameLearningController());
         }
         return fxmlLoader.load();
     }
