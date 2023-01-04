@@ -14,7 +14,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-public class DeckManager {
+public class DeckManager extends Observable {
 
     private String name;
     private transient ArrayList<Deck> deckManager;

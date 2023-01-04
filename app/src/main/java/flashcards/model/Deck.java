@@ -2,7 +2,7 @@ package flashcards.model;
 
 import java.util.ArrayList;
 
-public class Deck {
+public class Deck extends Observable {
 
     private String name;
     private String description;
