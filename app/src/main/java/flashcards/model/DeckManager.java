@@ -24,8 +24,8 @@ public class DeckManager extends Observable {
         this.deckManager = new ArrayList<Deck>();
     }
 
-    public void addPile(Deck pile) {
-        deckManager.add(pile);
+    public void addDeck(Deck deck) {
+        deckManager.add(deck);
     }
 
     public void exportdeckManager() throws IOException {
@@ -58,11 +58,11 @@ public class DeckManager extends Observable {
         }
     }
 
-    public Deck getPile(int index) {
+    public Deck getDeck(int index) {
         return deckManager.get(index);
     }
 
-    public void removePile(int index) {
+    public void removeDeck(int index) {
         deckManager.remove(index);
     }
 
