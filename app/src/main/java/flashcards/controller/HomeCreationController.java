@@ -54,22 +54,40 @@ public class HomeCreationController implements Observer, Initializable {
         this.allDeck = allDeck;
     }
 
+    /**
+     * Switch the view for the Learning view. This method is
+     * called when the "Mode Apprentissage" menu Item is pressed.
+     */
     public void switchToHomeLearning() throws IOException {
         App.setRoot("homeLearning", allDeck);
     }
 
+    /**
+     * Switch the view for the edit view. This method is
+     * called when the "Edit" or "New" button is pressed.
+     */
     public void switchToEditCreation() throws IOException {
         App.setRoot("editCreation", allDeck);
     }
 
+    /**
+     * Selects the "New" or "Import" option in the "Add" button. This method is
+     * called when the "Add" button is pressed.
+     */
     public void selectNewOrImport() {
         buttonPressed = addButton;
         buttonPressed.setStyle(null);
         allDeck.triggerObserver();
-        ;
-
     }
 
+    /**
+     * Imports a deck from a JSON file. This method is called when the "Import deck"
+     * button is pressed.
+     * 
+     * @throws JsonSyntaxException   if there is a syntax error in the JSON file
+     * @throws JsonIOException       if there is an error reading the JSON file
+     * @throws FileNotFoundException if the file is not found
+     */
     public void importDeck() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Import");
@@ -82,6 +100,12 @@ public class HomeCreationController implements Observer, Initializable {
         allDeck.triggerObserver();
     }
 
+    /**
+     * Exports the currently active deck to a JSON file. This method is called when
+     * the "Export deck" button is pressed.
+     * 
+     * @throws IOException if there is an error writing to the file
+     */
     public void exportDeck() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Export");
@@ -91,11 +115,21 @@ public class HomeCreationController implements Observer, Initializable {
         allDeck.exportdeckManager(allDeck.getDeck(activeDeck), file.toPath());
     }
 
+    /**
+     * Deletes the currently active deck. This method is called when the "Delete
+     * deck" button is pressed.
+     */
     public void deleteDeck() {
         allDeck.removeDeck(0);
         allDeck.triggerObserver();
     }
 
+    /**
+     * Creates a new deck and switches to the "editCreation" view. This method is
+     * called when the "New deck" button is pressed.
+     * 
+     * @throws IOException if there is an error switching to the "editCreation" view
+     */
     public void newDeck() throws IOException {
         Deck newDeck = new Deck();
         allDeck.addDeck(newDeck);
@@ -103,15 +137,34 @@ public class HomeCreationController implements Observer, Initializable {
         switchToEditCreation();
     }
 
+    /**
+     * Saves the current state of the decks and exits the program. This method is
+     * called when the "Save and Quit" button is pressed.
+     */
     public void saveAll() {
         allDeck.save();
         System.exit(0);
     }
 
+    /**
+     * Switches to the "editCreation" view. This method is called when the "Edit
+     * deck" button is pressed.
+     * 
+     * @throws IOException if there is an error switching to the "editCreation" view
+     */
     public void editDeck() throws IOException {
         switchToEditCreation();
     }
 
+    /**
+     * This method is called when there is a change in the deck manager. It updates
+     * the list of decks displayed in the main screen,
+     * and updates the buttons displayed in the button bar based on the currently
+     * selected deck (if any).
+     *
+     * @param none
+     * @return void
+     */
     @Override
     public void react() {
         listDeck.getChildren().clear();
@@ -124,13 +177,15 @@ public class HomeCreationController implements Observer, Initializable {
                 HBox ligne = (HBox) listDeck.getChildren().get(i);
                 Button deckij = new Button(allDeck.getDeck(k).getName() + i + j);
                 deckij.setId(allDeck.getDeck(k).getName());
+                if (deckij.getId().equals(buttonPressed.getId())) {
+                    deckij.setStyle("-fx-background-color: lightgreen");
+                }
                 int index = k;
                 deckij.setOnAction(event -> {
                     buttonPressed.setStyle(null);
                     buttonPressed = deckij;
                     deckij.setStyle("-fx-background-color: lightgreen");
                     buttonBar.requestLayout();
-                    System.out.println(buttonPressed.getStyle());
                     deckButtonPress(index);
 
                 });
@@ -166,14 +221,25 @@ public class HomeCreationController implements Observer, Initializable {
         }
     }
 
+    /**
+     * Updates the name and description of the currently selected deck and triggers
+     * an update of the view. This method is called when a deck button is pressed.
+     * 
+     * @param i the index of the selected deck
+     */
     public void deckButtonPress(int i) {
         currentName = allDeck.getDeck(i).getName();
         currentDesc = allDeck.getDeck(i).getDescription();
         activeDeck = i;
         allDeck.triggerObserver();
-        ;
     }
 
+    /**
+     * Initializes the view. This method is called when the view is first loaded.
+     * 
+     * @param location  the location of the view
+     * @param resources the resources used to load the view
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         allDeck.addObserver(this);
@@ -220,7 +286,6 @@ public class HomeCreationController implements Observer, Initializable {
                 int index = k;
                 deckij.setOnAction(event -> {
                     buttonPressed = deckij;
-                    buttonPressed.setStyle("-fx-background-color: lightgreen");
                     deckButtonPress(index);
                 });
                 ligne.getChildren().add(deckij);
