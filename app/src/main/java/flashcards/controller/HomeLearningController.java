@@ -4,12 +4,18 @@ import java.io.IOException;
 
 import flashcards.App;
 
-public class homeLearningController implements Observer {
+public class HomeLearningController implements Observer {
 
-    public homeLearningController() {
+    public HomeLearningController() {
     }
 
     public void switchToHomeCreation() throws IOException {
         App.setRoot("homeCreation");
+    }
+
+    @Override
+    public void react() {
+        // TODO Auto-generated method stub
+
     }
 }

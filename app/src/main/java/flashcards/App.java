@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import flashcards.controller.EditCreationController;
+import flashcards.controller.GameLearningController;
 import flashcards.controller.HomeCreationController;
 import flashcards.controller.HomeLearningController;
 
@@ -40,7 +41,7 @@ public class App extends Application {
         } else if (fxml.equals("homeLearning")) {
             fxmlLoader.setControllerFactory(controllerClass -> new HomeLearningController());
         } else {
-            fxmlLoader.setControllerFactory(controllerClass -> new gameLearningController());
+            fxmlLoader.setControllerFactory(controllerClass -> new GameLearningController());
         }
         return fxmlLoader.load();
     }

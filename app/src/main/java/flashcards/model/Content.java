@@ -1,4 +1,4 @@
-package flashcards;
+package flashcards.model;
 
 public class Content {
     private String dataType;

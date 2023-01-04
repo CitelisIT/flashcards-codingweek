@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import flashcards.App;
 
-public class homeCreationController implements Observer {
+public class HomeCreationController implements Observer {
 
-    public homeCreationController() {
+    public HomeCreationController() {
     }
 
     public void switchToHomeLearning() throws IOException {
@@ -20,6 +20,6 @@ public class homeCreationController implements Observer {
     @Override
     public void react() {
         // TODO Auto-generated method stub
-        
+
     }
 }
