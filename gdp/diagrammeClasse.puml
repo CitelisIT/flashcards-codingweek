@@ -1,0 +1,89 @@
+@startuml
+
+    title "Diagramme de classe FlashCard"
+
+    package "Modèle" <<Rectangle>> #DDFFDD {
+        interface StrategyAlgorithm<<interface>>{
+            + void computeSequence(int length, Deck deck, ArrayList<Card> sequenceCards)
+        }
+        class Observable{
+            + void addObserver(Observer obs)
+            + void triggerObservers()
+        }
+        class Content {
+            - String data
+            - String dateType
+        }
+        class Card {
+            - int nbTimeUsed
+            - int nbRightAnswer
+            + int getScore()
+        }
+        class Deck {
+            - String name
+            - String description
+            + void addCard()
+            + void removeCard(Card card)
+            + void updateCard(Card card)
+            + Card getCard(int i)
+            + int getScore()
+        }
+        class FlashCardManager {
+            + void exportDeck(Deck deck)
+            + void importDeck()
+            + void exportDeckList()
+            + void importDeckList()
+            + void addDeck()
+            + void removeDeck(Deck deck)
+            + Deck getDeck(int i)
+            + int getScore()
+        }
+        class Game {
+            - int nbCardForGame
+            - int currentCardIndex
+            + void nextCard()
+            + Card getCurrentCard()
+        }
+        class GapPriorityMode {}
+        class KnownPriorityMode {}
+        class RandomMode {}
+    }
+
+    package "Contrôleur" <<Rectangle>> #FFDDDD {
+        interface Observer<<interface>>{
+            + void react()
+        }
+
+        class GameLearningController {}
+        class EditCreationController {}
+        class HomeLearningController {}
+        class HomeCreationController {}
+    }
+
+    GameLearningController -[hidden]right- EditCreationController
+    EditCreationController -[hidden]right- HomeLearningController
+    HomeLearningController -[hidden]right- HomeCreationController
+    HomeCreationController -[hidden]right- FlashCardManager
+
+    GameLearningController .down.|> Observer
+    EditCreationController .down.|> Observer
+    HomeLearningController .down.|> Observer
+    HomeCreationController .down.|> Observer
+
+    Observer "*" -down- "1" Observable
+
+    FlashCardManager -up-|> Observable
+    FlashCardManager -right- "*" Deck
+    Deck -right- "*" Card
+    Card -right- "*" Content
+    Card -right- "*" Content
+
+    Game "1" -up- FlashCardManager
+    Game -up- "1" Deck
+    Game -up- "*" Card
+    Game -down- "1" StrategyAlgorithm
+    StrategyAlgorithm <|.down. GapPriorityMode
+    StrategyAlgorithm <|.down. KnownPriorityMode
+    StrategyAlgorithm <|.down. RandomMode
+
+@enduml

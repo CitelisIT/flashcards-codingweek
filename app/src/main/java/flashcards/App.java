@@ -30,7 +30,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        DeckManager allDeck = new DeckManager("Papa");
+        DeckManager allDeck = new DeckManager();
         Gson gson = new Gson();
         Type DeclList = new TypeToken<ArrayList<Deck>>() {
         }.getType();

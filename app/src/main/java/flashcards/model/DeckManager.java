@@ -14,16 +14,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-import flashcards.controller.Observer;
-
 public class DeckManager extends Observable {
 
-    private String name;
     private ArrayList<Deck> deckManager;
-    private transient ArrayList<Observer> obs = new ArrayList<Observer>();
 
-    public DeckManager(String name) {
-        this.name = name;
+    public DeckManager() {
         this.deckManager = new ArrayList<Deck>();
     }
 
