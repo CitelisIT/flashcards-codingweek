@@ -4,7 +4,7 @@ import flashcards.model.DeckManager;
 
 public class GameLearningController implements Observer {
 
-    public GameLearningController(DeckManager allDeck) {
+    public GameLearningController(DeckManager allDeck, int activeDeck) {
 
     }
 

@@ -59,7 +59,7 @@ public class HomeCreationController implements Observer, Initializable {
      * called when the "Mode Apprentissage" menu Item is pressed.
      */
     public void switchToHomeLearning() throws IOException {
-        App.setRoot("homeLearning", allDeck);
+        App.setRoot("homeLearning", allDeck, 0);
     }
 
     /**
@@ -67,7 +67,7 @@ public class HomeCreationController implements Observer, Initializable {
      * called when the "Edit" or "New" button is pressed.
      */
     public void switchToEditCreation() throws IOException {
-        App.setRoot("editCreation", allDeck);
+        App.setRoot("editCreation", allDeck, activeDeck);
     }
 
     /**
@@ -75,6 +75,8 @@ public class HomeCreationController implements Observer, Initializable {
      * called when the "Add" button is pressed.
      */
     public void selectNewOrImport() {
+        currentName = "Nouvelle pile";
+        currentDesc = "Décrivez votre pile";
         buttonPressed = addButton;
         buttonPressed.setStyle(null);
         allDeck.triggerObserver();
@@ -193,6 +195,8 @@ public class HomeCreationController implements Observer, Initializable {
                     buttonPressed = deckij;
                     deckij.setStyle("-fx-background-color: lightgreen");
                     buttonBar.requestLayout();
+                    displayedName.setText("Nouvelle pile");
+                    displayedDesc.setText("Décrivez votre pile");
                     deckButtonPress(index);
                 });
                 ligne.getChildren().add(deckij);
@@ -214,6 +218,8 @@ public class HomeCreationController implements Observer, Initializable {
         buttonBar.getButtons().clear();
         // If the add button is pressed, show the new and import buttons
         if (buttonPressed.equals(addButton)) {
+            displayedName.setText("Nouvelle pile");
+            displayedDesc.setText("Décrivez votre pile");
             buttonPressed.setStyle("-fx-background-color: lightgreen");
             displayedName.setText(currentName);
             displayedDesc.setText(currentDesc);
@@ -330,5 +336,6 @@ public class HomeCreationController implements Observer, Initializable {
                 listDeck.getChildren().add(ligne);
             }
         }
+
     }
 }

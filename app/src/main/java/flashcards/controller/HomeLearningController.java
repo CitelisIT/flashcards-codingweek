@@ -13,7 +13,7 @@ public class HomeLearningController implements Observer {
     }
 
     public void switchToHomeCreation() throws IOException {
-        App.setRoot("homeCreation", allDeck);
+        App.setRoot("homeCreation", allDeck, 0);
     }
 
     @Override

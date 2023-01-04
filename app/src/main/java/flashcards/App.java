@@ -37,25 +37,25 @@ public class App extends Application {
 
         ArrayList<Deck> newDeck = gson.fromJson(new FileReader("decks.json"), DeclList);
         allDeck.setDeckManager(newDeck);
-        scene = new Scene(loadFXML("homeCreation", allDeck), 900, 650);
+        scene = new Scene(loadFXML("homeCreation", allDeck, 0), 900, 650);
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void setRoot(String fxml, DeckManager allDeck) throws IOException {
-        scene.setRoot(loadFXML(fxml, allDeck));
+    public static void setRoot(String fxml, DeckManager allDeck, int activeDeck) throws IOException {
+        scene.setRoot(loadFXML(fxml, allDeck, activeDeck));
     }
 
-    private static Parent loadFXML(String fxml, DeckManager allDeck) throws IOException {
+    private static Parent loadFXML(String fxml, DeckManager allDeck, int activeDeck) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/" + fxml + ".fxml"));
         if (fxml.equals("homeCreation")) {
             fxmlLoader.setControllerFactory(controllerClass -> new HomeCreationController(allDeck));
         } else if (fxml.equals("editCreation")) {
-            fxmlLoader.setControllerFactory(controllerClass -> new EditCreationController(allDeck));
+            fxmlLoader.setControllerFactory(controllerClass -> new EditCreationController(allDeck, activeDeck));
         } else if (fxml.equals("homeLearning")) {
             fxmlLoader.setControllerFactory(controllerClass -> new HomeLearningController(allDeck));
         } else {
-            fxmlLoader.setControllerFactory(controllerClass -> new GameLearningController(allDeck));
+            fxmlLoader.setControllerFactory(controllerClass -> new GameLearningController(allDeck, activeDeck));
         }
         return fxmlLoader.load();
     }

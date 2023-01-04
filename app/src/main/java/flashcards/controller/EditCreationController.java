@@ -46,13 +46,14 @@ public class EditCreationController implements Observer, Initializable {
     @FXML
     private TextField description = new TextField();
 
-    public EditCreationController(DeckManager allDeck) {
+    public EditCreationController(DeckManager allDeck, int activeDeck) {
         this.allDeck = allDeck;
+        this.activeDeck = activeDeck;
     }
 
     public void switchToHomeCreation() throws IOException {
         allDeck.triggerObserver();
-        App.setRoot("homeCreation", allDeck);
+        App.setRoot("homeCreation", allDeck, 0);
     }
 
     public void addQuestionText() {
@@ -121,6 +122,7 @@ public class EditCreationController implements Observer, Initializable {
 
         allDeck.triggerObserver();
         switchToHomeCreation();
+        System.out.println(allDeck.getCard(activeDeck, activeCard).getAnswer());
     }
 
     @Override
