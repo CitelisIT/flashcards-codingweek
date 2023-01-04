@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import flashcards.App;
 
-public class homeCreationController {
+public class HomeCreationController implements Observer {
 
-    public homeCreationController() {
+    public HomeCreationController() {
     }
 
     public void switchToHomeLearning() throws IOException {
@@ -15,5 +15,11 @@ public class homeCreationController {
 
     public void switchToEditCreation() throws IOException {
         App.setRoot("editCreation");
+    }
+
+    @Override
+    public void react() {
+        // TODO Auto-generated method stub
+
     }
 }

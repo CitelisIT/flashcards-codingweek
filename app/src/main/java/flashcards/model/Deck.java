@@ -1,8 +1,8 @@
-package flashcards;
+package flashcards.model;
 
 import java.util.ArrayList;
 
-public class Deck {
+public class Deck extends Observable {
 
     private String name;
     private String description;
@@ -40,5 +40,16 @@ public class Deck {
 
     public void remove(int i) {
         cards.remove(i);
+    }
+
+    public long getScore() {
+        int denom = 0;
+        int num = 0;
+        for (Card card : cards) {
+            denom += card.getApperenceCount();
+            num += card.getRightCount();
+        }
+        long score = num / denom;
+        return score;
     }
 }
