@@ -9,6 +9,7 @@ public class HomeLearningController implements Observer {
     private DeckManager allDeck;
 
     public HomeLearningController(DeckManager allDeck) {
+        this.allDeck = allDeck;
     }
 
     public void switchToHomeCreation() throws IOException {

@@ -71,7 +71,7 @@
             </ButtonBar>
          </children>
       </HBox>
-      <Label fx:id="displayedDesc" prefHeight="56.0" prefWidth="926.0" text="Desc" />
+      <Label fx:id="displayedDesc" prefHeight="56.0" prefWidth="926.0" text="Description" />
       <ScrollPane hbarPolicy="NEVER" prefHeight="374.0" prefWidth="640.0" vbarPolicy="ALWAYS">
          <content>
             <VBox fx:id="listDeck" prefHeight="317.0" prefWidth="850.0">

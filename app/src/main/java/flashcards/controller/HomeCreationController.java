@@ -27,8 +27,10 @@ public class HomeCreationController implements Observer, Initializable {
 
     @FXML
     private Label displayedName;
+    private String currentName;
     @FXML
-    private Label displayeDesc;
+    private Label displayedDesc;
+    private String currentDesc;
     @FXML
     private Button addButton;
     @FXML
@@ -77,6 +79,7 @@ public class HomeCreationController implements Observer, Initializable {
         if (file != null) {
             allDeck.addDeck(allDeck.importdeckManager(file.getPath()));
         }
+        allDeck.triggerObserver();
     }
 
     public void exportDeck() throws IOException {
@@ -84,7 +87,7 @@ public class HomeCreationController implements Observer, Initializable {
         fileChooser.setTitle("Export");
         fileChooser.getExtensionFilters()
                 .addAll(new ExtensionFilter("JSON", "*.json"));
-        File file = fileChooser.showOpenDialog(listDeck.getScene().getWindow());
+        File file = fileChooser.showSaveDialog(listDeck.getScene().getWindow());
         allDeck.exportdeckManager(allDeck.getDeck(activeDeck), file.toPath());
     }
 
@@ -111,12 +114,6 @@ public class HomeCreationController implements Observer, Initializable {
 
     @Override
     public void react() {
-        if (buttonPressed != null) {
-            buttonPressed.setStyle("-fx-background-color: lightgreen");
-            displayedName.setText(displayedName.getText());
-            displayeDesc.setText(displayeDesc.getText());
-        }
-
         listDeck.getChildren().clear();
         HBox initLigne = new HBox(addButton);
         listDeck.getChildren().add(initLigne);
@@ -128,14 +125,22 @@ public class HomeCreationController implements Observer, Initializable {
                 Button deckij = new Button(allDeck.getDeck(k).getName() + i + j);
                 deckij.setId(allDeck.getDeck(k).getName());
                 int index = k;
-                deckij.setOnAction(event -> deckButtonPress(index));
+                deckij.setOnAction(event -> {
+                    buttonPressed.setStyle(null);
+                    buttonPressed = deckij;
+                    deckij.setStyle("-fx-background-color: lightgreen");
+                    buttonBar.requestLayout();
+                    System.out.println(buttonPressed.getStyle());
+                    deckButtonPress(index);
+
+                });
                 ligne.getChildren().add(deckij);
                 j++;
             } else {
                 j = 0;
                 i++;
                 HBox ligne = new HBox();
-                Button pileij = new Button(allDeck.getDeck(k).getName() + i + j);
+                Button pileij = new Button(allDeck.getDeck(k).getName());
                 ligne.getChildren().add(pileij);
                 j++;
                 listDeck.getChildren().add(ligne);
@@ -143,17 +148,27 @@ public class HomeCreationController implements Observer, Initializable {
         }
         buttonBar.getButtons().clear();
         if (buttonPressed.equals(addButton)) {
+            buttonPressed.setStyle("-fx-background-color: lightgreen");
+            displayedName.setText(currentName);
+            displayedDesc.setText(currentDesc);
             ButtonBar.setButtonData(newD, ButtonData.APPLY);
             ButtonBar.setButtonData(importD, ButtonData.APPLY);
             buttonBar.getButtons().addAll(newD, importD);
+        } else if (buttonPressed == null) {
+
+        } else {
+            displayedName.setText(currentName);
+            displayedDesc.setText(currentDesc);
+            ButtonBar.setButtonData(exportD, ButtonData.APPLY);
+            ButtonBar.setButtonData(editD, ButtonData.APPLY);
+            ButtonBar.setButtonData(deleteD, ButtonData.APPLY);
+            buttonBar.getButtons().addAll(editD, exportD, deleteD);
         }
     }
 
     public void deckButtonPress(int i) {
-        buttonPressed = (Button) listDeck.getScene().lookup(allDeck.getDeck(i).getName());
-        buttonPressed.setStyle(null);
-        displayedName.setText(allDeck.getDeck(i).getName());
-        displayeDesc.setText(allDeck.getDeck(i).getDescription());
+        currentName = allDeck.getDeck(i).getName();
+        currentDesc = allDeck.getDeck(i).getDescription();
         activeDeck = i;
         allDeck.triggerObserver();
         ;
@@ -162,8 +177,6 @@ public class HomeCreationController implements Observer, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         allDeck.addObserver(this);
-        displayedName = new Label("Choisisez une pile");
-        displayeDesc = new Label();
         buttonBar.setStyle("null");
         newD.setOnAction(event -> {
             try {
@@ -194,5 +207,33 @@ public class HomeCreationController implements Observer, Initializable {
                 e.printStackTrace();
             }
         });
+        listDeck.getChildren().clear();
+        HBox initLigne = new HBox(addButton);
+        listDeck.getChildren().add(initLigne);
+        int i = 0;
+        int j = 1;
+        for (int k = 0; k < allDeck.getDeckManagerSize(); k++) {
+            if (j < 6) {
+                HBox ligne = (HBox) listDeck.getChildren().get(i);
+                Button deckij = new Button(allDeck.getDeck(k).getName() + i + j);
+                deckij.setId(allDeck.getDeck(k).getName());
+                int index = k;
+                deckij.setOnAction(event -> {
+                    buttonPressed = deckij;
+                    buttonPressed.setStyle("-fx-background-color: lightgreen");
+                    deckButtonPress(index);
+                });
+                ligne.getChildren().add(deckij);
+                j++;
+            } else {
+                j = 0;
+                i++;
+                HBox ligne = new HBox();
+                Button pileij = new Button(allDeck.getDeck(k).getName() + i + j);
+                ligne.getChildren().add(pileij);
+                j++;
+                listDeck.getChildren().add(ligne);
+            }
+        }
     }
 }
