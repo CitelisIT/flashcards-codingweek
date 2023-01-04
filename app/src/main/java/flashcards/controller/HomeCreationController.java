@@ -68,12 +68,13 @@ public class HomeCreationController implements Observer, Initializable {
 
     public void deleteDeck() {
 
+        allDeck.removeDeck(0);
     }
 
     public void newDeck() throws IOException {
         Deck newDeck = new Deck();
         System.out.println(newDeck.toString());
-        allDeck.addPile(newDeck);
+        allDeck.addDeck(newDeck);
         switchToEditCreation();
     }
 
@@ -97,8 +98,8 @@ public class HomeCreationController implements Observer, Initializable {
         for (int k = 0; k < allDeck.getDeckManagerSize(); k++) {
             if (j < 6) {
                 HBox ligne = (HBox) listDeck.getChildren().get(i);
-                Button deckij = new Button(allDeck.getPile(k).getName() + i + j);
-                deckij.setId(allDeck.getPile(k).getName());
+                Button deckij = new Button(allDeck.getDeck(k).getName() + i + j);
+                deckij.setId(allDeck.getDeck(k).getName());
                 int index = k;
                 deckij.setOnAction(event -> deckButtonPress(index));
                 ligne.getChildren().add(deckij);
@@ -107,7 +108,7 @@ public class HomeCreationController implements Observer, Initializable {
                 j = 0;
                 i++;
                 HBox ligne = new HBox();
-                Button pileij = new Button(allDeck.getPile(k).getName() + i + j);
+                Button pileij = new Button(allDeck.getDeck(k).getName() + i + j);
                 ligne.getChildren().add(pileij);
                 j++;
                 listDeck.getChildren().add(ligne);
@@ -123,9 +124,9 @@ public class HomeCreationController implements Observer, Initializable {
     }
 
     public void deckButtonPress(int i) {
-        buttonPressed = (Button) listDeck.getScene().lookup(allDeck.getPile(i).getName());
-        displayedName.setText(allDeck.getPile(i).getName());
-        displayeDesc.setText(allDeck.getPile(i).getDescription());
+        buttonPressed = (Button) listDeck.getScene().lookup(allDeck.getDeck(i).getName());
+        displayedName.setText(allDeck.getDeck(i).getName());
+        displayeDesc.setText(allDeck.getDeck(i).getDescription());
         buttonBar.getButtons().addAll(editD, deleteD, importD);
         System.out.println("pressed" + displayeDesc.getText() + displayedName.getText());
 
