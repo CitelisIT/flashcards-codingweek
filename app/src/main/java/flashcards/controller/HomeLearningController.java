@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import flashcards.App;
 
-public class editCreationController {
+public class homeLearningController implements Observer {
 
-    public editCreationController() {
+    public homeLearningController() {
     }
 
     public void switchToHomeCreation() throws IOException {
