@@ -46,7 +46,7 @@
    <bottom>
       <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="661.0" BorderPane.alignment="CENTER">
         <buttons>
-            <Button onAction="#validate" layoutX="553.0" layoutY="10.0" mnemonicParsing="false" text="Valider" />
+            <Button fx:id="ValidationButton" layoutX="553.0" layoutY="10.0" mnemonicParsing="false" onAction="#validate" text="Valider" />
           <Button mnemonicParsing="false" onAction="#switchToHomeCreation" text="Retour Liste" />
         </buttons>
       </ButtonBar>
@@ -54,8 +54,18 @@
    <top>
       <VBox prefHeight="55.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Nom Pile" />
-            <Label text="Desc" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Nom Pile" />
+                  <TextField fx:id="Name" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Description" />
+                  <TextField fx:id="Description" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </top>

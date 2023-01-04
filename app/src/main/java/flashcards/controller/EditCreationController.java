@@ -32,6 +32,7 @@ public class EditCreationController implements Observer, Initializable {
     private Button questionAddMediaButton = new Button("Question multimedia");
     private Button answerAddTextButton = new Button("Reponse textuelle");
     private Button answerAddMediaButton = new Button("Reponse multimedia");
+    private Button validationButton = new Button("Valider");
     @FXML
     private VBox VboxQuestion = new VBox();
     @FXML
@@ -40,11 +41,13 @@ public class EditCreationController implements Observer, Initializable {
     private TextField questionText = new TextField();
     @FXML
     private TextField answerText = new TextField();
+    @FXML
+    private TextField name = new TextField();
+    @FXML
+    private TextField description = new TextField();
 
     public EditCreationController(DeckManager allDeck) {
         this.allDeck = allDeck;
-        System.out.println(allDeck.getDeck(0).getCards());
-        System.out.println(allDeck);
     }
 
     public void switchToHomeCreation() throws IOException {
@@ -72,12 +75,27 @@ public class EditCreationController implements Observer, Initializable {
         allDeck.triggerObserver();
     }
 
-    public void validate() {
+    public void validationClick() {
+        buttonPressed = validationButton;
+        allDeck.triggerObserver();
+    }
+
+    public void validate() throws IOException {
+
+        if (!name.getText().isEmpty()) {
+            allDeck.getDeck(activeDeck).setName(name.getText());
+        } else {
+            allDeck.getDeck(activeDeck).setName("Deck sans nom");
+        }
+        if (!description.getText().isEmpty()) {
+            allDeck.getDeck(activeDeck).setDescription(description.getText());
+        } else {
+            allDeck.getDeck(activeDeck).setDescription("Deck sans description");
+        }
+
         for (int index = 1; index < VboxQuestion.getChildren().size() - 1; index++) {
             Node child = VboxQuestion.getChildren().get(index);
             if (child instanceof TextField) {
-                System.out.println(allDeck.getDeck(activeDeck));
-                System.out.println(allDeck.getDeck(activeDeck).getCards());
                 if (allDeck.getDeck(activeDeck).getCard(activeCard).getQuestion().size() > index - 1) {
                     allDeck.getDeck(activeDeck).getCard(activeCard).setQuestionContent(index - 1,
                             ((TextField) child).getText());
@@ -87,17 +105,33 @@ public class EditCreationController implements Observer, Initializable {
                 }
             }
         }
+
+        for (int index = 1; index < VboxAnswer.getChildren().size() - 1; index++) {
+            Node child = VboxAnswer.getChildren().get(index);
+            if (child instanceof TextField) {
+                if (allDeck.getDeck(activeDeck).getCard(activeCard).getAnswer().size() > index - 1) {
+                    allDeck.getDeck(activeDeck).getCard(activeCard).setAnswerContent(index - 1,
+                            ((TextField) child).getText());
+                } else {
+                    allDeck.getDeck(activeDeck).getCard(activeCard)
+                            .addAnswerContentText(((TextField) child).getText());
+                }
+            }
+        }
+
         allDeck.triggerObserver();
+        switchToHomeCreation();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (allDeck.getDeck(0).getCards().isEmpty()) {
-            System.out.println("Coucou !");
             allDeck.getDeck(0).add(new Card());
-            System.out.println(allDeck.getDeck(0).getCards());
         }
         allDeck.addObserver(this);
+
+        name.setText(allDeck.getDeck(activeDeck).getName());
+        description.setText(allDeck.getDeck(activeDeck).getDescription());
     }
 
     @Override
@@ -139,6 +173,7 @@ public class EditCreationController implements Observer, Initializable {
                 answerMediaVbox.getChildren().add(answerMediaVbox.getChildren().size() - 1, answerMedia);
             }
             buttonPressed = null;
+
         }
     }
 }
