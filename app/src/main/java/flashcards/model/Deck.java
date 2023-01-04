@@ -42,14 +42,18 @@ public class Deck extends Observable {
         cards.remove(i);
     }
 
-    public long getScore() {
+    public long getScore() throws ArithmeticException {
         int denom = 0;
         int num = 0;
-        for (Card card : cards) {
-            denom += card.getApperenceCount();
-            num += card.getRightCount();
+        try {
+            for (Card card : cards) {
+                denom += card.getApperenceCount();
+                num += card.getRightCount();
+            }
+            long score = num / denom;
+            return score;
+        } catch (ArithmeticException e) {
+            return 0;
         }
-        long score = num / denom;
-        return score;
     }
 }
