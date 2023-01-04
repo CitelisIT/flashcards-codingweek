@@ -40,18 +40,17 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.HomeCreationController" >
+<VBox prefHeight="900.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.HomeCreationController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Import" />
+            <MenuItem mnemonicParsing="false" onAction="#newDeck" text="New" />
+            <MenuItem mnemonicParsing="false" onAction="#importDeck" text="Import" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Save and Quit" />
           </items>
@@ -65,31 +64,27 @@
     </MenuBar>
       <HBox prefHeight="81.0" prefWidth="640.0">
          <children>
-            <Label contentDisplay="RIGHT" prefHeight="16.0" prefWidth="326.0" text="Nom pile" />
-            <ButtonBar prefHeight="32.0" prefWidth="343.0">
+            <Label fx:id="displayedName" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="326.0" text="Nom pile" />
+            <ButtonBar fx:id="buttonBar" prefHeight="32.0" prefWidth="343.0">
                <buttons>
                   <Button mnemonicParsing="false" text="Button" />
                </buttons>
             </ButtonBar>
          </children>
       </HBox>
-      <Label prefHeight="38.0" prefWidth="30.0" text="Desc" />
-      <ScrollPane prefHeight="374.0" prefWidth="640.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="640.0">
+      <Label fx:id="displayedDesc" prefHeight="38.0" prefWidth="30.0" text="Desc" />
+      <ScrollPane hbarPolicy="NEVER" prefHeight="374.0" prefWidth="640.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="listDeck" prefHeight="317.0" prefWidth="850.0">
                <children>
-                  <VBox layoutY="19.0" prefHeight="317.0" prefWidth="625.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="94.0" text="+" />
-                           </children>
-                        </HBox>
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#selectNewOrImport" prefHeight="100.0" prefWidth="94.0" text="+" />
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
-            </AnchorPane>
-        </content>
+            </VBox>
+         </content>
       </ScrollPane>
   </children>
 </VBox>
