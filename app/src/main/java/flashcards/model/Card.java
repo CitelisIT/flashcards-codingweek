@@ -50,7 +50,7 @@ public class Card extends Observable {
     }
 
     public void addAnswerContentText(String contentText) {
-        question.add(new Content(contentText, "TEXT"));
+        answer.add(new Content(contentText, "TEXT"));
     }
 
     public void addQuestionContentMultimedia(String data, String dataType) {
@@ -58,7 +58,7 @@ public class Card extends Observable {
     }
 
     public void addAnswerContentMultimedia(String data, String dataType) {
-        question.add(new Content(data, dataType));
+        answer.add(new Content(data, dataType));
     }
 
     public float getScore() {
