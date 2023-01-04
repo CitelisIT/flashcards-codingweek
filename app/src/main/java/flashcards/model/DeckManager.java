@@ -70,4 +70,8 @@ public class DeckManager extends Observable {
         return deckManager.size();
     }
 
+    public void setDeckManager(ArrayList<Deck> deckManager) {
+        this.deckManager = deckManager;
+    }
+
 }
