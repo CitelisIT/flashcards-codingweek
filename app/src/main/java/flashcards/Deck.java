@@ -6,10 +6,12 @@ public class Deck {
 
     private String name;
     private String description;
+    private ArrayList<Card> cards;
 
     public Deck() {
         this.name = "Nouvelle pile";
         this.description = "Décrivez votre pile";
+        this.cards = new ArrayList<Card>();
     }
 
     public String getName() {
@@ -28,8 +30,15 @@ public class Deck {
         this.description = description;
     }
 
-    public void add() {
-
+    public Card getCard(int i) {
+        return cards.get(i);
     }
 
+    public void add(Card card) {
+        cards.add(card);
+    }
+
+    public void remove(int i) {
+        cards.remove(i);
+    }
 }
