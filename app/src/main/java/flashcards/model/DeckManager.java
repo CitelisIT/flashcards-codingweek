@@ -28,21 +28,19 @@ public class DeckManager extends Observable {
         deckManager.add(Deck);
     }
 
-    public void exportdeckManager() throws IOException {
-        String filename = "app/src/main/resources/" + this.name + ".json";
-        Path path = Paths.get(filename);
+    public void exportdeckManager(Deck deck, Path path) throws IOException {
         try (Writer writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(this.deckManager, writer);
+            gson.toJson(deck, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public DeckManager importdeckManager(String filename)
+    public Deck importdeckManager(String filename)
             throws JsonSyntaxException, JsonIOException, FileNotFoundException {
         Gson gson = new Gson();
-        DeckManager newDeck = gson.fromJson(new FileReader(filename), DeckManager.class);
+        Deck newDeck = gson.fromJson(new FileReader(filename), Deck.class);
         return newDeck;
     }
 
