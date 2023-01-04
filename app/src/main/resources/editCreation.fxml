@@ -42,7 +42,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.editCreationController">
+<BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.editCreationController">
    <bottom>
       <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="661.0" BorderPane.alignment="CENTER">
         <buttons>
