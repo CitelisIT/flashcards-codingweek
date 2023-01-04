@@ -61,7 +61,9 @@ public class HomeCreationController implements Observer, Initializable {
 
     public void selectNewOrImport() {
         buttonPressed = addButton;
-        react();
+        buttonPressed.setStyle(null);
+        allDeck.triggerObserver();
+        ;
 
     }
 
@@ -86,8 +88,8 @@ public class HomeCreationController implements Observer, Initializable {
     }
 
     public void deleteDeck() {
-
         allDeck.removeDeck(0);
+        allDeck.triggerObserver();
     }
 
     public void newDeck() throws IOException {
@@ -101,8 +103,8 @@ public class HomeCreationController implements Observer, Initializable {
         System.exit(0);
     }
 
-    public void editDeck() {
-
+    public void editDeck() throws IOException {
+        switchToEditCreation();
     }
 
     @Override
@@ -147,10 +149,12 @@ public class HomeCreationController implements Observer, Initializable {
 
     public void deckButtonPress(int i) {
         buttonPressed = (Button) listDeck.getScene().lookup(allDeck.getDeck(i).getName());
+        buttonPressed.setStyle(null);
         displayedName.setText(allDeck.getDeck(i).getName());
         displayeDesc.setText(allDeck.getDeck(i).getDescription());
         activeDeck = i;
-        react();
+        allDeck.triggerObserver();
+        ;
     }
 
     @Override
@@ -174,7 +178,13 @@ public class HomeCreationController implements Observer, Initializable {
                 e.printStackTrace();
             }
         });
-        editD.setOnAction(event -> editDeck());
+        editD.setOnAction(event -> {
+            try {
+                editDeck();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
         deleteD.setOnAction(event -> deleteDeck());
         exportD.setOnAction(event -> {
             try {
