@@ -11,7 +11,7 @@ public class DeckManagerTest {
 
     @Test
     void TestDeckManager() {
-        DeckManager deckManager = new DeckManager("DeckManagerTest");
+        DeckManager deckManager = new DeckManager();
 
         Deck deck = new Deck();
         deck.setName("Deck 1");
