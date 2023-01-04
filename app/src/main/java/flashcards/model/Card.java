@@ -64,4 +64,12 @@ public class Card extends Observable {
     public float getScore() {
         return (float) getRightCount() / getApperenceCount();
     }
+
+    public ArrayList<Content> getQuestion() {
+        return question;
+    }
+
+    public ArrayList<Content> getAnswer() {
+        return answer;
+    }
 }

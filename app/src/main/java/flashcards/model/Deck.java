@@ -56,4 +56,8 @@ public class Deck extends Observable {
             return 0;
         }
     }
+
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
 }
