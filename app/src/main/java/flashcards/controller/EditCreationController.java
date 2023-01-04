@@ -85,6 +85,8 @@ public class EditCreationController implements Observer, Initializable {
 
         if (!name.getText().isEmpty()) {
             allDeck.getDeck(activeDeck).setName(name.getText());
+            System.out.println(allDeck.getDeck(activeDeck).getName());
+            System.out.println(name.getText());
         } else {
             allDeck.getDeck(activeDeck).setName("Deck sans nom");
         }
@@ -122,7 +124,7 @@ public class EditCreationController implements Observer, Initializable {
 
         allDeck.triggerObserver();
         switchToHomeCreation();
-        System.out.println(allDeck.getCard(activeDeck, activeCard).getAnswer());
+        System.out.println(allDeck.getDeck(activeDeck).getName());
     }
 
     @Override

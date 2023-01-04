@@ -57,13 +57,13 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Nom Pile" />
-                  <TextField fx:id="Name" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
+                  <TextField fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Description" />
-                  <TextField fx:id="Description" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
+                  <TextField fx:id="description" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
                </children>
             </HBox>
          </children>
@@ -74,7 +74,7 @@
          <children>
             <VBox fx:id="VboxQuestion" alignment="TOP_CENTER" prefHeight="341.0" prefWidth="227.0">
                <children>
-                  <Label text="Question" />
+                  <Label text="question" />
                   <TextField />
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
@@ -86,7 +86,7 @@
             </VBox>
             <VBox fx:id="VboxAnswer" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0" prefWidth="227.0">
                <children>
-                  <Label text="Réponse" />
+                  <Label text="réponse" />
                   <TextField />
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
