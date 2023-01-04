@@ -17,7 +17,7 @@ import com.google.gson.JsonSyntaxException;
 public class DeckManager {
 
     private String name;
-    private ArrayList<Deck> deckManager;
+    private transient ArrayList<Deck> deckManager;
 
     public DeckManager(String name) {
         this.name = name;
@@ -65,4 +65,5 @@ public class DeckManager {
     public void removePile(int index) {
         deckManager.remove(index);
     }
+
 }
