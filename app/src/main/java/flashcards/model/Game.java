@@ -26,4 +26,26 @@ public class Game {
         }
         this.algoComputeSequence.computeSequence(this.nbCards, this.deck, this.sequenceCards);
     }
+
+    public void nextCard() {
+        if (currentCardIndex < nbCards) {
+            currentCardIndex++;
+        }
+    }
+
+    public Card getCurrentCard() {
+        return sequenceCards.get(currentCardIndex);
+    }
+
+    public int getNbCards() {
+        return nbCards;
+    }
+
+    public int getCurrentCardIndex() {
+        return currentCardIndex;
+    }
+
+    public ArrayList<Card> getSequenceCards() {
+        return sequenceCards;
+    }
 }
