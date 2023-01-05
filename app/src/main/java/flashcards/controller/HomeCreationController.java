@@ -14,6 +14,7 @@ import flashcards.model.Deck;
 import flashcards.model.DeckManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
@@ -186,45 +187,45 @@ public class HomeCreationController implements Observer, Initializable {
         // Iterate through all decks in the deck manager
         for (int k = 0; k < allDeck.getDeckManagerSize(); k++) {
             // If there is still space on the current row, add the deck button to it
-            if (j < 6) {
-                HBox ligne = (HBox) listDeck.getChildren().get(i);
-                Button deckij = new Button(allDeck.getDeck(k).getName());
-                deckij.setId(allDeck.getDeck(k).getName());
-                // If this button is the one that was previously pressed, highlight it
-                if (buttonPressed != null) {
-                    if (deckij.getId().equals(buttonPressed.getId())) {
-                        deckij.setStyle("-fx-background-color: lightgreen");
-                    }
-                }
-                // Set the action for when this button is pressed
-                int index = k;
-                deckij.setOnAction(event -> {
-                    buttonPressed.setStyle(null);
-                    buttonPressed = deckij;
-                    deckij.setStyle("-fx-background-color: lightgreen");
-                    buttonBar.requestLayout();
-                    displayedName.setText("Nouvelle pile");
-                    displayedDesc.setText("Décrivez votre pile");
-                    deckButtonPress(index);
-                });
-                ligne.getChildren().add(deckij);
-                j++;
-            }
-            // If there is no more space on the current row, start a new row and add the
-            // deck button to it
-            else {
-                j = 0;
+            HBox ligne;
+            if (j == 6) {
                 i++;
-                HBox ligne = new HBox();
-                Button pileij = new Button(allDeck.getDeck(k).getName());
-                ligne.getChildren().add(pileij);
-                j++;
+                j = 0;
+                ligne = new HBox();
                 listDeck.getChildren().add(ligne);
+            } else {
+                ligne = (HBox) listDeck.getChildren().get(i);
             }
+
+            Button deckij = new Button(allDeck.getDeck(k).getName());
+            deckij.setId(allDeck.getDeck(k).getName());
+            // If this button is the one that was previously pressed, highlight it
+            if (buttonPressed != null) {
+                if (deckij.getId().equals(buttonPressed.getId())) {
+                    deckij.setStyle("-fx-background-color: lightgreen");
+                }
+            }
+            // Set the action for when this button is pressed
+            int index = k;
+            deckij.setPrefSize(130.0, 100.0);
+            deckij.setOnAction(event -> {
+                buttonPressed.setStyle(null);
+                buttonPressed = deckij;
+                deckij.setStyle("-fx-background-color: lightgreen");
+                buttonBar.requestLayout();
+                displayedName.setText("Nouvelle pile");
+                displayedDesc.setText("Décrivez votre pile");
+                deckButtonPress(index);
+            });
+            ligne.getChildren().add(deckij);
+            HBox.setMargin(deckij, new Insets(10, 0, 0, 10));
+            j++;
         }
         // Clear the buttons in the button bar
         buttonBar.getButtons().clear();
-        if (buttonPressed != null) {
+        if (buttonPressed != null)
+
+        {
             // If the add button is pressed, show the new and import buttons
             if (buttonPressed.equals(addButton)) {
                 displayedName.setText("Nouvelle pile");
@@ -317,32 +318,34 @@ public class HomeCreationController implements Observer, Initializable {
         // Iterate through all decks in the deck manager
         for (int k = 0; k < allDeck.getDeckManagerSize(); k++) {
             // If there is still space on the current row, add the deck button to it
-            if (j < 6) {
-                HBox ligne = (HBox) listDeck.getChildren().get(i);
-                Button deckij = new Button(allDeck.getDeck(k).getName());
-                deckij.setId(allDeck.getDeck(k).getName());
-                // Set the action for when this button is pressed
-                int index = k;
-                deckij.setOnAction(event -> {
-                    buttonPressed = deckij;
-                    deckij.setStyle("-fx-background-color: lightgreen");
-                    buttonBar.requestLayout();
-                    deckButtonPress(index);
-                });
-                ligne.getChildren().add(deckij);
-                j++;
-            }
-            // If there is no more space on the current row, start a new row and add the
-            // deck button to it
-            else {
-                j = 0;
+            HBox ligne;
+            if (j == 6) {
                 i++;
-                HBox ligne = new HBox();
-                Button pileij = new Button(allDeck.getDeck(k).getName());
-                ligne.getChildren().add(pileij);
-                j++;
+                j = 0;
+                ligne = new HBox();
                 listDeck.getChildren().add(ligne);
+            } else {
+                ligne = (HBox) listDeck.getChildren().get(i);
             }
+
+            Button deckij = new Button(allDeck.getDeck(k).getName());
+            deckij.setId(allDeck.getDeck(k).getName());
+            // If this button is the one that was previously pressed, highlight it
+            // Set the action for when this button is pressed
+            int index = k;
+            deckij.setPrefSize(130.0, 100.0);
+            deckij.setOnAction(event -> {
+                buttonPressed = deckij;
+                deckij.setStyle("-fx-background-color: lightgreen");
+                buttonBar.requestLayout();
+                displayedName.setText("Nouvelle pile");
+                displayedDesc.setText("Décrivez votre pile");
+                deckButtonPress(index);
+            });
+            ligne.getChildren().add(deckij);
+            HBox.setMargin(deckij, new Insets(10, 0, 0, 10));
+            j++;
+
         }
 
     }
