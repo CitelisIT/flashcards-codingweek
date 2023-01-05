@@ -3,20 +3,20 @@
 ## Mardi
 
 - Conception
-  - Fonctionnalités souhaitées
-  - Pseudo-diagramme de classe
-  - Planning
-  - Schémas des pages principales
+  - Fonctionnalités souhaitées :heavy_check_mark:
+  - Pseudo-diagramme de classe :heavy_check_mark:
+  - Planning :heavy_check_mark:
+  - Schémas des pages principales :heavy_check_mark:
 - Programmation 
-  - Prototype de FXML pour les pages principales
-  - Mode création fonctionnel d'un point de vue très basique
+  - Prototype de FXML pour les pages principales :heavy_check_mark:
+  - Mode création fonctionnel d'un point de vue très basique &rarr; reporté pour mercredi
 
 ## Mercredi
 
 - Programmation
-  - Mode création fonctionnel à 100% pour les fonctionnalités obligatoires
-  - Mode apprentisage en partie fonctionnel (Selon avancement)
-  - Tests
+  - Mode création fonctionnel à 100% pour les fonctionnalités obligatoires :heavy_check_mark:
+  - Mode apprentisage en partie fonctionnel (Selon avancement) :heavy_check_mark:
+  - Tests :heavy_check_mark:
 
 ## Jeudi
 
