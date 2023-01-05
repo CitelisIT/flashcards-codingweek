@@ -33,8 +33,13 @@ public class DeckTest {
         deck.add(card2);
         assertEquals(card2, deck.getCard(1));
         assertEquals(1 / 2, deck.getScore());
+        assertEquals(2, deck.getSize());
+        assertEquals(card, deck.getBestCard());
         deck.remove(0);
         assertEquals(0, deck.getScore());
+        assertEquals(1, deck.getSize());
+        deck.remove(0);
+        assertEquals(0, deck.getSize());
 
         Deck deck2 = new Deck();
         deck2.setName("Deck 2");
