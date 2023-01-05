@@ -2,33 +2,48 @@
 
 <!--
   Copyright (c) 2015, 2019, Gluon and/or its affiliates.
-  All rights reserved. Use is subject to license terms.
+  All rights reserved. Use is subject
+to license terms.
 
   This file is available and licensed under the following license:
 
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions
+  Redistribution
+and use in source and binary forms, with or without
+  modification, are permitted provided that the
+following conditions
   are met:
 
   - Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-  - Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
+notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form
+must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer
+in
     the documentation and/or other materials provided with the distribution.
-  - Neither the name of Oracle Corporation nor the names of its
-    contributors may be used to endorse or promote products derived
+  - Neither the name
+of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote
+products derived
     from this software without specific prior written permission.
 
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  THIS SOFTWARE
+IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+FOR
   A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  OWNER OR CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT
   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  DATA,
+OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
+THE USE
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
@@ -42,13 +57,16 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.EditCreationController">
+<BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.EditCreationController">
    <bottom>
-      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="661.0" BorderPane.alignment="CENTER">
-        <buttons>
-            <Button fx:id="ValidationButton" layoutX="553.0" layoutY="10.0" mnemonicParsing="false" onAction="#validate" text="Valider" />
-          <Button mnemonicParsing="false" onAction="#switchToHomeCreation" text="Retour Liste" />
-        </buttons>
+      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="661.0"
+         BorderPane.alignment="CENTER">
+         <buttons>
+            <Button fx:id="ValidationButton" layoutX="553.0" layoutY="10.0" mnemonicParsing="false"
+               onAction="#validate" text="Valider" />
+            <Button mnemonicParsing="false" onAction="#switchToHomeCreation" text="Retour Liste" />
+         </buttons>
       </ButtonBar>
    </bottom>
    <top>
@@ -57,13 +75,16 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Nom Pile" />
-                  <TextField fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
+                  <TextField fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity"
+                     prefHeight="25.0" prefWidth="305.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Description" />
-                  <TextField fx:id="description" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
+                  <TextField fx:id="description" maxHeight="1.7976931348623157E308"
+                     maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0"
+                     prefWidth="305.0" />
                </children>
             </HBox>
          </children>
@@ -78,20 +99,25 @@
                   <TextField />
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
-                      <Button fx:id="questionAddTextButton" alignment="CENTER" mnemonicParsing="false" onAction="#addQuestionText" text="+ Text" />
-                        <Button fx:id="questionAddMediaButton" mnemonicParsing="false" onAction="#addQuestionMedia" text="+ Media" />
+                        <Button fx:id="questionAddTextButton" alignment="CENTER"
+                           mnemonicParsing="false" onAction="#addQuestionText" text="+ Text" />
+                        <Button fx:id="questionAddMediaButton" mnemonicParsing="false"
+                           onAction="#addQuestionMedia" text="+ Media" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="VboxAnswer" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0" prefWidth="227.0">
+            <VBox fx:id="VboxAnswer" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0"
+               prefHeight="341.0" prefWidth="227.0">
                <children>
                   <Label text="réponse" />
                   <TextField />
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
-                        <Button fx:id="answerAddTextButton" alignment="CENTER" mnemonicParsing="false" onAction="#addAnswerText" text="+ Text" />
-                        <Button fx:id="answerAddMediaButton" mnemonicParsing="false" onAction="#addAnswerMedia" text="+ Media" />
+                        <Button fx:id="answerAddTextButton" alignment="CENTER"
+                           mnemonicParsing="false" onAction="#addAnswerText" text="+ Text" />
+                        <Button fx:id="answerAddMediaButton" mnemonicParsing="false"
+                           onAction="#addAnswerMedia" text="+ Media" />
                      </children>
                   </HBox>
                </children>
@@ -102,7 +128,10 @@
    <left>
       <ScrollPane prefHeight="313.0" prefWidth="92.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox prefHeight="337.0" prefWidth="100.0" />
+            <VBox fx:id="listCard" prefHeight="337.0" prefWidth="100.0">
+               <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard"
+                  text="+" />
+            </VBox>
          </content>
       </ScrollPane>
    </left>
