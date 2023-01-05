@@ -32,13 +32,14 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -86,15 +87,26 @@
    <right>
       <VBox alignment="CENTER" prefHeight="363.0" prefWidth="252.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Titre" />
-            <Label layoutX="10.0" layoutY="10.0" text="Desc" />
-            <Label text="Strategie" />
-            <ChoiceBox prefWidth="150.0" />
-            <Label text="Ordre" />
-            <ChoiceBox prefWidth="150.0" />
-            <Label layoutX="120.0" layoutY="172.0" text="Fréquence" />
-            <Slider prefHeight="16.0" prefWidth="201.0" />
-            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Play" />
+            <Label text="Titre">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></Label>
+            <Label layoutX="10.0" layoutY="10.0" text="Desc">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></Label>
+            <Label text="Stratégie :" />
+            <ChoiceBox fx:id="strategyChoiceBox">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></ChoiceBox>
+            <Label layoutX="120.0" layoutY="172.0" text="Nombre de cartes (entre 1 et 200) :" />
+            <Spinner fx:id="nbCardSpinner" prefWidth="100" editable="true">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Spinner>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Commencer" />
          </children>
       </VBox>
    </right>
