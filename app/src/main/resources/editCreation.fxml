@@ -54,7 +54,6 @@ THE USE
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.EditCreationController">
@@ -85,7 +84,7 @@ THE USE
       </VBox>
    </top>
    <center>
-      <HBox prefHeight="382.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="382.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="341.0" prefWidth="227.0">
                <children>
@@ -133,10 +132,10 @@ THE USE
       </HBox>
    </center>
    <left>
-      <ScrollPane prefHeight="329.0" prefWidth="182.0" BorderPane.alignment="CENTER">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="329.0" prefWidth="233.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="listCard" prefHeight="337.0" prefWidth="165.0">
-               <ButtonBar prefHeight="40.0" prefWidth="200.0">
+            <VBox fx:id="listCard">
+               <ButtonBar buttonMinWidth="20.0">
                   <buttons>
                      <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard" text="+" />
                      <Button fx:id="delCardButton" mnemonicParsing="false" onAction="#delCard" text="-" />
@@ -146,7 +145,4 @@ THE USE
          </content>
       </ScrollPane>
    </left>
-   <right>
-      <Region prefHeight="341.0" prefWidth="85.0" BorderPane.alignment="CENTER" />
-   </right>
 </BorderPane>
