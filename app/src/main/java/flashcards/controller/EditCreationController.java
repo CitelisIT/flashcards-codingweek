@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -259,6 +260,7 @@ public class EditCreationController implements Observer, Initializable {
             // If there is still space on the current row, add the deck button to it
             Button cardj = new Button("carte n°" + k);
             cardj.setId(Integer.toString(k));
+
             // Set the action for when this button is pressed
             int index = k;
             cardj.setOnAction(event -> {
@@ -292,6 +294,7 @@ public class EditCreationController implements Observer, Initializable {
             // If there is still space on the current row, add the deck button to it
             Button cardj = new Button("carte n°" + k);
             cardj.setId(Integer.toString(k));
+            cardj.prefWidthProperty().bind(listCard.prefWidthProperty());
             if (cardj.getId().equals(Integer.toString(activeCard))) {
                 cardj.setStyle("-fx-background-color: lightgreen");
             }
