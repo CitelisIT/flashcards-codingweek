@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import flashcards.App;
+import flashcards.model.Card;
 import flashcards.model.DeckManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -20,7 +22,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class HomeLearningController implements Observer, Initializable {
     private DeckManager allDeck;
@@ -43,27 +44,50 @@ public class HomeLearningController implements Observer, Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/globalStats.fxml"));
         Parent root = fxmlLoader.load();
         Button bestCardButton = (Button) root.lookup("#bestCardButton");
-        // bestCardButton.setText(allDeck.getBestCard().getQuestion().toString());
-        bestCardButton.setText("tmp test");
+        bestCardButton.setText(allDeck.getBestCard().getQuestionContent(0).getData());
         Button worstCardButton = (Button) root.lookup("#worstCardButton");
-        // worstCardButton.setText(allDeck.getWorstCard().getQuestion().toString());
-        worstCardButton.setText("tmp test");
+        worstCardButton.setText(allDeck.getWorstCard().getQuestionContent(0).getData());
         Label bestDeckLabel = (Label) root.lookup("#bestDeckLabel");
-        // bestDeckLabel.setText(allDeck.getBestDeck().getName());
-        bestDeckLabel.setText("tmp test");
+        bestDeckLabel.setText(allDeck.getBestDeck().getName());
         Label worstDeckLabel = (Label) root.lookup("#worstDeckLabel");
-        // worstDeckLabel.setText(allDeck.getWorstDeck().getName());
-        worstDeckLabel.setText("tmp test");
+        worstDeckLabel.setText(allDeck.getWorstDeck().getName());
+        PieChart pieChart = (PieChart) root.lookup("#globalPieChart");
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Bonnes réponses", allDeck.getRightAnswers()),
+                new PieChart.Data("Mauvaises réponses", allDeck.getWrongAnswers()));
+        pieChart.setData(pieChartData);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Global Stats");
         stage.setScene(new Scene(root));
         stage.show();
         bestCardButton.setOnAction(e -> {
-            // showCard(allDeck.getBestCard());
+            try {
+                showCard(allDeck.getBestCard());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         });
         worstCardButton.setOnAction(e -> {
-            // showCard(allDeck.getWorstCard());
+            try {
+                showCard(allDeck.getWorstCard());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+    }
+
+    public void showCard(Card card) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/card.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.NONE);
+        stage.setTitle("Card");
+        stage.setScene(new Scene(root));
+        stage.show();
+        Button goBackButton = (Button) root.lookup("#goBackButton");
+        goBackButton.setOnAction(e -> {
+            stage.close();
         });
     }
 

@@ -40,26 +40,26 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <PieChart prefHeight="89.0" prefWidth="600.0" />
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <PieChart fx:id="globalPieChart" prefHeight="268.0" prefWidth="600.0" />
+      <HBox prefHeight="109.0" prefWidth="600.0">
          <children>
-            <Label alignment="CENTER" prefHeight="60.0" prefWidth="81.0" text="Best card" />
-            <Button id="bestCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="490.0" text="Button" />
+            <Label alignment="CENTER" prefHeight="46.0" prefWidth="81.0" text="Best card" />
+            <Button id="bestCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="46.0" prefWidth="490.0" text="Button" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="105.0" prefWidth="600.0">
          <children>
-            <Label alignment="CENTER" prefHeight="60.0" prefWidth="81.0" text="Worst card" />
-            <Button fx:id="worstCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="490.0" text="Button" />
+            <Label alignment="CENTER" prefHeight="46.0" prefWidth="81.0" text="Worst card" />
+            <Button fx:id="worstCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="46.0" prefWidth="490.0" text="Button" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="78.0" prefWidth="600.0">
          <children>
             <Label alignment="CENTER" prefHeight="60.0" prefWidth="81.0" text="Best deck" />
             <Label fx:id="bestDeckLabel" alignment="CENTER" prefHeight="60.0" prefWidth="115.0" text="Label" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="77.0" prefWidth="600.0">
          <children>
             <Label alignment="CENTER" prefHeight="60.0" prefWidth="81.0" text="Worst deck" />
             <Label fx:id="worstDeckLabel" alignment="CENTER" prefHeight="60.0" prefWidth="115.0" text="Label" />

@@ -10,11 +10,18 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 import flashcards.App;
+import flashcards.model.Card;
 import flashcards.model.Deck;
 import flashcards.model.DeckManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
@@ -22,6 +29,8 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class HomeCreationController implements Observer, Initializable {
@@ -50,6 +59,8 @@ public class HomeCreationController implements Observer, Initializable {
     private Button editD = new Button("Edit deck");
     private Button deleteD = new Button("Delete deck");
     private Button exportD = new Button("Export deck");
+
+    private Button stats = new Button("Stats");
 
     public HomeCreationController(DeckManager allDeck) {
         this.allDeck = allDeck;
@@ -129,6 +140,66 @@ public class HomeCreationController implements Observer, Initializable {
         activeDeck = 0;
         buttonPressed = addButton;
         react();
+    }
+
+    /**
+     * Creates a pop-up containing the stats of a certain date. This method is
+     * called when the "Stats" button is
+     * pressed.
+     * 
+     * @throws IOException if there is an error switching to the "stats" view
+     */
+    public void statsDeck() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/deckStats.fxml"));
+        Parent root = fxmlLoader.load();
+        Button bestCardButton = (Button) root.lookup("#bestCardButton");
+        bestCardButton.setText(allDeck.getDeck(activeDeck).getBestCard().getQuestionContent(0).getData());
+        Button worstCardButton = (Button) root.lookup("#worstCardButton");
+        worstCardButton.setText(allDeck.getDeck(activeDeck).getWorstCard().getQuestionContent(0).getData());
+        PieChart pieChart = (PieChart) root.lookup("#deckPieChart");
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Bonnes réponses", allDeck.getDeck(activeDeck).getRightAnswers()),
+                new PieChart.Data("Mauvaises réponses", allDeck.getDeck(activeDeck).getWrongAnswers()));
+        pieChart.setData(pieChartData);
+        Stage stage = new Stage();
+        stage.initModality(Modality.NONE);
+        stage.setTitle("Deck Stats");
+        stage.setScene(new Scene(root));
+        stage.show();
+        bestCardButton.setOnAction(e -> {
+            try {
+                showCard(allDeck.getBestCard());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+        worstCardButton.setOnAction(e -> {
+            try {
+                showCard(allDeck.getWorstCard());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+    }
+
+    /**
+     * Shows a card in a pop-up.
+     * 
+     * @param card the card to show
+     * @throws IOException if there is an error switching to the "card" view
+     */
+    public void showCard(Card card) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/card.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.NONE);
+        stage.setTitle("Card");
+        stage.setScene(new Scene(root));
+        stage.show();
+        Button goBackButton = (Button) root.lookup("#goBackButton");
+        goBackButton.setOnAction(e -> {
+            stage.close();
+        });
     }
 
     /**
@@ -238,14 +309,15 @@ public class HomeCreationController implements Observer, Initializable {
                 buttonBar.getButtons().addAll(newD, importD);
             }
 
-            // If a deck button is pressed, show the edit, export and delete buttons
+            // If a deck button is pressed, show the edit, export, delete and stats buttons
             else {
                 displayedName.setText(currentName);
                 displayedDesc.setText(currentDesc);
                 ButtonBar.setButtonData(exportD, ButtonData.APPLY);
                 ButtonBar.setButtonData(editD, ButtonData.APPLY);
                 ButtonBar.setButtonData(deleteD, ButtonData.APPLY);
-                buttonBar.getButtons().addAll(editD, exportD, deleteD);
+                ButtonBar.setButtonData(stats, ButtonData.APPLY);
+                buttonBar.getButtons().addAll(editD, exportD, deleteD, stats);
             }
         }
 
@@ -276,8 +348,8 @@ public class HomeCreationController implements Observer, Initializable {
         allDeck.addObserver(this);
         // Set the style of the buttonBar object to "null".
         buttonBar.setStyle("null");
-        // Set up action event handlers for the newD, importD, editD, deleteD, and
-        // exportD objects.
+        // Set up action event handlers for the newD, importD, editD, deleteD,
+        // exportD and stats objects.
         newD.setOnAction(event -> {
             try {
                 newDeck();
@@ -303,6 +375,13 @@ public class HomeCreationController implements Observer, Initializable {
         exportD.setOnAction(event -> {
             try {
                 exportDeck();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        stats.setOnAction(event -> {
+            try {
+                statsDeck();
             } catch (IOException e) {
                 e.printStackTrace();
             }
