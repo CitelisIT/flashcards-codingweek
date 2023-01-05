@@ -28,6 +28,10 @@ public class Game {
         this.algoComputeSequence.computeSequence(this.nbCards, this.deck, this.sequenceCards);
     }
 
+    public Deck getDeck() {
+        return deck;
+    }
+
     public void nextCard() {
         if (currentCardIndex < nbCards) {
             currentCardIndex++;

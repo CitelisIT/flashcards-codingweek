@@ -19,7 +19,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
-
 public class GameLearningController implements Observer, Initializable {
 
     private DeckManager flashcardManager;
@@ -58,12 +57,12 @@ public class GameLearningController implements Observer, Initializable {
     // new Deck dans le HomeLearning
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.flashcardManager.setDefaultGame(this.flashcardManager.getDeck(this.activeDeck));
+        // this.flashcardManager.setDefaultGame(this.flashcardManager.getDeck(this.activeDeck));
         this.goodAnswerButton.setVisible(false);
         this.badAnswerButton.setVisible(false);
         react();
     }
-    
+
     /**
      * Switch the view for the Learning view. This method is
      * called when the "Mode Apprentissage" menu Item is pressed.
@@ -137,14 +136,14 @@ public class GameLearningController implements Observer, Initializable {
         cardProgressBar.setProgress((double) flashcardManager.getGame().getCurrentCardIndex()
                 / flashcardManager.getGame().getSequenceCards().size());
 
-        this.gameDeckTitle.setText(this.flashcardManager.getDeck(activeDeck).getName());
+        this.gameDeckTitle.setText(this.flashcardManager.getGame().getDeck().getName());
         int currentQuestion = this.flashcardManager.getGame().getCurrentCardIndex() + 1;
         int nbQuestions = this.flashcardManager.getGame().getSequenceCards().size();
         this.gameStatus.setText(currentQuestion + "/" + nbQuestions);
         int previousQuestion = this.flashcardManager.getGame().getCurrentCardIndex();
         int numberGoodAnswer = this.flashcardManager.getGame().getNbGoodAnswer();
         this.gameStatus.setText(currentQuestion + "/" + nbQuestions);
-        this.gameScore.setText("Score : "+numberGoodAnswer+"/"+previousQuestion);
+        this.gameScore.setText("Score : " + numberGoodAnswer + "/" + previousQuestion);
 
         if (flashcardManager.getGame().endOfGame()) {
             displayedVBox.getChildren().clear();
