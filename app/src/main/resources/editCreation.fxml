@@ -57,14 +57,11 @@ THE USE
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.EditCreationController">
+<BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.EditCreationController">
    <bottom>
-      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="661.0"
-         BorderPane.alignment="CENTER">
+      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="661.0" BorderPane.alignment="CENTER">
          <buttons>
-            <Button fx:id="ValidationButton" layoutX="553.0" layoutY="10.0" mnemonicParsing="false"
-               onAction="#validate" text="Valider" />
+            <Button fx:id="ValidationButton" layoutX="553.0" layoutY="10.0" mnemonicParsing="false" onAction="#validate" text="Valider" />
             <Button mnemonicParsing="false" onAction="#switchToHomeCreation" text="Retour Liste" />
          </buttons>
       </ButtonBar>
@@ -75,16 +72,13 @@ THE USE
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Nom Pile" />
-                  <TextField fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity"
-                     prefHeight="25.0" prefWidth="305.0" />
+                  <TextField fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Description" />
-                  <TextField fx:id="description" maxHeight="1.7976931348623157E308"
-                     maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0"
-                     prefWidth="305.0" />
+                  <TextField fx:id="description" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
                </children>
             </HBox>
          </children>
@@ -98,35 +92,39 @@ THE USE
                   <Label text="question" />
                   <VBox fx:id="VboxQuestion" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <TextField />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TextField />
+                              <Button fx:id="delContentQuestionButton" mnemonicParsing="false" onAction="#delQuestionContent" text="-" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
-                        <Button fx:id="questionAddTextButton" alignment="CENTER"
-                           mnemonicParsing="false" onAction="#addQuestionText" text="+ Text" />
-                        <Button fx:id="questionAddMediaButton" mnemonicParsing="false"
-                           onAction="#addQuestionMedia" text="+ Media" />
+                        <Button fx:id="questionAddTextButton" alignment="CENTER" mnemonicParsing="false" onAction="#addQuestionText" text="+ Text" />
+                        <Button fx:id="questionAddMediaButton" mnemonicParsing="false" onAction="#addQuestionMedia" text="+ Media" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0"
-               prefWidth="227.0">
+            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0" prefWidth="227.0">
                <children>
                   <Label text="réponse" />
                   <VBox fx:id="VboxAnswer" prefHeight="200.0" prefWidth="100.0">
                      <children>
-
-                        <TextField />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TextField />
+                              <Button fx:id="delContentAnswerButton" mnemonicParsing="false" onAction="#delAnswerContent" text="-" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
-                        <Button fx:id="answerAddTextButton" alignment="CENTER"
-                           mnemonicParsing="false" onAction="#addAnswerText" text="+ Text" />
-                        <Button fx:id="answerAddMediaButton" mnemonicParsing="false"
-                           onAction="#addAnswerMedia" text="+ Media" />
+                        <Button fx:id="answerAddTextButton" alignment="CENTER" mnemonicParsing="false" onAction="#addAnswerText" text="+ Text" />
+                        <Button fx:id="answerAddMediaButton" mnemonicParsing="false" onAction="#addAnswerMedia" text="+ Media" />
                      </children>
                   </HBox>
                </children>
@@ -135,10 +133,15 @@ THE USE
       </HBox>
    </center>
    <left>
-      <ScrollPane prefHeight="313.0" prefWidth="92.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="329.0" prefWidth="182.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="listCard" prefHeight="337.0" prefWidth="100.0">
-               <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard" text="+" />
+            <VBox fx:id="listCard" prefHeight="337.0" prefWidth="165.0">
+               <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                  <buttons>
+                     <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard" text="+" />
+                     <Button fx:id="delCardButton" mnemonicParsing="false" onAction="#delCard" text="-" />
+                  </buttons>
+               </ButtonBar>
             </VBox>
          </content>
       </ScrollPane>
