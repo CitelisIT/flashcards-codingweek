@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,8 +36,10 @@ public class App extends Application {
         Type DeclList = new TypeToken<ArrayList<Deck>>() {
         }.getType();
 
-        ArrayList<Deck> newDeck = gson.fromJson(new FileReader("decks.json"), DeclList);
-        allDeck.setDeckManager(newDeck);
+        try {
+            ArrayList<Deck> newDeck = gson.fromJson(new FileReader("decks.json"), DeclList);
+            allDeck.setDeckManager(newDeck);
+        } catch (FileNotFoundException e) {}
         scene = new Scene(loadFXML("homeCreation", allDeck, 0), 900, 650);
         stage.setScene(scene);
         stage.show();
