@@ -218,30 +218,30 @@ public class HomeCreationController implements Observer, Initializable {
         }
         // Clear the buttons in the button bar
         buttonBar.getButtons().clear();
-        // If the add button is pressed, show the new and import buttons
-        if (buttonPressed.equals(addButton)) {
-            displayedName.setText("Nouvelle pile");
-            displayedDesc.setText("Décrivez votre pile");
-            buttonPressed.setStyle("-fx-background-color: lightgreen");
-            displayedName.setText(currentName);
-            displayedDesc.setText(currentDesc);
-            ButtonBar.setButtonData(newD, ButtonData.APPLY);
-            ButtonBar.setButtonData(importD, ButtonData.APPLY);
-            buttonBar.getButtons().addAll(newD, importD);
-        }
-        // If no button is pressed, do nothing
-        else if (buttonPressed == null) {
+        if (buttonPressed != null) {
+            // If the add button is pressed, show the new and import buttons
+            if (buttonPressed.equals(addButton)) {
+                displayedName.setText("Nouvelle pile");
+                displayedDesc.setText("Décrivez votre pile");
+                buttonPressed.setStyle("-fx-background-color: lightgreen");
+                displayedName.setText(currentName);
+                displayedDesc.setText(currentDesc);
+                ButtonBar.setButtonData(newD, ButtonData.APPLY);
+                ButtonBar.setButtonData(importD, ButtonData.APPLY);
+                buttonBar.getButtons().addAll(newD, importD);
+            }
 
+            // If a deck button is pressed, show the edit, export and delete buttons
+            else {
+                displayedName.setText(currentName);
+                displayedDesc.setText(currentDesc);
+                ButtonBar.setButtonData(exportD, ButtonData.APPLY);
+                ButtonBar.setButtonData(editD, ButtonData.APPLY);
+                ButtonBar.setButtonData(deleteD, ButtonData.APPLY);
+                buttonBar.getButtons().addAll(editD, exportD, deleteD);
+            }
         }
-        // If a deck button is pressed, show the edit, export and delete buttons
-        else {
-            displayedName.setText(currentName);
-            displayedDesc.setText(currentDesc);
-            ButtonBar.setButtonData(exportD, ButtonData.APPLY);
-            ButtonBar.setButtonData(editD, ButtonData.APPLY);
-            ButtonBar.setButtonData(deleteD, ButtonData.APPLY);
-            buttonBar.getButtons().addAll(editD, exportD, deleteD);
-        }
+
     }
 
     /**
