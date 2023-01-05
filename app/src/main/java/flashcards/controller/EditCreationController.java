@@ -262,8 +262,9 @@ public class EditCreationController implements Observer, Initializable {
             // Set the action for when this button is pressed
             int index = k;
             cardj.setOnAction(event -> {
-                activeCard = index;
                 updateModel();
+                activeCard = index;
+                buttonPressed = cardj;
                 cardj.setStyle("-fx-background-color: lightgreen");
                 react();
             });
