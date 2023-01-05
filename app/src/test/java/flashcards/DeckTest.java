@@ -35,6 +35,9 @@ public class DeckTest {
         assertEquals(1 / 2, deck.getScore());
         assertEquals(2, deck.getSize());
         assertEquals(card, deck.getBestCard());
+        assertEquals(card2, deck.getWorstCard());
+        assertEquals(3, deck.getRightAnswers());
+        assertEquals(2, deck.getWrongAnswers());
         deck.remove(0);
         assertEquals(0, deck.getScore());
         assertEquals(1, deck.getSize());

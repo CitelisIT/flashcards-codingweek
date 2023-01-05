@@ -61,6 +61,22 @@ public class Deck extends Observable {
         }
     }
 
+    public int getRightAnswers() {
+        int num = 0;
+        for (Card card : cards) {
+            num += card.getRightCount();
+        }
+        return num;
+    }
+
+    public int getWrongAnswers() {
+        int num = 0;
+        for (Card card : cards) {
+            num += card.getApperenceCount() - card.getRightCount();
+        }
+        return num;
+    }
+
     public Card getBestCard() {
         Card bestCard = cards.get(0);
         for (Card card : cards) {
@@ -69,6 +85,16 @@ public class Deck extends Observable {
             }
         }
         return bestCard;
+    }
+
+    public Card getWorstCard() {
+        Card worstCard = cards.get(0);
+        for (Card card : cards) {
+            if (card.getScore() < worstCard.getScore()) {
+                worstCard = card;
+            }
+        }
+        return worstCard;
     }
 
     public ArrayList<Card> getCards() {

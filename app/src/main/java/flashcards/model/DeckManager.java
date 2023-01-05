@@ -170,6 +170,32 @@ public class DeckManager extends Observable {
     }
 
     /**
+     * Gets the number of right answers for any card in the deck manager.
+     * 
+     * @return the number of right answers for any card in the deck manager
+     */
+    public int getRightAnswers() {
+        int rightAnswers = 0;
+        for (int i = 0; i < deckManager.size(); i++) {
+            rightAnswers += deckManager.get(i).getRightAnswers();
+        }
+        return rightAnswers;
+    }
+
+    /**
+     * Gets the number of wrong answers for any card in the deck manager.
+     * 
+     * @return the number of wrong answers for any card in the deck manager
+     */
+    public int getWrongAnswers() {
+        int wrongAnswers = 0;
+        for (int i = 0; i < deckManager.size(); i++) {
+            wrongAnswers += deckManager.get(i).getWrongAnswers();
+        }
+        return wrongAnswers;
+    }
+
+    /**
      * Removes a deck at a specified index in the deck manager.
      *
      * @param index the index of the deck to remove

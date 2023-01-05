@@ -51,7 +51,9 @@ public class DeckManagerTest {
         card4.incrRightCount();
         card4.incrRightCount();
         card4.incrRightCount();
-        deck2.add(card4); // Score = 3/4
+        deck2.add(card4); // Score = 3/3
+        assertEquals(7, deckManager.getRightAnswers());
+        assertEquals(3, deckManager.getWrongAnswers());
         assertEquals(card4, deckManager.getBestCard());
         assertEquals(deck, deckManager.getBestDeck());
         deckManager.removeDeck(0);
