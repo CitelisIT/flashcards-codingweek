@@ -79,7 +79,7 @@ public class HomeCreationController implements Observer, Initializable {
         currentDesc = "Décrivez votre pile";
         buttonPressed = addButton;
         buttonPressed.setStyle(null);
-        allDeck.triggerObserver();
+        react();
     }
 
     /**
@@ -122,8 +122,8 @@ public class HomeCreationController implements Observer, Initializable {
      * deck" button is pressed.
      */
     public void deleteDeck() {
-        allDeck.removeDeck(0);
-        allDeck.triggerObserver();
+        allDeck.removeDeck(activeDeck);
+        react();
     }
 
     /**
@@ -135,7 +135,9 @@ public class HomeCreationController implements Observer, Initializable {
     public void newDeck() throws IOException {
         Deck newDeck = new Deck();
         allDeck.addDeck(newDeck);
-        allDeck.triggerObserver();
+        newDeck.setName(newDeck.getName() + allDeck.getDeckManagerSize());
+        activeDeck = allDeck.getDeckManagerSize() - 1;
+        react();
         switchToEditCreation();
     }
 

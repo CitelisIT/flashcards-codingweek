@@ -67,25 +67,41 @@ public class EditCreationController implements Observer, Initializable {
 
     public void addQuestionText() {
         buttonPressed = questionAddTextButton;
-        allDeck.getCard(activeDeck, activeCard).addQuestionContentText("");
+        allDeck.getCard(activeDeck, activeCard).addQuestionContentText("Texte");
         allDeck.triggerObserver();
     }
 
     public void addQuestionMedia() {
         buttonPressed = questionAddMediaButton;
-        allDeck.getCard(activeDeck, activeCard).addQuestionContentMultimedia("", "");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File file = fileChooser.showOpenDialog(VboxQuestion.getScene().getWindow());
+        if (file == null) {
+            return;
+        }
+        Path path = Paths.get(file.getAbsolutePath());
+        allDeck.getCard(activeDeck, activeCard).addQuestionContentMultimedia(path.toString(),
+                getFileType(path.toString()));
         allDeck.triggerObserver();
     }
 
     public void addAnswerText() {
         buttonPressed = answerAddTextButton;
-        allDeck.getCard(activeDeck, activeCard).addAnswerContentText("");
+        allDeck.getCard(activeDeck, activeCard).addAnswerContentText("Texte");
         allDeck.triggerObserver();
     }
 
     public void addAnswerMedia() {
         buttonPressed = answerAddMediaButton;
-        allDeck.getCard(activeDeck, activeCard).addAnswerContentMultimedia("", "");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File file = fileChooser.showOpenDialog(VboxAnswer.getScene().getWindow());
+        if (file == null) {
+            return;
+        }
+        Path path = Paths.get(file.getAbsolutePath());
+        allDeck.getCard(activeDeck, activeCard).addAnswerContentMultimedia(path.toString(),
+                getFileType(path.toString()));
         allDeck.triggerObserver();
     }
 
@@ -112,30 +128,30 @@ public class EditCreationController implements Observer, Initializable {
             allDeck.getDeck(activeDeck).setDescription("Deck sans description");
         }
 
-        for (int index = 1; index < VboxQuestion.getChildren().size() - 1; index++) {
+        for (int index = 0; index < VboxQuestion.getChildren().size(); index++) {
             Node child = VboxQuestion.getChildren().get(index);
             if (child instanceof TextField) {
-                allDeck.getCard(activeDeck, activeCard).setQuestionContent(index - 1,
+                allDeck.getCard(activeDeck, activeCard).setQuestionContent(index,
                         ((TextField) child).getText());
             }
             if (child instanceof Label) {
-                allDeck.getCard(activeDeck, activeCard).setQuestionContent(index - 1,
+                allDeck.getCard(activeDeck, activeCard).setQuestionContent(index,
                         ((Label) child).getText());
-                allDeck.getCard(activeDeck, activeCard).setQuestionContentType(index - 1,
+                allDeck.getCard(activeDeck, activeCard).setQuestionContentType(index,
                         getFileType(((Label) child).getText()));
             }
         }
 
-        for (int index = 1; index < VboxAnswer.getChildren().size() - 1; index++) {
+        for (int index = 0; index < VboxAnswer.getChildren().size(); index++) {
             Node child = VboxAnswer.getChildren().get(index);
             if (child instanceof TextField) {
-                allDeck.getCard(activeDeck, activeCard).setAnswerContent(index - 1,
+                allDeck.getCard(activeDeck, activeCard).setAnswerContent(index,
                         ((TextField) child).getText());
             }
             if (child instanceof Label) {
-                allDeck.getCard(activeDeck, activeCard).setAnswerContent(index - 1,
+                allDeck.getCard(activeDeck, activeCard).setAnswerContent(index,
                         ((Label) child).getText());
-                allDeck.getCard(activeDeck, activeCard).setAnswerContentType(index - 1,
+                allDeck.getCard(activeDeck, activeCard).setAnswerContentType(index,
                         getFileType(((Label) child).getText()));
 
             }
@@ -169,57 +185,57 @@ public class EditCreationController implements Observer, Initializable {
             return "IMAGE";
         }
 
-        return "INCONNU";
+        return "TEXT";
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (allDeck.getDeck(0).getCards().isEmpty()) {
-            allDeck.getDeck(0).add(new Card());
+        if (allDeck.getDeck(activeDeck).getCards().isEmpty()) {
+            allDeck.getDeck(activeDeck).add(new Card());
         }
         allDeck.addObserver(this);
 
         name.setText(allDeck.getDeck(activeDeck).getName());
         description.setText(allDeck.getDeck(activeDeck).getDescription());
-        VboxQuestion.getChildren().remove(1);
+        VboxQuestion.getChildren().remove(0);
         for (int i = 0; i < allDeck.getCard(activeDeck, activeCard).getQuestion().size(); i++) {
             if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("TEXT")) {
-                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new TextField(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("IMAGE")) {
-                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("SON")) {
-                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("VIDEO")) {
-                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
 
             }
 
         }
-        VboxAnswer.getChildren().remove(1);
+        VboxAnswer.getChildren().remove(0);
         for (int j = 0; j < allDeck.getCard(activeDeck, activeCard).getAnswer().size(); j++) {
             if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("TEXT")) {
-                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new TextField(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
                     .equals("IMAGE")) {
-                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("SON")) {
-                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
                     .equals("VIDEO")) {
-                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
 
             }
@@ -246,44 +262,40 @@ public class EditCreationController implements Observer, Initializable {
 
     @Override
     public void react() {
-        for (int i = 1; i < VboxQuestion.getChildren().size() - 1; i++) {
-            VboxQuestion.getChildren().remove(i);
-        }
+        VboxQuestion.getChildren().clear();
         for (int i = 0; i < allDeck.getCard(activeDeck, activeCard).getQuestion().size(); i++) {
             if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("TEXT")) {
-                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new TextField(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("IMAGE")) {
-                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("SON")) {
-                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("VIDEO")) {
-                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
 
             }
 
         }
-        for (int i = 1; i < VboxAnswer.getChildren().size() - 1; i++) {
-            VboxAnswer.getChildren().remove(i);
-        }
+        VboxAnswer.getChildren().clear();
         for (int j = 0; j < allDeck.getCard(activeDeck, activeCard).getAnswer().size(); j++) {
             if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("TEXT")) {
-                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new TextField(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
                     .equals("IMAGE")) {
-                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("SON")) {
-                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
 
             } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
@@ -297,40 +309,6 @@ public class EditCreationController implements Observer, Initializable {
         if (buttonPressed != null) {
             buttonPressed.setStyle("-fx-background-color: lightgreen");
 
-            if (buttonPressed.equals(questionAddTextButton)) {
-                TextField questionText = new TextField();
-                questionText.setPromptText("Texte");
-                VBox questionTextVbox = VboxQuestion;
-                questionTextVbox.getChildren().add(questionTextVbox.getChildren().size() - 1, questionText);
-            } else if (buttonPressed.equals(questionAddMediaButton)) {
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Open Resource File");
-                File file = fileChooser.showOpenDialog(VboxQuestion.getScene().getWindow());
-                if (file == null) {
-                    return;
-                }
-                Path path = Paths.get(file.getAbsolutePath());
-                Label questionMedia = new Label(path.toString());
-                VBox questionMediaVbox = VboxQuestion;
-                questionMediaVbox.getChildren().add(questionMediaVbox.getChildren().size() - 1, questionMedia);
-            } else if (buttonPressed.equals(answerAddTextButton)) {
-                TextField answerText = new TextField();
-                answerText.setPromptText("Texte");
-                VBox answerTextVbox = VboxAnswer;
-                answerTextVbox.getChildren().add(answerTextVbox.getChildren().size() - 1, answerText);
-            } else if (buttonPressed.equals(answerAddMediaButton)) {
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Open Resource File");
-                File file = fileChooser.showOpenDialog(VboxAnswer.getScene().getWindow());
-                if (file == null) {
-                    return;
-                }
-                Path path = Paths.get(file.getAbsolutePath());
-                Label answerMedia = new Label(path.toString());
-                VBox answerMediaVbox = VboxAnswer;
-                answerMediaVbox.getChildren().add(answerMediaVbox.getChildren().size() - 1, answerMedia);
-            }
-            buttonPressed = null;
         }
         listCard.getChildren().clear();
         listCard.getChildren().add(addCardButton);

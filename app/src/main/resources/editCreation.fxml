@@ -93,10 +93,14 @@ THE USE
    <center>
       <HBox prefHeight="382.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="VboxQuestion" alignment="TOP_CENTER" prefHeight="341.0" prefWidth="227.0">
+            <VBox alignment="TOP_CENTER" prefHeight="341.0" prefWidth="227.0">
                <children>
                   <Label text="question" />
-                  <TextField />
+                  <VBox fx:id="VboxQuestion" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TextField />
+                     </children>
+                  </VBox>
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
                         <Button fx:id="questionAddTextButton" alignment="CENTER"
@@ -107,11 +111,16 @@ THE USE
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="VboxAnswer" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0"
-               prefHeight="341.0" prefWidth="227.0">
+            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0"
+               prefWidth="227.0">
                <children>
                   <Label text="réponse" />
-                  <TextField />
+                  <VBox fx:id="VboxAnswer" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+
+                        <TextField />
+                     </children>
+                  </VBox>
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
                      <children>
                         <Button fx:id="answerAddTextButton" alignment="CENTER"
@@ -129,8 +138,7 @@ THE USE
       <ScrollPane prefHeight="313.0" prefWidth="92.0" BorderPane.alignment="CENTER">
          <content>
             <VBox fx:id="listCard" prefHeight="337.0" prefWidth="100.0">
-               <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard"
-                  text="+" />
+               <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard" text="+" />
             </VBox>
          </content>
       </ScrollPane>
