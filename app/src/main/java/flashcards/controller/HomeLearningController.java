@@ -40,7 +40,7 @@ public class HomeLearningController implements Observer, Initializable {
     }
 
     public void switchToStats() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/stats.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/globalStats.fxml"));
         Parent root = fxmlLoader.load();
         Button bestCardButton = (Button) root.lookup("#bestCardButton");
         // bestCardButton.setText(allDeck.getBestCard().getQuestion().toString());
@@ -56,7 +56,7 @@ public class HomeLearningController implements Observer, Initializable {
         worstDeckLabel.setText("tmp test");
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Stats");
+        stage.setTitle("Global Stats");
         stage.setScene(new Scene(root));
         stage.show();
         bestCardButton.setOnAction(e -> {
