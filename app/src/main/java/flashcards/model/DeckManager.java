@@ -17,6 +17,7 @@ import com.google.gson.JsonSyntaxException;
 public class DeckManager extends Observable {
 
     private ArrayList<Deck> deckManager;
+    private Game game;
 
     public DeckManager() {
         this.deckManager = new ArrayList<Deck>();
@@ -85,6 +86,10 @@ public class DeckManager extends Observable {
      */
     public Deck getDeck(int index) {
         return deckManager.get(index);
+    }
+
+    public ArrayList<Deck> getDeckList() {
+        return this.deckManager;
     }
 
     /**
@@ -167,6 +172,15 @@ public class DeckManager extends Observable {
             }
         }
         return deckManager.get(worstDeckIndex);
+    }
+
+
+    public Game getGame() {
+        return this.game;
+    }
+
+    public void setDefaultGame(Deck activeDeck) {
+        this.game = new Game(5,"Génération aléatoire",activeDeck);
     }
 
     /**
