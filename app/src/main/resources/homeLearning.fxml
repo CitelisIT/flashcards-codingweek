@@ -80,6 +80,7 @@
    <top>
       <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
+            <Button mnemonicParsing="false" onAction="#switchToStats" text="Statistiques" />
           <Button mnemonicParsing="false" onAction="#switchToHomeCreation" text="Mode Création" />
         </buttons>
       </ButtonBar>
@@ -101,7 +102,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin></ChoiceBox>
             <Label layoutX="120.0" layoutY="172.0" text="Nombre de cartes (entre 1 et 200) :" />
-            <Spinner fx:id="nbCardSpinner" prefWidth="100" editable="true">
+            <Spinner fx:id="nbCardSpinner" editable="true" prefWidth="100">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
