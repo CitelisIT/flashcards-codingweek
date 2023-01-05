@@ -46,11 +46,11 @@
       <VBox alignment="CENTER" prefHeight="120.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Score : 0/0" />
-            <ProgressBar prefHeight="26.0" prefWidth="472.0" progress="0.0" />
+            <ProgressBar fx:id="timerProgressBar" prefHeight="26.0" prefWidth="472.0" progress="0.0" />
             <ButtonBar prefHeight="40.0" prefWidth="338.0">
               <buttons>
-                <Button mnemonicParsing="false" text="yes" />
-                  <Button layoutX="525.0" layoutY="15.0" mnemonicParsing="false" text="oh noes" />
+                <Button fx:id="goodAnswerButton" mnemonicParsing="false" onAction="#goodAnswer" text="yes" />
+                  <Button fx:id="badAnswerButton" layoutX="525.0" layoutY="15.0" onAction="#badAnswer" mnemonicParsing="false" text="oh noes" />
               </buttons>
             </ButtonBar>
          </children>
@@ -68,9 +68,9 @@
          <children>
             <HBox alignment="CENTER" prefHeight="37.0" prefWidth="600.0">
                <children>
-                  <Label text="Titre" />
+                  <Label fx:id="gameDeckTitle" text="Titre" />
                   <Region prefHeight="100.0" prefWidth="503.0" />
-                  <Label text="0/0" />
+                  <Label fx:id="gameStatus" text="0/0" />
                </children>
             </HBox>
             <ProgressBar prefHeight="8.0" prefWidth="601.0" progress="0.0" />
