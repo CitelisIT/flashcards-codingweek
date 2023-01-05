@@ -236,4 +236,18 @@ public class DeckManager extends Observable {
         this.deckManager = deckManager;
     }
 
+
+    public void updateGoodAnswer() {
+        this.game.getCurrentCard().incrRightCount();
+        this.game.getCurrentCard().incrApperenceCount();
+        this.game.incrGoodAnswer();
+        this.game.nextCard();
+        this.triggerObserver();
+    }
+
+    public void updateBadAnswer() {
+        this.game.getCurrentCard().incrApperenceCount();
+        this.game.nextCard();
+        this.triggerObserver();
+    }
 }

@@ -7,6 +7,7 @@ public class Game {
     private StrategieAlgorithm algoComputeSequence;
     private int nbCards;
     private int currentCardIndex = 0;
+    private int numberGoodAnswer = 0;
     private ArrayList<Card> sequenceCards = new ArrayList<Card>();
 
     public Game(int nbCards, String chosenAlgo, Deck deck) {
@@ -33,6 +34,10 @@ public class Game {
         }
     }
 
+    public void incrGoodAnswer() {
+        this.numberGoodAnswer++;
+    }
+
     public Card getCurrentCard() {
         return sequenceCards.get(currentCardIndex);
     }
@@ -47,5 +52,13 @@ public class Game {
 
     public ArrayList<Card> getSequenceCards() {
         return sequenceCards;
+    }
+
+    public int getNbGoodAnswer() {
+        return this.numberGoodAnswer;
+    }
+
+    public boolean endOfGame() {
+        return this.getCurrentCardIndex() == this.getSequenceCards().size();
     }
 }
