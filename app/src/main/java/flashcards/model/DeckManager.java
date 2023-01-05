@@ -33,6 +33,17 @@ public class DeckManager extends Observable {
     }
 
     /**
+     * Sorts the deck manager by name, and return the index of the parameter deck.
+     * 
+     * @param deck the deck to find the index of
+     * @return the index of the parameter deck
+     */
+    public int sortByName(Deck deck) {
+        deckManager.sort((Deck d1, Deck d2) -> d1.getName().compareTo(d2.getName()));
+        return deckManager.indexOf(deck);
+    }
+
+    /**
      * Exports a deck to a file specified by a path.
      *
      * @param deck the deck to be exported
@@ -238,7 +249,6 @@ public class DeckManager extends Observable {
     public void setDeckManager(ArrayList<Deck> deckManager) {
         this.deckManager = deckManager;
     }
-
 
     public void updateGoodAnswer() {
         this.game.getCurrentCard().incrRightCount();

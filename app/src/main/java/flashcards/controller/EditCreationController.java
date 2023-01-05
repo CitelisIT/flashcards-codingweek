@@ -166,6 +166,8 @@ public class EditCreationController implements Observer, Initializable {
     public void updateModel() {
         if (!name.getText().isEmpty()) {
             allDeck.getDeck(activeDeck).setName(name.getText());
+            activeDeck = allDeck.sortByName(allDeck.getDeck(activeDeck));
+
         } else {
             allDeck.getDeck(activeDeck).setName("Deck sans nom");
         }

@@ -124,6 +124,15 @@ public class HomeLearningController implements Observer, Initializable {
         stage.setTitle("Card");
         stage.setScene(new Scene(root));
         stage.show();
+        Button questionAnswerButton = (Button) root.lookup("#questionAnswerButton");
+        questionAnswerButton.setText(card.getQuestionContent(0).getData());
+        questionAnswerButton.setOnAction(e -> {
+            if (questionAnswerButton.getText().equals(card.getQuestionContent(0).getData())) {
+                questionAnswerButton.setText(card.getAnswerContent(0).getData());
+            } else {
+                questionAnswerButton.setText(card.getQuestionContent(0).getData());
+            }
+        });
         Button goBackButton = (Button) root.lookup("#goBackButton");
         goBackButton.setOnAction(e -> {
             stage.close();
