@@ -114,7 +114,9 @@ public class HomeCreationController implements Observer, Initializable {
         fileChooser.getExtensionFilters()
                 .addAll(new ExtensionFilter("JSON", "*.json"));
         File file = fileChooser.showSaveDialog(listDeck.getScene().getWindow());
-        allDeck.exportdeckManager(allDeck.getDeck(activeDeck), file.toPath());
+        if (file != null) {
+            allDeck.exportdeckManager(allDeck.getDeck(activeDeck), file.toPath());
+        }
     }
 
     /**
@@ -123,6 +125,8 @@ public class HomeCreationController implements Observer, Initializable {
      */
     public void deleteDeck() {
         allDeck.removeDeck(activeDeck);
+        activeDeck = 0;
+        buttonPressed = addButton;
         react();
     }
 
