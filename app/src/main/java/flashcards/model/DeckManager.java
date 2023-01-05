@@ -174,13 +174,16 @@ public class DeckManager extends Observable {
         return deckManager.get(worstDeckIndex);
     }
 
-
     public Game getGame() {
         return this.game;
     }
 
     public void setDefaultGame(Deck activeDeck) {
-        this.game = new Game(5,"Génération aléatoire",activeDeck);
+        this.game = new Game(5, "Génération aléatoire", activeDeck);
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     /**

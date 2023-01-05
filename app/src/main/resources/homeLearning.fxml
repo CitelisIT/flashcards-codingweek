@@ -47,13 +47,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.HomeLearningController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650" prefWidth="900" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.HomeLearningController">
    <center>
       <ScrollPane prefHeight="403.0" prefWidth="542.0" BorderPane.alignment="CENTER">
          <content>
-            <Accordion prefHeight="363.0" prefWidth="374.0">
+            <Accordion fx:id="accordion" prefHeight="606.0" prefWidth="646.0">
               <panes>
-                <TitledPane animated="false" prefHeight="402.0" prefWidth="410.0" text="lettre">
+                <TitledPane animated="false" prefHeight="363.0" prefWidth="722.0" text="lettre">
                      <content>
                         <GridPane prefHeight="352.0" prefWidth="577.0">
                           <columnConstraints>
@@ -86,13 +86,13 @@
       </ButtonBar>
    </top>
    <right>
-      <VBox alignment="CENTER" prefHeight="363.0" prefWidth="252.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="rightPannel" alignment="CENTER" prefHeight="363.0" prefWidth="252.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Titre">
+            <Label fx:id="title" text="Titre">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin></Label>
-            <Label layoutX="10.0" layoutY="10.0" text="Desc">
+            <Label fx:id="description" layoutX="10.0" layoutY="10.0" text="Desc">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin></Label>
@@ -107,7 +107,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Spinner>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Commencer" />
+            <Button fx:id="startButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGame" text="Commencer" />
          </children>
       </VBox>
    </right>
