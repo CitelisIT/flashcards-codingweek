@@ -7,7 +7,7 @@ public class Game {
     private StrategieAlgorithm algoComputeSequence;
     private int nbCards;
     private int currentCardIndex = 0;
-    private ArrayList<Card> sequenceCards;
+    private ArrayList<Card> sequenceCards = new ArrayList<Card>();
 
     public Game(int nbCards, String chosenAlgo, Deck deck) {
         this.nbCards = nbCards;
