@@ -9,7 +9,7 @@
   - Schémas des pages principales :heavy_check_mark:
 - Programmation 
   - Prototype de FXML pour les pages principales :heavy_check_mark:
-  - Mode création fonctionnel d'un point de vue très basique &rarr; reporté pour mercredi
+  - Mode création fonctionnel d'un point de vue très basique &rarr; ***reporté pour mercredi***
 
 ## Mercredi
 
@@ -22,14 +22,16 @@
 
 - Programmation
   - Les 2 modes doivent être fonctionnels à 100% pour les fonctionnalités obligatoires
-  - Tests
-  - *Nouveau* : Statistiques
+  - Tests :heavy_check_mark:
+  - *Nouveau* : Statistiques :heavy_check_mark:
 - Conception 
-  - **Dans tous les cas** : réflexion sur les options envisagées au début du projet
+  - **Dans tous les cas** : réflexion sur les options envisagées au début du projet 
+    - Médias :heavy_check_mark:
   - **Selon l'avancement** : réflexion sur les fonctionnalités supplémentaires
+    - Peu probable d'en rajouter sauf si le temps nous le permet demain
 - Design : 
-  - Réflexion sur le design de l'application
-  - Début d'implémentation du design
+  - Réflexion sur le design de l'application &rarr; ***reporté pour vendredi***
+  - Début d'implémentation du design &rarr; ***reporté pour vendredi***
 ## Vendredi
 
 - Programmation
