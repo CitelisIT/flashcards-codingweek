@@ -29,6 +29,10 @@ public class Card extends Observable {
         this.question.get(i).setData(data);
     }
 
+    public void setQuestionContentType(int i, String dataType) {
+        this.question.get(i).setDataType(dataType);
+    }
+
     public int getApperenceCount() {
         return apperenceCount;
     }
@@ -71,5 +75,10 @@ public class Card extends Observable {
 
     public ArrayList<Content> getAnswer() {
         return answer;
+    }
+
+    public void setAnswerContentType(int i, String dataType) {
+        this.answer.get(i).setDataType(dataType);
+
     }
 }

@@ -1,13 +1,15 @@
 package flashcards.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.checkerframework.checker.index.qual.IndexFor;
+import org.checkerframework.checker.units.qual.A;
 
 import flashcards.App;
 import flashcards.model.Card;
@@ -58,21 +60,25 @@ public class EditCreationController implements Observer, Initializable {
 
     public void addQuestionText() {
         buttonPressed = questionAddTextButton;
+        allDeck.getCard(activeDeck, activeCard).addQuestionContentText("");
         allDeck.triggerObserver();
     }
 
     public void addQuestionMedia() {
         buttonPressed = questionAddMediaButton;
+        allDeck.getCard(activeDeck, activeCard).addQuestionContentMultimedia("", "");
         allDeck.triggerObserver();
     }
 
     public void addAnswerText() {
         buttonPressed = answerAddTextButton;
+        allDeck.getCard(activeDeck, activeCard).addAnswerContentText("");
         allDeck.triggerObserver();
     }
 
     public void addAnswerMedia() {
         buttonPressed = answerAddMediaButton;
+        allDeck.getCard(activeDeck, activeCard).addAnswerContentMultimedia("", "");
         allDeck.triggerObserver();
     }
 
@@ -82,7 +88,13 @@ public class EditCreationController implements Observer, Initializable {
     }
 
     public void validate() throws IOException {
+        updateModel();
+        allDeck.triggerObserver();
+        switchToHomeCreation();
+        System.out.println(allDeck.getDeck(activeDeck).getName());
+    }
 
+    public void updateModel() {
         if (!name.getText().isEmpty()) {
             allDeck.getDeck(activeDeck).setName(name.getText());
             System.out.println(allDeck.getDeck(activeDeck).getName());
@@ -99,32 +111,62 @@ public class EditCreationController implements Observer, Initializable {
         for (int index = 1; index < VboxQuestion.getChildren().size() - 1; index++) {
             Node child = VboxQuestion.getChildren().get(index);
             if (child instanceof TextField) {
-                if (allDeck.getDeck(activeDeck).getCard(activeCard).getQuestion().size() > index - 1) {
-                    allDeck.getDeck(activeDeck).getCard(activeCard).setQuestionContent(index - 1,
-                            ((TextField) child).getText());
-                } else {
-                    allDeck.getDeck(activeDeck).getCard(activeCard)
-                            .addQuestionContentText(((TextField) child).getText());
-                }
+                allDeck.getCard(activeDeck, activeCard).setQuestionContent(index - 1,
+                        ((TextField) child).getText());
+            }
+            if (child instanceof Label) {
+                allDeck.getCard(activeDeck, activeCard).setQuestionContent(index - 1,
+                        ((Label) child).getText());
+                allDeck.getCard(activeDeck, activeCard).setQuestionContentType(index - 1,
+                        getFileType(((Label) child).getText()));
             }
         }
 
         for (int index = 1; index < VboxAnswer.getChildren().size() - 1; index++) {
             Node child = VboxAnswer.getChildren().get(index);
             if (child instanceof TextField) {
-                if (allDeck.getDeck(activeDeck).getCard(activeCard).getAnswer().size() > index - 1) {
-                    allDeck.getDeck(activeDeck).getCard(activeCard).setAnswerContent(index - 1,
-                            ((TextField) child).getText());
-                } else {
-                    allDeck.getDeck(activeDeck).getCard(activeCard)
-                            .addAnswerContentText(((TextField) child).getText());
-                }
+                System.out.println(((TextField) child).getText());
+                allDeck.getCard(activeDeck, activeCard).setAnswerContent(index - 1,
+                        ((TextField) child).getText());
+            }
+            if (child instanceof Label) {
+                allDeck.getCard(activeDeck, activeCard).setAnswerContent(index - 1,
+                        ((Label) child).getText());
+                allDeck.getCard(activeDeck, activeCard).setAnswerContentType(index - 1,
+                        getFileType(((Label) child).getText()));
+
             }
         }
+    }
 
-        allDeck.triggerObserver();
-        switchToHomeCreation();
-        System.out.println(allDeck.getDeck(activeDeck).getName());
+    public static String getFileType(String filePath) {
+        Path path = Paths.get(filePath);
+
+        // Vérifiez si le fichier est de type son en utilisant la méthode
+        // probeContentType de la classe Files
+        String contentType = null;
+        try {
+            contentType = Files.probeContentType(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (contentType != null && contentType.startsWith("audio")) {
+            return "SON";
+        }
+
+        // Vérifiez si le fichier est de type vidéo en utilisant la méthode
+        // probeContentType de la classe Files
+        if (contentType != null && contentType.startsWith("video")) {
+            return "VIDEO";
+        }
+
+        // Vérifiez si le fichier est de type image en utilisant la méthode
+        // probeContentType de la classe Files
+        if (contentType != null && contentType.startsWith("image")) {
+            return "IMAGE";
+        }
+
+        return "INCONNU";
     }
 
     @Override
@@ -136,6 +178,50 @@ public class EditCreationController implements Observer, Initializable {
 
         name.setText(allDeck.getDeck(activeDeck).getName());
         description.setText(allDeck.getDeck(activeDeck).getDescription());
+        VboxQuestion.getChildren().remove(1);
+        for (int i = 0; i < allDeck.getCard(activeDeck, activeCard).getQuestion().size(); i++) {
+            if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("TEXT")) {
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                        new TextField(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
+                System.out.println("TEXT:" + allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData());
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("IMAGE")) {
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("SON")) {
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("VIDEO")) {
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
+
+            }
+
+        }
+        VboxAnswer.getChildren().remove(1);
+        for (int j = 0; j < allDeck.getCard(activeDeck, activeCard).getAnswer().size(); j++) {
+            if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("TEXT")) {
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                        new TextField(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
+                    .equals("IMAGE")) {
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("SON")) {
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
+                    .equals("VIDEO")) {
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
+
+            }
+        }
     }
 
     @Override
@@ -177,7 +263,6 @@ public class EditCreationController implements Observer, Initializable {
                 answerMediaVbox.getChildren().add(answerMediaVbox.getChildren().size() - 1, answerMedia);
             }
             buttonPressed = null;
-
         }
     }
 }

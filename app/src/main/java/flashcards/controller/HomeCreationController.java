@@ -185,8 +185,10 @@ public class HomeCreationController implements Observer, Initializable {
                 Button deckij = new Button(allDeck.getDeck(k).getName());
                 deckij.setId(allDeck.getDeck(k).getName());
                 // If this button is the one that was previously pressed, highlight it
-                if (deckij.getId().equals(buttonPressed.getId())) {
-                    deckij.setStyle("-fx-background-color: lightgreen");
+                if (buttonPressed != null) {
+                    if (deckij.getId().equals(buttonPressed.getId())) {
+                        deckij.setStyle("-fx-background-color: lightgreen");
+                    }
                 }
                 // Set the action for when this button is pressed
                 int index = k;

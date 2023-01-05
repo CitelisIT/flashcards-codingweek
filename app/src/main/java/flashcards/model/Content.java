@@ -21,4 +21,8 @@ public class Content extends Observable {
         this.data = data;
     }
 
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
 }
