@@ -8,13 +8,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.checkerframework.checker.index.qual.IndexFor;
-import org.checkerframework.checker.units.qual.A;
-
 import flashcards.App;
 import flashcards.model.Card;
 import flashcards.model.DeckManager;
-import javafx.css.Size;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -47,6 +43,10 @@ public class EditCreationController implements Observer, Initializable {
     private TextField name = new TextField();
     @FXML
     private TextField description = new TextField();
+    @FXML
+    private VBox listCard;
+    @FXML
+    private Button addCardButton;
 
     public EditCreationController(DeckManager allDeck, int activeDeck) {
         this.allDeck = allDeck;
@@ -56,6 +56,13 @@ public class EditCreationController implements Observer, Initializable {
     public void switchToHomeCreation() throws IOException {
         allDeck.triggerObserver();
         App.setRoot("homeCreation", allDeck, 0);
+    }
+
+    public void addCard() {
+        allDeck.getDeck(activeDeck).add(new Card());
+        updateModel();
+        activeCard = allDeck.getDeck(activeDeck).getCards().size() - 1;
+        allDeck.triggerObserver();
     }
 
     public void addQuestionText() {
@@ -91,14 +98,11 @@ public class EditCreationController implements Observer, Initializable {
         updateModel();
         allDeck.triggerObserver();
         switchToHomeCreation();
-        System.out.println(allDeck.getDeck(activeDeck).getName());
     }
 
     public void updateModel() {
         if (!name.getText().isEmpty()) {
             allDeck.getDeck(activeDeck).setName(name.getText());
-            System.out.println(allDeck.getDeck(activeDeck).getName());
-            System.out.println(name.getText());
         } else {
             allDeck.getDeck(activeDeck).setName("Deck sans nom");
         }
@@ -125,7 +129,6 @@ public class EditCreationController implements Observer, Initializable {
         for (int index = 1; index < VboxAnswer.getChildren().size() - 1; index++) {
             Node child = VboxAnswer.getChildren().get(index);
             if (child instanceof TextField) {
-                System.out.println(((TextField) child).getText());
                 allDeck.getCard(activeDeck, activeCard).setAnswerContent(index - 1,
                         ((TextField) child).getText());
             }
@@ -183,7 +186,6 @@ public class EditCreationController implements Observer, Initializable {
             if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("TEXT")) {
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
                         new TextField(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
-                System.out.println("TEXT:" + allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData());
 
             } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("IMAGE")) {
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
@@ -222,10 +224,76 @@ public class EditCreationController implements Observer, Initializable {
 
             }
         }
+        listCard.getChildren().clear();
+        listCard.getChildren().add(addCardButton);
+        // Iterate through all decks in the deck manager
+        for (int k = 0; k < allDeck.getDeck(activeDeck).getCards().size(); k++) {
+            // If there is still space on the current row, add the deck button to it
+            Button cardj = new Button("carte n°" + k);
+            cardj.setId(Integer.toString(k));
+            // Set the action for when this button is pressed
+            int index = k;
+            cardj.setOnAction(event -> {
+                System.out.println(activeCard);
+                updateModel();
+                activeCard = index;
+                cardj.setStyle("-fx-background-color: lightgreen");
+                allDeck.triggerObserver();
+            });
+            listCard.getChildren().add(cardj);
+        }
     }
 
     @Override
     public void react() {
+        for (int i = 1; i < VboxQuestion.getChildren().size() - 1; i++) {
+            VboxQuestion.getChildren().remove(i);
+        }
+        for (int i = 0; i < allDeck.getCard(activeDeck, activeCard).getQuestion().size(); i++) {
+            if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("TEXT")) {
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                        new TextField(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("IMAGE")) {
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("SON")) {
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("VIDEO")) {
+                VboxQuestion.getChildren().add(VboxQuestion.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()));
+
+            }
+
+        }
+        for (int i = 1; i < VboxAnswer.getChildren().size() - 1; i++) {
+            VboxAnswer.getChildren().remove(i);
+        }
+        for (int j = 0; j < allDeck.getCard(activeDeck, activeCard).getAnswer().size(); j++) {
+            if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("TEXT")) {
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                        new TextField(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
+                    .equals("IMAGE")) {
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("SON")) {
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
+
+            } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
+                    .equals("VIDEO")) {
+                VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
+                        new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()));
+
+            }
+        }
+
         if (buttonPressed != null) {
             buttonPressed.setStyle("-fx-background-color: lightgreen");
 
@@ -264,5 +332,24 @@ public class EditCreationController implements Observer, Initializable {
             }
             buttonPressed = null;
         }
+        listCard.getChildren().clear();
+        listCard.getChildren().add(addCardButton);
+        // Iterate through all decks in the deck manager
+        for (int k = 0; k < allDeck.getDeck(activeDeck).getCards().size(); k++) {
+            // If there is still space on the current row, add the deck button to it
+            Button cardj = new Button("carte n°" + k);
+            cardj.setId(Integer.toString(k));
+            // Set the action for when this button is pressed
+            int index = k;
+            cardj.setOnAction(event -> {
+                updateModel();
+                activeCard = index;
+                cardj.setStyle("-fx-background-color: lightgreen");
+                allDeck.triggerObserver();
+            });
+            listCard.getChildren().add(cardj);
+
+        }
+
     }
 }
