@@ -23,6 +23,7 @@
 - Programmation
   - Les 2 modes doivent être fonctionnels à 100% pour les fonctionnalités obligatoires
   - Tests
+  - *Nouveau* : Statistiques
 - Conception 
   - **Dans tous les cas** : réflexion sur les options envisagées au début du projet
   - **Selon l'avancement** : réflexion sur les fonctionnalités supplémentaires
