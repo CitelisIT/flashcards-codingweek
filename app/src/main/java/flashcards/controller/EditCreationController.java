@@ -81,6 +81,9 @@ public class EditCreationController implements Observer, Initializable {
         if (!(allDeck.getDeck(activeDeck).getCards().size() == 1)) {
             allDeck.getDeck(activeDeck).remove(activeCard);
             activeCard--;
+            if (activeCard < 0) {
+                activeCard = 0;
+            }
         }
         react();
     }
