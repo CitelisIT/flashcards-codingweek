@@ -30,6 +30,10 @@ public class Deck extends Observable {
         this.description = description;
     }
 
+    public int getSize() {
+        return cards.size();
+    }
+
     public Card getCard(int i) {
         return cards.get(i);
     }
@@ -55,6 +59,16 @@ public class Deck extends Observable {
         } catch (ArithmeticException e) {
             return 0;
         }
+    }
+
+    public Card getBestCard() {
+        Card bestCard = cards.get(0);
+        for (Card card : cards) {
+            if (card.getScore() > bestCard.getScore()) {
+                bestCard = card;
+            }
+        }
+        return bestCard;
     }
 
     public ArrayList<Card> getCards() {

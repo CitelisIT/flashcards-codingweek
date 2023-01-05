@@ -98,6 +98,78 @@ public class DeckManager extends Observable {
     }
 
     /**
+     * Gets the best card of any deck in the deck manager.
+     * 
+     * @return the best card of any deck in the deck manager
+     */
+    public Card getBestCard() {
+        int bestCardIndex = 0;
+        float bestCardScore = 0;
+        for (int i = 0; i < deckManager.size(); i++) {
+            for (int j = 0; j < deckManager.get(i).getSize(); j++) {
+                if (deckManager.get(i).getCard(j).getScore() > bestCardScore) {
+                    bestCardIndex = j;
+                    bestCardScore = deckManager.get(i).getCard(j).getScore();
+                }
+            }
+        }
+        return deckManager.get(bestCardIndex).getCard(bestCardIndex);
+    }
+
+    /**
+     * Gets the worst card of any deck in the deck manager.
+     * 
+     * @return the worst card of any deck in the deck manager
+     */
+    public Card getWorstCard() {
+        int worstCardIndex = 0;
+        float worstCardScore = 1;
+        for (int i = 0; i < deckManager.size(); i++) {
+            for (int j = 0; j < deckManager.get(i).getSize(); j++) {
+                if (deckManager.get(i).getCard(j).getScore() < worstCardScore) {
+                    worstCardIndex = j;
+                    worstCardScore = deckManager.get(i).getCard(j).getScore();
+                }
+            }
+        }
+        return deckManager.get(worstCardIndex).getCard(worstCardIndex);
+    }
+
+    /**
+     * Gets the best deck in the deck manager.
+     * 
+     * @return the best deck in the deck manager
+     */
+    public Deck getBestDeck() {
+        int bestDeckIndex = 0;
+        float bestDeckScore = 0;
+        for (int i = 0; i < deckManager.size(); i++) {
+            if (deckManager.get(i).getScore() > bestDeckScore) {
+                bestDeckIndex = i;
+                bestDeckScore = deckManager.get(i).getScore();
+            }
+        }
+        return deckManager.get(bestDeckIndex);
+    }
+
+    /**
+     * Gets the worst deck in the deck manager.
+     * 
+     * @return the worst deck in the deck manager
+     */
+    public Deck getWorstDeck() {
+        int worstDeckIndex = 0;
+        float worstDeckScore = 1;
+        for (int i = 0; i < deckManager.size(); i++) {
+            if (deckManager.get(i).getScore() < worstDeckScore) {
+                worstDeckIndex = i;
+                worstDeckScore = deckManager.get(i).getScore();
+            }
+        }
+        return deckManager.get(worstDeckIndex);
+    }
+
+    /**
      * Removes a deck at a specified index in the deck manager.
      *
      * @param index the index of the deck to remove
