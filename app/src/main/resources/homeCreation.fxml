@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -78,7 +79,10 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#selectNewOrImport" prefHeight="100.0" prefWidth="94.0" text="+" />
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#selectNewOrImport" prefHeight="100.0" prefWidth="130.0" text="+">
+                           <HBox.margin>
+                              <Insets left="10.0" top="10.0" />
+                           </HBox.margin></Button>
                      </children>
                   </HBox>
                </children>
