@@ -21,12 +21,13 @@
 ## Jeudi
 
 - Programmation
-  - Les 2 modes doivent être fonctionnels à 100% pour les fonctionnalités obligatoires
+  - Les 2 modes doivent être fonctionnels à 100% pour les fonctionnalités obligatoires :heavy_check_mark:
   - Tests :heavy_check_mark:
   - *Nouveau* : Statistiques :heavy_check_mark:
 - Conception 
   - **Dans tous les cas** : réflexion sur les options envisagées au début du projet 
-    - Médias :heavy_check_mark:
+    - Médias 
+      -  la réflexion a été faite mais il reste à implémenter les fonctionnalités
   - **Selon l'avancement** : réflexion sur les fonctionnalités supplémentaires
     - Peu probable d'en rajouter sauf si le temps nous le permet demain
 - Design : 
@@ -36,9 +37,11 @@
 
 - Programmation
   - Finalisation
+    - Gestion des médias
+    - Eventuels bonus ? 
   - Tests finaux
 - Design 
-  - Finalisation du design
+  - Implémentation du design
 - Chores
   - README + documentation
   - Vidéo de démonstration
