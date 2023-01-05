@@ -99,7 +99,7 @@ public class HomeCreationController implements Observer, Initializable {
         if (file != null) {
             allDeck.addDeck(allDeck.importdeckManager(file.getPath()));
         }
-        allDeck.triggerObserver();
+        react();
     }
 
     /**
@@ -256,7 +256,7 @@ public class HomeCreationController implements Observer, Initializable {
         currentName = allDeck.getDeck(i).getName();
         currentDesc = allDeck.getDeck(i).getDescription();
         activeDeck = i;
-        allDeck.triggerObserver();
+        react();
     }
 
     /**

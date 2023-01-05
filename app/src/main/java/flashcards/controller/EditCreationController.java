@@ -54,7 +54,8 @@ public class EditCreationController implements Observer, Initializable {
     }
 
     public void switchToHomeCreation() throws IOException {
-        allDeck.triggerObserver();
+        activeCard = 0;
+        react();
         App.setRoot("homeCreation", allDeck, 0);
     }
 
@@ -62,13 +63,13 @@ public class EditCreationController implements Observer, Initializable {
         allDeck.getDeck(activeDeck).add(new Card());
         updateModel();
         activeCard = allDeck.getDeck(activeDeck).getCards().size() - 1;
-        allDeck.triggerObserver();
+        react();
     }
 
     public void addQuestionText() {
         buttonPressed = questionAddTextButton;
         allDeck.getCard(activeDeck, activeCard).addQuestionContentText("Texte");
-        allDeck.triggerObserver();
+        react();
     }
 
     public void addQuestionMedia() {
@@ -82,13 +83,13 @@ public class EditCreationController implements Observer, Initializable {
         Path path = Paths.get(file.getAbsolutePath());
         allDeck.getCard(activeDeck, activeCard).addQuestionContentMultimedia(path.toString(),
                 getFileType(path.toString()));
-        allDeck.triggerObserver();
+        react();
     }
 
     public void addAnswerText() {
         buttonPressed = answerAddTextButton;
         allDeck.getCard(activeDeck, activeCard).addAnswerContentText("Texte");
-        allDeck.triggerObserver();
+        react();
     }
 
     public void addAnswerMedia() {
@@ -102,17 +103,17 @@ public class EditCreationController implements Observer, Initializable {
         Path path = Paths.get(file.getAbsolutePath());
         allDeck.getCard(activeDeck, activeCard).addAnswerContentMultimedia(path.toString(),
                 getFileType(path.toString()));
-        allDeck.triggerObserver();
+        react();
     }
 
     public void validationClick() {
         buttonPressed = validationButton;
-        allDeck.triggerObserver();
+        react();
     }
 
     public void validate() throws IOException {
         updateModel();
-        allDeck.triggerObserver();
+        react();
         switchToHomeCreation();
     }
 
@@ -254,7 +255,7 @@ public class EditCreationController implements Observer, Initializable {
                 updateModel();
                 activeCard = index;
                 cardj.setStyle("-fx-background-color: lightgreen");
-                allDeck.triggerObserver();
+                react();
             });
             listCard.getChildren().add(cardj);
         }
@@ -323,7 +324,7 @@ public class EditCreationController implements Observer, Initializable {
                 updateModel();
                 activeCard = index;
                 cardj.setStyle("-fx-background-color: lightgreen");
-                allDeck.triggerObserver();
+                react();
             });
             listCard.getChildren().add(cardj);
 
