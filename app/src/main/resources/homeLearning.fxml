@@ -41,6 +41,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -114,6 +115,8 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Spinner>
+            <Label text="Temps par carte" />
+            <Slider fx:id="timerSlider" blockIncrement="0.0" majorTickUnit="15.0" max="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minorTickCount="2" prefHeight="29.0" prefWidth="168.0" showTickLabels="true" showTickMarks="true" value="15.0" snapToTicks="true"/>
             <Button fx:id="startButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGame" text="Commencer" />
          </children>
       </VBox>
