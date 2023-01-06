@@ -182,8 +182,7 @@ public class GameLearningController implements Observer, Initializable {
     @Override
     public void react() {
         this.cardProgressBar.setMaxWidth(Double.MAX_VALUE);
-        this.cardProgressBar.setProgress((double) this.flashcardManager.getGame().getCurrentCardIndex()
-                / this.flashcardManager.getGame().getSequenceCards().size());
+        this.cardProgressBar.setProgress((double) this.flashcardManager.getGame().getCurrentCardIndex() / this.flashcardManager.getGame().getSequenceCards().size());
         this.gameDeckTitle.setText(this.flashcardManager.getGame().getDeck().getName());
         int currentQuestion = this.flashcardManager.getGame().getCurrentCardIndex() + 1;
         int nbQuestions = this.flashcardManager.getGame().getSequenceCards().size();
@@ -196,11 +195,11 @@ public class GameLearningController implements Observer, Initializable {
 
         if (flashcardManager.getGame().endOfGame()) {
             this.gameStatus.setText(nbQuestions + "/" + nbQuestions);
-            displayedVBox.getChildren().clear();
-            Label fin = new Label("Fin de la Partie\n Merci d'avoir joué");
-            fin.setTextAlignment(TextAlignment.CENTER);
+            this.displayedVBox.getChildren().clear();
+            Label end = new Label("Fin de la Partie\nMerci d'avoir joué");
+            end.setTextAlignment(TextAlignment.CENTER);
 
-            this.displayedVBox.getChildren().add(fin);
+            this.displayedVBox.getChildren().add(end);
             this.goBackButton.setVisible(true);
         } else {
             try {
