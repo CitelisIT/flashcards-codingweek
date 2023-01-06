@@ -110,12 +110,13 @@ public class GameLearningController implements Observer, Initializable {
                 try {
                     InputStream stream = new FileInputStream(answer.getData());
                     ImageView answerImageView = new ImageView(new Image(stream));
+                    answerImageView.setPreserveRatio(true);
+                    answerImageView.setFitHeight(300);
                     this.displayedVBox.getChildren().add(answerImageView);
                 } catch (FileNotFoundException e) {
                     Label errorLabel = new Label(
                             "Ce fichier est inaccessible essaye de modifier la carte pour ajouter une image accessible");
                     this.displayedVBox.getChildren().add(errorLabel);
-                    System.out.println("biiiiiiiite");
                 }
             } else {
                 try {
@@ -160,6 +161,8 @@ public class GameLearningController implements Observer, Initializable {
                 try {
                     FileInputStream stream = new FileInputStream(question.getData());
                     ImageView questionImageView = new ImageView(new Image(stream));
+                    questionImageView.setPreserveRatio(true);
+                    questionImageView.setFitHeight(300);
                     this.displayedVBox.getChildren().add(questionImageView);
                 } catch (FileNotFoundException e) {
                     Label errorLabel = new Label(
