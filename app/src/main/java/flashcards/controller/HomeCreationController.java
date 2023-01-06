@@ -197,6 +197,7 @@ public class HomeCreationController implements Observer, Initializable {
         stage.setTitle("Carte");
         stage.setScene(new Scene(root));
         stage.show();
+        root.requestFocus();
 
         Button questionAnswerButton = (Button) root.lookup("#questionAnswerButton");
         questionAnswerButton.setText(card.getQuestionContent(0).getData());
