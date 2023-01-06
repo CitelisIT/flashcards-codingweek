@@ -62,6 +62,8 @@ public class HomeLearningController implements Observer, Initializable {
     private Label nbCardLabel;
     @FXML
     private Button startButton;
+    @FXML
+    private Label timerLabel;
 
     public HomeLearningController(FlashcardManager flashcardManager) {
         this.flashcardManager = flashcardManager;
@@ -231,6 +233,10 @@ public class HomeLearningController implements Observer, Initializable {
         this.rightPannel.getChildren().add(this.strategyChoiceBox);
         this.rightPannel.getChildren().add(this.nbCardLabel);
         this.rightPannel.getChildren().add(this.nbCardSpinner);
+        this.timerSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.timerLabel.setText("Temps par carte : " + (int) timerSlider.getValue());
+        });
+        this.rightPannel.getChildren().add(this.timerLabel);
         this.rightPannel.getChildren().add(this.timerSlider);
         this.rightPannel.getChildren().add(this.startButton);
     }

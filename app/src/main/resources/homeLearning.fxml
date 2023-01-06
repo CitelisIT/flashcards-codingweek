@@ -105,8 +105,8 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Spinner>
-            <Label text="Temps par carte" />
-            <Slider fx:id="timerSlider" blockIncrement="0.0" majorTickUnit="15.0" max="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minorTickCount="2" prefHeight="29.0" prefWidth="168.0" showTickLabels="true" showTickMarks="true" value="15.0" snapToTicks="true"/>
+            <Label fx:id="timerLabel" text="Temps par carte" />
+            <Slider fx:id="timerSlider" blockIncrement="0.0" majorTickUnit="9.0" max="30.0" maxHeight="-Infinity" maxWidth="-Infinity" min="3.0" minorTickCount="2" prefHeight="29.0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
             <Button fx:id="startButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGame" text="Commencer" />
          </children>
       </VBox>
