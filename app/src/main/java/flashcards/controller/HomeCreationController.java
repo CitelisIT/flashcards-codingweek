@@ -48,12 +48,16 @@ public class HomeCreationController implements Observer, Initializable {
     private Button exportDeck = new Button("Exporter");
     private Button statistics = new Button("Statistiques");
 
-    @FXML private ButtonBar buttonBar;
-    @FXML private Button addButton;
-    @FXML private VBox listDeck;
-    @FXML private Label displayedDescription;
-    @FXML private Label displayedName;
-
+    @FXML
+    private ButtonBar buttonBar;
+    @FXML
+    private Button addButton;
+    @FXML
+    private VBox listDeck;
+    @FXML
+    private Label displayedDescription;
+    @FXML
+    private Label displayedName;
 
     public HomeCreationController(FlashcardManager flashcardManager) {
         this.flashcardManager = flashcardManager;
@@ -129,8 +133,7 @@ public class HomeCreationController implements Observer, Initializable {
     public void deleteDeckeck() {
         this.flashcardManager.removeDeck(this.activeDeck);
         this.activeDeck = 0;
-        this.buttonPressed = this.addButton;
-        react();
+        selectNewOrImport();
     }
 
     /**
@@ -153,7 +156,7 @@ public class HomeCreationController implements Observer, Initializable {
                 e1.printStackTrace();
             }
         });
-        
+
         Button worstCardButton = (Button) root.lookup("#worstCardButton");
         worstCardButton.setText(flashcardManager.getDeck(activeDeck).getWorstCard().getQuestionContent(0).getData());
         worstCardButton.setOnAction(e -> {
@@ -163,13 +166,13 @@ public class HomeCreationController implements Observer, Initializable {
                 e1.printStackTrace();
             }
         });
-        
+
         PieChart pieChart = (PieChart) root.lookup("#deckPieChart");
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Bonnes réponses", flashcardManager.getDeck(activeDeck).getRightAnswers()),
                 new PieChart.Data("Mauvaises réponses", flashcardManager.getDeck(activeDeck).getWrongAnswers()));
         pieChart.setData(pieChartData);
-        
+
         Stage stage = new Stage();
         stage.initModality(Modality.NONE);
         stage.setTitle("Statistiques de la pile");
@@ -355,7 +358,8 @@ public class HomeCreationController implements Observer, Initializable {
         this.flashcardManager.addObserver(this);
         // Set the style of the buttonBar object to "null".
         this.buttonBar.setStyle("null");
-        // Set up action event handlers for the newDeck, importDeck, editDeck, deleteDeck,
+        // Set up action event handlers for the newDeck, importDeck, editDeck,
+        // deleteDeck,
         // exportD and stats objects.
         this.newDeck.setOnAction(event -> {
             try {
