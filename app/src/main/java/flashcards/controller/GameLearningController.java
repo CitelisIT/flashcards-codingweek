@@ -76,6 +76,7 @@ public class GameLearningController implements Observer, Initializable {
     }
 
     public void timerPlay() {
+        this.timerProgressBar.setProgress(0);
         this.timer = 0;
         this.maxTimer = this.flashcardManager.getGame().getTimer();
         this.timerProgressBar.setMaxWidth(Double.MAX_VALUE);
