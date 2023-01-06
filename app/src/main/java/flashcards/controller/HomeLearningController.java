@@ -124,7 +124,9 @@ public class HomeLearningController implements Observer, Initializable {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Statistiques sur l'ensemble des piles");
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("/bootstrap3.css").toExternalForm());
         stage.show();
     }
 
@@ -134,11 +136,15 @@ public class HomeLearningController implements Observer, Initializable {
         Stage stage = new Stage();
         stage.initModality(Modality.NONE);
         stage.setTitle("Card");
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("/bootstrap3.css").toExternalForm());
         stage.show();
+        root.requestFocus();
 
         Button questionAnswerButton = (Button) root.lookup("#questionAnswerButton");
         questionAnswerButton.setText(card.getQuestionContent(0).getData());
+        questionAnswerButton.setStyle("-fx-pref-width: 490px; -fx-pref-height: 338px;");
         questionAnswerButton.setOnAction(e -> {
             if (questionAnswerButton.getText().equals(card.getQuestionContent(0).getData())) {
                 questionAnswerButton.setText(card.getAnswerContent(0).getData());

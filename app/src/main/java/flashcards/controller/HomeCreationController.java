@@ -178,7 +178,9 @@ public class HomeCreationController implements Observer, Initializable {
         Stage stage = new Stage();
         stage.initModality(Modality.NONE);
         stage.setTitle("Statistiques de la pile");
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/bootstrap3.css").toExternalForm());
+        stage.setScene(scene);
         stage.show();
     }
 
@@ -195,10 +197,14 @@ public class HomeCreationController implements Observer, Initializable {
         Stage stage = new Stage();
         stage.initModality(Modality.NONE);
         stage.setTitle("Carte");
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/bootstrap3.css").toExternalForm());
+        stage.setScene(scene);
         stage.show();
+        root.requestFocus();
 
         Button questionAnswerButton = (Button) root.lookup("#questionAnswerButton");
+        questionAnswerButton.setStyle("-fx-pref-width: 490px; -fx-pref-height: 338px;");
         questionAnswerButton.setText(card.getQuestionContent(0).getData());
         questionAnswerButton.setOnAction(e -> {
             if (questionAnswerButton.getText().equals(card.getQuestionContent(0).getData())) {

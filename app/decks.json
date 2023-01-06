@@ -197,14 +197,116 @@
     "observers": []
   },
   {
-    "name": "KJNY",
-    "description": "Décrivez votre pile",
+    "name": "History Trivia",
+    "description": "A collection of history questions and answers",
     "cards": [
       {
         "question": [
           {
             "dataType": "TEXT",
-            "data": "who is it?",
+            "data": "What was the name of the first president of the United States?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "George Washington was the first president of the United States.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "What was the cause of the American Revolutionary War?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "The American Revolutionary War was caused by the colonies\u0027 desire for independence from British rule and the imposition of taxes without representation.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "Who was the leader of the Soviet Union during World War II?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "Joseph Stalin was the leader of the Soviet Union during World War II.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "Who was the leader of Germany during World War II?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "Adolf Hitler was the leader of Germany during World War II.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "What was the cause of the Great Depression?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "The Great Depression was caused by a combination of economic and financial factors, including overproduction, lack of diversification in the stock market, and reduced purchasing power.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      }
+    ],
+    "observers": []
+  },
+  {
+    "name": "KJNY",
+    "description": "Des questions sur l\u0027anime l\u0027Eminence des ombres",
+    "cards": [
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "Qui est-ce?",
             "observers": []
           },
           {
@@ -216,7 +318,12 @@
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "the best chuunibyou",
+            "data": "C\u0027est Shadow, le leader du jardin des ombre.",
+            "observers": []
+          },
+          {
+            "dataType": "TEXT",
+            "data": "(Il a un syndrome que les japonnais appellent chuunibyou)",
             "observers": []
           }
         ],
@@ -228,21 +335,21 @@
     "observers": []
   },
   {
-    "name": "Nouvelle pile2",
-    "description": "Décrivez votre pile",
+    "name": "Lovecraftian Gods Trivia",
+    "description": "A collection of trivia about the gods in H.P. Lovecraft\u0027s stories",
     "cards": [
       {
         "question": [
           {
             "dataType": "TEXT",
-            "data": "Question",
+            "data": "What is the name of the Great Old One who is often depicted as a dragon-like creature with tentacles on its face?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "Answer",
+            "data": "The Great Old One often depicted as a dragon-like creature with tentacles on its face is called Cthulhu.",
             "observers": []
           }
         ],
@@ -254,14 +361,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "Question",
+            "data": "What is the name of the Great Old One who is often depicted as a giant humanoid with tentacles on its face?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "Answer",
+            "data": "The Great Old One often depicted as a giant humanoid with tentacles on its face is called Dagon.",
             "observers": []
           }
         ],
@@ -273,14 +380,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "Question",
+            "data": "What is the name of the Great Old One who is often depicted as a giant humanoid with a head resembling a octopus or squid?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "Answer",
+            "data": "The Great Old One often depicted as a giant humanoid with a head resembling a octopus or squid is called Hastur.",
             "observers": []
           }
         ],
@@ -292,14 +399,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "Question",
+            "data": "What is the name of the Great Old One who is often depicted as a giant humanoid with a head resembling a deer?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "Answer",
+            "data": "The Great Old One often depicted as a giant humanoid with a head resembling a deer is called Cervine.",
             "observers": []
           }
         ],
@@ -311,73 +418,97 @@
     "observers": []
   },
   {
-    "name": "Nouvelle pile3",
-    "description": "Décrivez votre pile",
+    "name": "Math Trivia",
+    "description": "A collection of math questions and answers",
     "cards": [
       {
         "question": [
           {
             "dataType": "TEXT",
-            "data": "Question",
+            "data": "What is the value of the expression 2 + 3?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "Answer",
+            "data": "The value of the expression 2 + 3 is 5.",
             "observers": []
           }
         ],
         "apperenceCount": 0,
         "rightCount": 0,
         "observers": []
-      }
-    ],
-    "observers": []
-  },
-  {
-    "name": "Nouvelle pile4",
-    "description": "Décrivez votre pile",
-    "cards": [
+      },
       {
         "question": [
           {
             "dataType": "TEXT",
-            "data": "Question",
+            "data": "What is the value of the expression (5 - 3) * 4?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "Answer",
+            "data": "The value of the expression (5 - 3) * 4 is 8.",
             "observers": []
           }
         ],
         "apperenceCount": 0,
         "rightCount": 0,
         "observers": []
-      }
-    ],
-    "observers": []
-  },
-  {
-    "name": "Nouvelle pile5",
-    "description": "Décrivez votre pile",
-    "cards": [
+      },
       {
         "question": [
           {
             "dataType": "TEXT",
-            "data": "Question",
+            "data": "What is the value of the expression 8 / 2?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "Answer",
+            "data": "The value of the expression 8 / 2 is 4.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "What is the value of the expression 5^2?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "The value of the expression 5^2 is 25.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "What is the value of the expression sqrt(49)?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "The value of the expression sqrt(49) is 7.",
             "observers": []
           }
         ],
@@ -390,7 +521,7 @@
   },
   {
     "name": "Trivia1",
-    "description": "Décrivez votre pile",
+    "description": "Des questions sur de la culture G",
     "cards": [
       {
         "question": [
@@ -492,7 +623,7 @@
   },
   {
     "name": "Trivia2",
-    "description": "Décrivez votre pile",
+    "description": "Drole",
     "cards": [
       {
         "question": [
@@ -506,6 +637,108 @@
           {
             "dataType": "TEXT",
             "data": "La mer Noire",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      }
+    ],
+    "observers": []
+  },
+  {
+    "name": "Warhammer 40k Trivia",
+    "description": "A collection of trivia about the Warhammer 40k universe",
+    "cards": [
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "What is the name of the faction that worships the Emperor of Mankind as a god?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "The faction that worships the Emperor of Mankind as a god is called the Imperium of Man.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "What is the name of the faction that is made up of genetically engineered super soldiers?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "The faction that is made up of genetically engineered super soldiers is called the Space Marines.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "What is the name of the faction that is made up of technologically advanced, humanoid robots?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "The faction that is made up of technologically advanced, humanoid robots is called the Adeptus Mechanicus.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "What is the name of the faction that is made up of chaotic, mutated humanoids?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "The faction that is made up of chaotic, mutated humanoids is called the Chaos Space Marines.",
+            "observers": []
+          }
+        ],
+        "apperenceCount": 0,
+        "rightCount": 0,
+        "observers": []
+      },
+      {
+        "question": [
+          {
+            "dataType": "TEXT",
+            "data": "What is the name of the faction that is made up of eldar, a highly advanced alien race?",
+            "observers": []
+          }
+        ],
+        "answer": [
+          {
+            "dataType": "TEXT",
+            "data": "The faction that is made up of eldar are aither the drukarii",
             "observers": []
           }
         ],
