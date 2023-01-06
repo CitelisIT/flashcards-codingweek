@@ -10,7 +10,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="347.0" prefWidth="498.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="questionAnswerButton" mnemonicParsing="false" prefHeight="338.0" prefWidth="490.0" style="-fx-border-radius: 8; -fx-border-color: blue;" text="Question" />
+            <Button fx:id="questionAnswerButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="338.0" prefWidth="490.0" style="-fx-border-radius: 8; -fx-border-color: blue;" text="Question" />
          </children>
       </VBox>
    </center>
