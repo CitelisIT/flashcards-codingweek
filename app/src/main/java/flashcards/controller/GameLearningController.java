@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import flashcards.App;
@@ -84,11 +85,9 @@ public class GameLearningController implements Observer, Initializable {
                     if (this.timer == this.maxTimer) {
                         this.goodAnswerButton.setVisible(true);
                         this.badAnswerButton.setVisible(true);
-                        try {
-                            showAnswer();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
+
+                        showAnswer();
+
                         this.timeline.stop();
                     }
                 }));
@@ -96,7 +95,7 @@ public class GameLearningController implements Observer, Initializable {
         this.timeline.play();
     }
 
-    public void showAnswer() throws FileNotFoundException {
+    public void showAnswer() {
         Card displayedCard = this.flashcardManager.getGame().getCurrentCard();
         for (int index = 0; index < displayedCard.getAnswer().size(); index++) {
             Content answer = displayedCard.getAnswerContent(index);
@@ -107,30 +106,44 @@ public class GameLearningController implements Observer, Initializable {
                 answerText.wrappingWidthProperty().set(430);
                 this.displayedVBox.getChildren().add(answerText);
             } else if (answer.getDataType().equals("IMAGE")) {
-                InputStream stream = new FileInputStream(answer.getData());
-                ImageView answerImageView = new ImageView(new Image(stream));
-                this.displayedVBox.getChildren().add(answerImageView);
-            } else {
-                Media answerMedia = new Media("file:" + answer.getData());
-                MediaPlayer mediaPlayer = new MediaPlayer(answerMedia);
-                mediaPlayer.setAutoPlay(true);
-                MediaView mediaView = new MediaView(mediaPlayer);
-                if (answer.getDataType().equals("SON")) {
-                    InputStream stream = getClass().getClassLoader().getResourceAsStream("sound.png");
+                try {
+                    InputStream stream = new FileInputStream(answer.getData());
                     ImageView answerImageView = new ImageView(new Image(stream));
-                    answerImageView.setFitWidth(50);
-                    answerImageView.setFitHeight(50);
                     this.displayedVBox.getChildren().add(answerImageView);
-                } else {
-                    mediaView.preserveRatioProperty();
-                    mediaView.setFitHeight(300);
+                } catch (FileNotFoundException e) {
+                    Label errorLabel = new Label(
+                            "Ce fichier est inaccessible essaye de modifier la carte pour ajouter une image accessible");
+                    this.displayedVBox.getChildren().add(errorLabel);
+                    System.out.println("biiiiiiiite");
                 }
-                this.displayedVBox.getChildren().addAll(mediaView);
+            } else {
+                try {
+                    Media answerMedia = new Media("file:" + answer.getData());
+                    MediaPlayer mediaPlayer = new MediaPlayer(answerMedia);
+                    mediaPlayer.setAutoPlay(true);
+                    MediaView mediaView = new MediaView(mediaPlayer);
+                    if (answer.getDataType().equals("SON")) {
+                        InputStream stream = getClass().getClassLoader().getResourceAsStream("sound.png");
+                        ImageView answerImageView = new ImageView(new Image(stream));
+                        answerImageView.setFitWidth(50);
+                        answerImageView.setFitHeight(50);
+                        this.displayedVBox.getChildren().add(answerImageView);
+                    } else {
+                        mediaView.preserveRatioProperty();
+                        mediaView.setFitHeight(300);
+                    }
+                    this.displayedVBox.getChildren().addAll(mediaView);
+                } catch (MediaException e) {
+                    Label errorLabel = new Label(
+                            "Ce fichier est inaccessible essaye de modifier la carte pour ajouter une image accessible");
+                    this.displayedVBox.getChildren().add(errorLabel);
+                    e.printStackTrace();
+                }
             }
         }
     }
 
-    public void showQuestion() throws FileNotFoundException {
+    public void showQuestion() {
         boolean timerLaunched = false;
         this.displayedVBox.getChildren().clear();
         this.goBackButton.setVisible(false);
@@ -143,29 +156,44 @@ public class GameLearningController implements Observer, Initializable {
                 questionText.wrappingWidthProperty().set(430);
                 this.displayedVBox.getChildren().add(questionText);
             } else if (question.getDataType().equals("IMAGE")) {
-                InputStream stream = new FileInputStream(question.getData());
-                ImageView questionImageView = new ImageView(new Image(stream));
-                this.displayedVBox.getChildren().add(questionImageView);
-            } else {
-                Media questionMedia = new Media("file:" + question.getData());
-                MediaPlayer mediaPlayer = new MediaPlayer(questionMedia);
-                mediaPlayer.setAutoPlay(true);
-                MediaView mediaView = new MediaView(mediaPlayer);
-                if (question.getDataType().equals("SON")) {
-                    InputStream stream = getClass().getClassLoader().getResourceAsStream("sound.png");
+                try {
+                    FileInputStream stream = new FileInputStream(question.getData());
                     ImageView questionImageView = new ImageView(new Image(stream));
-                    questionImageView.setFitWidth(50);
-                    questionImageView.setFitHeight(50);
                     this.displayedVBox.getChildren().add(questionImageView);
-                } else {
-                    mediaView.preserveRatioProperty();
-                    mediaView.setFitHeight(300);
+                } catch (FileNotFoundException e) {
+                    Label errorLabel = new Label(
+                            "Ce fichier est inaccessible essaye de modifier la carte pour ajouter une image accessible");
+                    this.displayedVBox.getChildren().add(errorLabel);
                 }
-                mediaPlayer.setOnEndOfMedia(() -> {
-                    timerPlay();
-                });
-                timerLaunched = true;
-                this.displayedVBox.getChildren().addAll(mediaView);
+            } else {
+                try {
+                    Media questionMedia = new Media("file:" + question.getData());
+                    MediaPlayer mediaPlayer = new MediaPlayer(questionMedia);
+                    mediaPlayer.setAutoPlay(true);
+                    MediaView mediaView = new MediaView(mediaPlayer);
+                    if (question.getDataType().equals("SON")) {
+                        InputStream stream = getClass().getClassLoader().getResourceAsStream("sound.png");
+                        ImageView questionImageView = new ImageView(new Image(stream));
+                        questionImageView.setFitWidth(50);
+                        questionImageView.setFitHeight(50);
+                        this.displayedVBox.getChildren().add(questionImageView);
+                    } else {
+                        mediaView.preserveRatioProperty();
+                        mediaView.setFitHeight(300);
+                    }
+                    mediaPlayer.setOnEndOfMedia(() -> {
+                        timerPlay();
+                    });
+                    timerLaunched = true;
+                    this.displayedVBox.getChildren().addAll(mediaView);
+
+                } catch (MediaException e) {
+                    Label errorLabel = new Label(
+                            "Ce fichier est inaccessible essaye de modifier la carte pour ajouter une image accessible");
+                    this.displayedVBox.getChildren().add(errorLabel);
+                    e.printStackTrace();
+                }
+
             }
         }
         if (!timerLaunched) {
@@ -209,11 +237,7 @@ public class GameLearningController implements Observer, Initializable {
             this.displayedVBox.getChildren().add(end);
             this.goBackButton.setVisible(true);
         } else {
-            try {
-                showQuestion();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            showQuestion();
         }
     }
 }
