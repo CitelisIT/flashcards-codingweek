@@ -42,17 +42,28 @@ public class HomeLearningController implements Observer, Initializable {
     private String currentDeckKey;
     private int currentDeckIndex;
 
-    @FXML private Slider timerSlider;
-    @FXML private ChoiceBox<String> strategyChoiceBox;
-    @FXML private Spinner<Integer> nbCardSpinner;
-    @FXML private VBox rightPannel;
-    @FXML private Accordion accordion;
-    @FXML private Label titleLabel;
-    @FXML private Label descriptionLabel;
-    @FXML private Label strategyLabel;
-    @FXML private Label nbCardLabel;
-    @FXML private Button startButton;
-    @FXML private Label timerLabel;
+    @FXML
+    private Slider timerSlider;
+    @FXML
+    private ChoiceBox<String> strategyChoiceBox;
+    @FXML
+    private Spinner<Integer> nbCardSpinner;
+    @FXML
+    private VBox rightPannel;
+    @FXML
+    private Accordion accordion;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private Label strategyLabel;
+    @FXML
+    private Label nbCardLabel;
+    @FXML
+    private Button startButton;
+    @FXML
+    private Label timerLabel;
 
     public HomeLearningController(FlashcardManager flashcardManager) {
         this.flashcardManager = flashcardManager;
@@ -174,14 +185,15 @@ public class HomeLearningController implements Observer, Initializable {
             line.getChildren().add(deckButton);
 
             HBox.setMargin(deckButton, new Insets(10, 0, 0, 10));
-            deckButton.setPrefSize(130.0, 100.0);
+            deckButton.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
 
             deckButton.setOnAction(event -> {
                 if (this.buttonPressed != null) {
-                    this.buttonPressed.setStyle(null);
+                    this.buttonPressed.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
                 }
                 this.buttonPressed = deckButton;
-                this.buttonPressed.setStyle("-fx-background-color: lightgreen");
+                this.buttonPressed
+                        .setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
                 this.currentDeckIndex = Integer.parseInt(deckButton.getId());
                 this.currentDeckKey = deckButton.getText().substring(0, 1).toUpperCase();
                 this.titleLabel.setText(deckButton.getText());
@@ -204,7 +216,8 @@ public class HomeLearningController implements Observer, Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.rightPannel.getChildren().clear();
         if (this.flashcardManager.getDeckManagerSize() > 0) {
-            ObservableList<String> values = FXCollections.observableArrayList("Génération aléatoire", "Combler ses lacunes", "Valider ses acquis");
+            ObservableList<String> values = FXCollections.observableArrayList("Génération aléatoire",
+                    "Combler ses lacunes", "Valider ses acquis");
             this.strategyChoiceBox.setItems(values);
             this.strategyChoiceBox.setValue("Génération aléatoire");
             this.nbCardSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 200, 10));

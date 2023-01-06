@@ -48,11 +48,16 @@ public class HomeCreationController implements Observer, Initializable {
     private Button exportDeck = new Button("Exporter");
     private Button statistics = new Button("Statistiques");
 
-    @FXML private ButtonBar buttonBar;
-    @FXML private Button addButton;
-    @FXML private VBox listDeck;
-    @FXML private Label displayedDescription;
-    @FXML private Label displayedName;
+    @FXML
+    private ButtonBar buttonBar;
+    @FXML
+    private Button addButton;
+    @FXML
+    private VBox listDeck;
+    @FXML
+    private Label displayedDescription;
+    @FXML
+    private Label displayedName;
 
     public HomeCreationController(FlashcardManager flashcardManager) {
         this.flashcardManager = flashcardManager;
@@ -82,7 +87,7 @@ public class HomeCreationController implements Observer, Initializable {
         this.currentName = "Ajout de pile";
         this.currentDescription = "Créer une pile ou en importer une au format JSON";
         this.buttonPressed = this.addButton;
-        this.buttonPressed.setStyle(null);
+        this.buttonPressed.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
         react();
     }
 
@@ -153,7 +158,8 @@ public class HomeCreationController implements Observer, Initializable {
         });
 
         Button worstCardButton = (Button) root.lookup("#worstCardButton");
-        worstCardButton.setText(this.flashcardManager.getDeck(this.activeDeck).getWorstCard().getQuestionContent(0).getData());
+        worstCardButton
+                .setText(this.flashcardManager.getDeck(this.activeDeck).getWorstCard().getQuestionContent(0).getData());
         worstCardButton.setOnAction(e -> {
             try {
                 showCard(this.flashcardManager.getDeck(this.activeDeck).getBestCard());
@@ -165,7 +171,8 @@ public class HomeCreationController implements Observer, Initializable {
         PieChart pieChart = (PieChart) root.lookup("#deckPieChart");
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Bonnes réponses", this.flashcardManager.getDeck(this.activeDeck).getRightAnswers()),
-                new PieChart.Data("Mauvaises réponses", this.flashcardManager.getDeck(this.activeDeck).getWrongAnswers()));
+                new PieChart.Data("Mauvaises réponses",
+                        this.flashcardManager.getDeck(this.activeDeck).getWrongAnswers()));
         pieChart.setData(pieChartData);
 
         Stage stage = new Stage();
@@ -201,7 +208,9 @@ public class HomeCreationController implements Observer, Initializable {
             }
         });
         Button goBackButton = (Button) root.lookup("#goBackButton");
-        goBackButton.setOnAction(e -> { stage.close(); });
+        goBackButton.setOnAction(e -> {
+            stage.close();
+        });
 
     }
 
@@ -273,19 +282,20 @@ public class HomeCreationController implements Observer, Initializable {
 
             Button deckij = new Button(this.flashcardManager.getDeck(k).getName());
             deckij.setId(this.flashcardManager.getDeck(k).getName());
+            deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
             // If this button is the one that was previously pressed, highlight it
             if (this.buttonPressed != null) {
                 if (deckij.getId().equals(this.buttonPressed.getId())) {
-                    deckij.setStyle("-fx-background-color: lightgreen");
+                    deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
                 }
             }
             // Set the action for when this button is pressed
             int index = k;
-            deckij.setPrefSize(130.0, 100.0);
+            // deckij.setPrefSize(130.0, 100.0);
             deckij.setOnAction(event -> {
-                this.buttonPressed.setStyle(null);
+                this.buttonPressed.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
                 this.buttonPressed = deckij;
-                deckij.setStyle("-fx-background-color: lightgreen");
+                deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
                 this.buttonBar.requestLayout();
                 this.displayedName.setText("Nouvelle pile");
                 this.displayedDescription.setText("Décrivez votre pile");
@@ -302,7 +312,8 @@ public class HomeCreationController implements Observer, Initializable {
             if (this.buttonPressed.equals(this.addButton)) {
                 this.displayedName.setText("Nouvelle pile");
                 this.displayedDescription.setText("Décrivez votre pile");
-                this.buttonPressed.setStyle("-fx-background-color: lightgreen");
+                this.buttonPressed
+                        .setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
                 this.displayedName.setText(this.currentName);
                 this.displayedDescription.setText(this.currentDescription);
                 ButtonBar.setButtonData(this.newDeck, ButtonData.APPLY);
@@ -390,6 +401,7 @@ public class HomeCreationController implements Observer, Initializable {
         this.listDeck.getChildren().clear();
         // Create a new HBox object called initLigne and add it to the listDeck object.
         HBox initLigne = new HBox(this.addButton);
+        addButton.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
         this.listDeck.getChildren().add(initLigne);
         // Initialize loop variables.
         int i = 0;
@@ -411,7 +423,8 @@ public class HomeCreationController implements Observer, Initializable {
             // If this button is the one that was previously pressed, highlight it
             // Set the action for when this button is pressed
             int index = k;
-            deckij.setPrefSize(130.0, 100.0);
+            deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
+
             deckij.setOnAction(event -> {
                 this.buttonPressed = deckij;
                 deckij.setStyle("-fx-background-color: lightgreen");

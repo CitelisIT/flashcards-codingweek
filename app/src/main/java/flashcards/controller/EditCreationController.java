@@ -13,6 +13,7 @@ import flashcards.model.Card;
 import flashcards.model.FlashcardManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
@@ -37,17 +38,28 @@ public class EditCreationController implements Observer, Initializable {
     private Button answerAddMediaButton = new Button("Reponse multimedia");
     private Button validationButton = new Button("Valider");
 
-    @FXML private VBox VboxQuestion = new VBox();
-    @FXML private VBox VboxAnswer = new VBox();
-    @FXML private TextField questionText = new TextField();
-    @FXML private TextField answerText = new TextField();
-    @FXML private TextField name = new TextField();
-    @FXML private TextField description = new TextField();
-    @FXML private VBox listCard;
-    @FXML private Button addCardButton;
-    @FXML private Button delCardButton;
-    @FXML private Button delContentQuestionButton;
-    @FXML private Button delContentAnswerButton;
+    @FXML
+    private VBox VboxQuestion = new VBox();
+    @FXML
+    private VBox VboxAnswer = new VBox();
+    @FXML
+    private TextField questionText = new TextField();
+    @FXML
+    private TextField answerText = new TextField();
+    @FXML
+    private TextField name = new TextField();
+    @FXML
+    private TextField description = new TextField();
+    @FXML
+    private VBox listCard;
+    @FXML
+    private Button addCardButton;
+    @FXML
+    private Button delCardButton;
+    @FXML
+    private Button delContentQuestionButton;
+    @FXML
+    private Button delContentAnswerButton;
 
     public EditCreationController(FlashcardManager flashcardManager, int activeDeck) {
         this.flashcardManager = flashcardManager;
@@ -244,25 +256,26 @@ public class EditCreationController implements Observer, Initializable {
         VboxAnswer.getChildren().remove(0);
         updateViewAnswers();
         listCard.getChildren().clear();
-        ButtonBar addDelBar = new ButtonBar();
-        addDelBar.getButtons().addAll(addCardButton, delCardButton);
-        listCard.getChildren().add(addDelBar);
+        // ButtonBar addDelBar = new ButtonBar();
+        // addDelBar.getButtons().addAll(addCardButton, delCardButton);
+        // listCard.getChildren().add(addDelBar);
         // Iterate through all decks in the deck manager
         for (int k = 0; k < flashcardManager.getDeck(activeDeck).getCards().size(); k++) {
             // If there is still space on the current row, add the deck button to it
             Button cardj = new Button("carte n°" + k);
             cardj.setId(Integer.toString(k));
-
+            cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
             // Set the action for when this button is pressed
             int index = k;
             cardj.setOnAction(event -> {
                 updateModel();
                 activeCard = index;
                 buttonPressed = cardj;
-                cardj.setStyle("-fx-background-color: lightgreen");
+                cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
                 react();
             });
             listCard.getChildren().add(cardj);
+            VBox.setMargin(cardj, new Insets(10, 0, 0, 10));
         }
     }
 
@@ -274,21 +287,25 @@ public class EditCreationController implements Observer, Initializable {
         updateViewAnswers();
 
         if (buttonPressed != null) {
-            buttonPressed.setStyle("-fx-background-color: lightgreen");
+            buttonPressed.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
 
         }
         listCard.getChildren().clear();
-        ButtonBar addDelBar = new ButtonBar();
-        addDelBar.getButtons().addAll(addCardButton, delCardButton);
-        listCard.getChildren().add(addDelBar);
+        // ButtonBar addDelBar = new ButtonBar();
+        // addDelBar.getButtons().addAll(addCardButton, delCardButton);
+        // listCard.getChildren().add(addDelBar);
         // Iterate through all decks in the deck manager
         for (int k = 0; k < flashcardManager.getDeck(activeDeck).getCards().size(); k++) {
             // If there is still space on the current row, add the deck button to it
             Button cardj = new Button("carte n°" + k);
+            // Button cardj = new Button(flashcardManager.getCard(activeDeck,
+            // k).getQuestionContent(0).getData());
             cardj.setId(Integer.toString(k));
-            cardj.prefWidthProperty().bind(listCard.prefWidthProperty());
+            cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
+
+            // cardj.prefWidthProperty().bind(listCard.prefWidthProperty());
             if (cardj.getId().equals(Integer.toString(activeCard))) {
-                cardj.setStyle("-fx-background-color: lightgreen");
+                cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
             }
             // Set the action for when this button is pressed
             int index = k;
@@ -296,11 +313,11 @@ public class EditCreationController implements Observer, Initializable {
                 updateModel();
                 activeCard = index;
                 buttonPressed = cardj;
-                cardj.setStyle("-fx-background-color: lightgreen");
+                cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
                 react();
             });
             listCard.getChildren().add(cardj);
-
+            VBox.setMargin(cardj, new Insets(10, 10, 0, 10));
         }
 
     }
@@ -321,25 +338,32 @@ public class EditCreationController implements Observer, Initializable {
 
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new HBox(
-                                new TextField(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
+                                new TextField(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i)
+                                        .getData()),
                                 delQuestionButton));
 
-            } else if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("IMAGE")) {
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType()
+                    .equals("IMAGE")) {
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new HBox(
-                                new Label(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
+                                new Label(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i)
+                                        .getData()),
                                 delQuestionButton));
 
-            } else if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("SON")) {
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType()
+                    .equals("SON")) {
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new HBox(
-                                new Label(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
+                                new Label(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i)
+                                        .getData()),
                                 delQuestionButton));
 
-            } else if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("VIDEO")) {
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType()
+                    .equals("VIDEO")) {
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new HBox(
-                                new Label(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
+                                new Label(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i)
+                                        .getData()),
                                 delQuestionButton));
 
             }
@@ -363,26 +387,31 @@ public class EditCreationController implements Observer, Initializable {
             if (flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("TEXT")) {
                 VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new HBox(
-                                new TextField(flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
+                                new TextField(
+                                        flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
                                 delAnswerButton));
 
             } else if (flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
                     .equals("IMAGE")) {
                 VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new HBox(
-                                new Label(flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
+                                new Label(
+                                        flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
                                 delAnswerButton));
 
-            } else if (flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("SON")) {
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
+                    .equals("SON")) {
                 VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new HBox(
-                                new Label(flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
+                                new Label(
+                                        flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
                                 delAnswerButton));
             } else if (flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
                     .equals("VIDEO")) {
                 VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
                         new HBox(
-                                new Label(flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
+                                new Label(
+                                        flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
                                 delAnswerButton));
             }
         }

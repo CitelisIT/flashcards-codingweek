@@ -56,7 +56,7 @@ THE USE
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="420.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.EditCreationController">
+<BorderPane prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.EditCreationController">
    <bottom>
       <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="661.0" BorderPane.alignment="CENTER">
          <buttons>
@@ -89,7 +89,7 @@ THE USE
             <VBox alignment="TOP_CENTER" prefHeight="341.0" prefWidth="227.0">
                <children>
                   <Label text="question" />
-                  <VBox fx:id="VboxQuestion" prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="VboxQuestion" prefHeight="33.0" prefWidth="227.0">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
@@ -110,7 +110,7 @@ THE USE
             <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0" prefWidth="227.0">
                <children>
                   <Label text="réponse" />
-                  <VBox fx:id="VboxAnswer" prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="VboxAnswer" prefHeight="33.0" prefWidth="227.0">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
@@ -132,17 +132,20 @@ THE USE
       </HBox>
    </center>
    <left>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="329.0" prefWidth="233.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
-         <content>
-            <VBox fx:id="listCard">
-               <ButtonBar buttonMinWidth="20.0">
-                  <buttons>
-                     <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard" text="+" />
-                     <Button fx:id="delCardButton" mnemonicParsing="false" onAction="#delCard" text="-" />
-                  </buttons>
-               </ButtonBar>
-            </VBox>
-         </content>
-      </ScrollPane>
+      <VBox prefHeight="559.0" prefWidth="152.0" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="528.0" prefWidth="152.0" vbarPolicy="ALWAYS">
+               <content>
+                  <VBox fx:id="listCard" />
+               </content>
+            </ScrollPane>
+            <ButtonBar buttonMinWidth="20.0">
+               <buttons>
+                  <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard" text="+" />
+                  <Button fx:id="delCardButton" mnemonicParsing="false" onAction="#delCard" text="-" />
+               </buttons>
+            </ButtonBar>
+         </children>
+      </VBox>
    </left>
 </BorderPane>
