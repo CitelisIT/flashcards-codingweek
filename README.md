@@ -20,6 +20,9 @@ Il consiste en la création d'une application JavaFX de flashcard.
 ## Sujet complet
 [Sujet complet](./gdp/sujet.pdf)
 
+## Vidéo de démonstration
+[Vidéo de démonstration]()
+
 
 # Mode d'emploi
 ## Exécution
@@ -37,6 +40,8 @@ Ainsi, pour compiler et exécuter l'application, il suffit de taper la commande 
 ./gradlew run
 ```
 
-## Sauvegarde des piles
+## Sauvegarde des piles et JSON
 Pour sauvegarder l'ensemble des piles qui ont été créées, il faut cliquer sur `Fichier > Sauvegarder et quitter`. Les piles sont alors exportées dans un fichier `decks.json` qui est créé s'il n'existe pas déjà.
 Pour sauvegarder une pile en particulier, il faut cliquer sur la pile voulue en mode création puis sur `Exporter`.
+
+ATTENTION : Ne pas modifier `decks.json` lorsque l'application est fermée.
