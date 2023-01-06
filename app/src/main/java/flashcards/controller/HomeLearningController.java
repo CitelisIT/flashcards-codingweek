@@ -62,6 +62,8 @@ public class HomeLearningController implements Observer, Initializable {
     private Label nbCardLabel;
     @FXML
     private Button startButton;
+    @FXML
+    private Label timerLabel;
 
     public HomeLearningController(FlashcardManager flashcardManager) {
         this.flashcardManager = flashcardManager;
@@ -153,11 +155,11 @@ public class HomeLearningController implements Observer, Initializable {
 
     public void fillDico() {
         for (Deck deck : this.flashcardManager.getDeckList()) {
-            if (this.dico.containsKey(deck.getName().substring(0, 1))) {
-                this.dico.get(deck.getName().substring(0, 1)).add(deck);
+            String key = deck.getName().substring(0, 1).toUpperCase();
+            if (this.dico.containsKey(key)) {
+                this.dico.get(key).add(deck);
             } else {
-                this.dico.put((String) deck.getName().substring(0, 1),
-                        new ArrayList<Deck>(Collections.singletonList(deck)));
+                this.dico.put(key, new ArrayList<Deck>(Collections.singletonList(deck)));
             }
         }
     }
@@ -188,7 +190,7 @@ public class HomeLearningController implements Observer, Initializable {
             deckButton.setOnAction(event -> {
                 this.buttonPressed = deckButton;
                 this.currentDeckIndex = Integer.parseInt(deckButton.getId());
-                this.currentDeckKey = deckButton.getText().substring(0, 1);
+                this.currentDeckKey = deckButton.getText().substring(0, 1).toUpperCase();
                 this.titleLabel.setText(deckButton.getText());
                 this.descriptionLabel.setText(getCurrentDeck().getDescription());
                 react();
@@ -231,6 +233,10 @@ public class HomeLearningController implements Observer, Initializable {
         this.rightPannel.getChildren().add(this.strategyChoiceBox);
         this.rightPannel.getChildren().add(this.nbCardLabel);
         this.rightPannel.getChildren().add(this.nbCardSpinner);
+        this.timerSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.timerLabel.setText("Temps par carte : " + (int) timerSlider.getValue());
+        });
+        this.rightPannel.getChildren().add(this.timerLabel);
         this.rightPannel.getChildren().add(this.timerSlider);
         this.rightPannel.getChildren().add(this.startButton);
     }
