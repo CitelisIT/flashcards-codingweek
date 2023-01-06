@@ -121,15 +121,17 @@ public class FlashcardManager extends Observable {
     public Card getBestCard() {
         int bestCardIndex = 0;
         float bestCardScore = 0;
+        int bestCardLocation = 0;
         for (int i = 0; i < deckManager.size(); i++) {
             for (int j = 0; j < deckManager.get(i).getSize(); j++) {
                 if (deckManager.get(i).getCard(j).getScore() > bestCardScore) {
                     bestCardIndex = j;
                     bestCardScore = deckManager.get(i).getCard(j).getScore();
+                    bestCardLocation = i;
                 }
             }
         }
-        return deckManager.get(bestCardIndex).getCard(bestCardIndex);
+        return deckManager.get(bestCardLocation).getCard(bestCardIndex);
     }
 
     /**
@@ -140,15 +142,17 @@ public class FlashcardManager extends Observable {
     public Card getWorstCard() {
         int worstCardIndex = 0;
         float worstCardScore = 1;
+        int worstCardLocation = 0;
         for (int i = 0; i < deckManager.size(); i++) {
             for (int j = 0; j < deckManager.get(i).getSize(); j++) {
                 if (deckManager.get(i).getCard(j).getScore() < worstCardScore) {
                     worstCardIndex = j;
                     worstCardScore = deckManager.get(i).getCard(j).getScore();
+                    worstCardLocation = i;
                 }
             }
         }
-        return deckManager.get(worstCardIndex).getCard(worstCardIndex);
+        return deckManager.get(worstCardLocation).getCard(worstCardIndex);
     }
 
     /**
