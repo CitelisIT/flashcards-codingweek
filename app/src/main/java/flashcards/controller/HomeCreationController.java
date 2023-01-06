@@ -300,7 +300,7 @@ public class HomeCreationController implements Observer, Initializable {
             // If this button is the one that was previously pressed, highlight it
             if (this.buttonPressed != null) {
                 if (deckij.getId().equals(this.buttonPressed.getId())) {
-                    deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
+                    deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightblue");
                 }
             }
             // Set the action for when this button is pressed
@@ -309,7 +309,7 @@ public class HomeCreationController implements Observer, Initializable {
             deckij.setOnAction(event -> {
                 this.buttonPressed.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
                 this.buttonPressed = deckij;
-                deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
+                deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightblue");
                 this.buttonBar.requestLayout();
                 this.displayedName.setText("Nouvelle pile");
                 this.displayedDescription.setText("Ajouter une description à votre pile");
@@ -327,7 +327,7 @@ public class HomeCreationController implements Observer, Initializable {
                 this.displayedName.setText("Nouvelle pile");
                 this.displayedDescription.setText("Ajouter une description à votre pile");
                 this.buttonPressed
-                        .setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
+                        .setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightblue");
                 this.displayedName.setText(this.currentName);
                 this.displayedDescription.setText(this.currentDescription);
                 ButtonBar.setButtonData(this.newDeck, ButtonData.APPLY);
@@ -441,7 +441,7 @@ public class HomeCreationController implements Observer, Initializable {
 
             deckij.setOnAction(event -> {
                 this.buttonPressed = deckij;
-                deckij.setStyle("-fx-background-color: lightgreen");
+                deckij.setStyle("-fx-background-color: lightblue");
                 this.buttonBar.requestLayout();
                 this.displayedName.setText("Nouvelle pile");
                 this.displayedDescription.setText("Ajouter une description à votre pile");

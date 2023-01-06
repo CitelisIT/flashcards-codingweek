@@ -271,7 +271,7 @@ public class EditCreationController implements Observer, Initializable {
                 updateModel();
                 activeCard = index;
                 buttonPressed = cardj;
-                cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
+                cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightblue");
                 react();
             });
             listCard.getChildren().add(cardj);
@@ -287,7 +287,7 @@ public class EditCreationController implements Observer, Initializable {
         updateViewAnswers();
 
         if (buttonPressed != null) {
-            buttonPressed.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
+            buttonPressed.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightblue");
 
         }
         listCard.getChildren().clear();
@@ -305,7 +305,7 @@ public class EditCreationController implements Observer, Initializable {
 
             // cardj.prefWidthProperty().bind(listCard.prefWidthProperty());
             if (cardj.getId().equals(Integer.toString(activeCard))) {
-                cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
+                cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightblue");
             }
             // Set the action for when this button is pressed
             int index = k;
@@ -313,7 +313,7 @@ public class EditCreationController implements Observer, Initializable {
                 updateModel();
                 activeCard = index;
                 buttonPressed = cardj;
-                cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
+                cardj.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightblue");
                 react();
             });
             listCard.getChildren().add(cardj);

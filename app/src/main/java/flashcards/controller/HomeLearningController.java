@@ -32,6 +32,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -55,7 +56,7 @@ public class HomeLearningController implements Observer, Initializable {
     @FXML
     private Label titleLabel;
     @FXML
-    private Label descriptionLabel;
+    private Text descriptionLabel;
     @FXML
     private Label strategyLabel;
     @FXML
@@ -166,7 +167,8 @@ public class HomeLearningController implements Observer, Initializable {
     }
 
     public void fillDico() {
-        for (Deck deck : this.flashcardManager.getDeckList()) {
+        ArrayList<Deck> sortedListDeck = this.flashcardManager.getDeckList();
+        for (Deck deck : sortedListDeck) {
             String key = deck.getName().substring(0, 1).toUpperCase();
             if (this.dico.containsKey(key)) {
                 this.dico.get(key).add(deck);
@@ -205,7 +207,7 @@ public class HomeLearningController implements Observer, Initializable {
                 }
                 this.buttonPressed = deckButton;
                 this.buttonPressed
-                        .setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
+                        .setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightblue");
                 this.currentDeckIndex = Integer.parseInt(deckButton.getId());
                 this.currentDeckKey = deckButton.getText().substring(0, 1).toUpperCase();
                 this.titleLabel.setText(deckButton.getText());
@@ -218,10 +220,14 @@ public class HomeLearningController implements Observer, Initializable {
 
     public void affDeck() {
         this.accordion.getPanes().clear();
+        ArrayList<TitledPane> paneList = new ArrayList<TitledPane>();
+
         for (Entry entry : this.dico.entrySet()) {
             TitledPane pane = new TitledPane((String) entry.getKey(), makeGrid((ArrayList<Deck>) entry.getValue(), 4));
-            this.accordion.getPanes().add(pane);
+            paneList.add(pane);
         }
+        paneList.sort((a, b) -> a.getText().compareTo(b.getText()));
+        this.accordion.getPanes().addAll(paneList);
     }
 
     @Override
