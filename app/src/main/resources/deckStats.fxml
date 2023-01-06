@@ -41,16 +41,16 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <PieChart fx:id="deckPieChart" prefHeight="216.0" prefWidth="600.0" />
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label alignment="CENTER" prefHeight="60.0" prefWidth="160.0" text="Carte la plus connue" />
-            <Button id="bestCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="411.0" text="Button" />
+            <Button id="bestCardButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="411.0" text="Button" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label alignment="CENTER" prefHeight="60.0" prefWidth="160.0" text="Carte la moins connue" />
-            <Button fx:id="worstCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="411.0" text="Button" />
+            <Button fx:id="worstCardButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="411.0" text="Button" />
          </children>
       </HBox>
       <HBox prefHeight="30.0" prefWidth="600.0" />
