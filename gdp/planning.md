@@ -39,10 +39,10 @@
   - Finalisation
     - Timer :heavy_check_mark:
     - Gestion des médias :heavy_check_mark:
-    - Eventuels bonus ? 
-  - Tests finaux
+    - Eventuels bonus &rarr; **Pas de bonus**
+  - Tests finaux :heavy_check_mark:
 - Design 
-  - Implémentation du design
+  - Implémentation du design :heavy_check_mark:
 - Chores
-  - README + documentation
-  - Vidéo de démonstration
+  - README + documentation :heavy_check_mark:
+  - Vidéo de démonstration 
