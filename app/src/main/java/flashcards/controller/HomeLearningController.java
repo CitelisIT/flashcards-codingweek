@@ -41,15 +41,24 @@ public class HomeLearningController implements Observer, Initializable {
     private String currentDeckKey;
     private int currentDeckIndex;
 
-    @FXML private ChoiceBox<String> strategyChoiceBox;
-    @FXML private Spinner<Integer> nbCardSpinner;
-    @FXML private VBox rightPannel;
-    @FXML private Accordion accordion;
-    @FXML private Label titleLabel;
-    @FXML private Label descriptionLabel;
-    @FXML private Label strategyLabel;
-    @FXML private Label nbCardLabel;
-    @FXML private Button startButton;
+    @FXML
+    private ChoiceBox<String> strategyChoiceBox;
+    @FXML
+    private Spinner<Integer> nbCardSpinner;
+    @FXML
+    private VBox rightPannel;
+    @FXML
+    private Accordion accordion;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private Label strategyLabel;
+    @FXML
+    private Label nbCardLabel;
+    @FXML
+    private Button startButton;
 
     public HomeLearningController(FlashcardManager flashcardManager) {
         this.flashcardManager = flashcardManager;
@@ -133,15 +142,18 @@ public class HomeLearningController implements Observer, Initializable {
         });
 
         Button goBackButton = (Button) root.lookup("#goBackButton");
-        goBackButton.setOnAction(e -> { stage.close(); });
+        goBackButton.setOnAction(e -> {
+            stage.close();
+        });
     }
 
     public void fillDico() {
         for (Deck deck : this.flashcardManager.getDeckList()) {
-            if (this.dico.containsKey(deck.getName().substring(0, 1))) {
-                this.dico.get(deck.getName().substring(0, 1)).add(deck);
+            String key = deck.getName().substring(0, 1).toUpperCase();
+            if (this.dico.containsKey(key)) {
+                this.dico.get(key).add(deck);
             } else {
-                this.dico.put((String) deck.getName().substring(0, 1), new ArrayList<Deck>(Collections.singletonList(deck)));
+                this.dico.put(key, new ArrayList<Deck>(Collections.singletonList(deck)));
             }
         }
     }
@@ -159,20 +171,20 @@ public class HomeLearningController implements Observer, Initializable {
                 HBox line = new HBox();
                 table.getChildren().add(line);
             }
-            
+
             Button deckButton = new Button(listDeck.get(i).getName());
             deckButton.setId(Integer.toString(i));
 
             HBox line = (HBox) table.getChildren().get(numLine);
             line.getChildren().add(deckButton);
-            
+
             HBox.setMargin(deckButton, new Insets(10, 0, 0, 10));
             deckButton.setPrefSize(130.0, 100.0);
 
             deckButton.setOnAction(event -> {
                 this.buttonPressed = deckButton;
                 this.currentDeckIndex = Integer.parseInt(deckButton.getId());
-                this.currentDeckKey = deckButton.getText().substring(0, 1);
+                this.currentDeckKey = deckButton.getText().substring(0, 1).toUpperCase();
                 this.titleLabel.setText(deckButton.getText());
                 this.descriptionLabel.setText(getCurrentDeck().getDescription());
                 react();
@@ -193,7 +205,8 @@ public class HomeLearningController implements Observer, Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.rightPannel.getChildren().clear();
         if (this.flashcardManager.getDeckManagerSize() > 0) {
-            ObservableList<String> values = FXCollections.observableArrayList("Génération aléatoire","Combler ses lacunes","Valider ses acquis");
+            ObservableList<String> values = FXCollections.observableArrayList("Génération aléatoire",
+                    "Combler ses lacunes", "Valider ses acquis");
             this.strategyChoiceBox.setItems(values);
             this.strategyChoiceBox.setValue("Génération aléatoire");
             this.nbCardSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 200, 10));
