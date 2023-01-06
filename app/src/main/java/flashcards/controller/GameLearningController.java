@@ -123,7 +123,7 @@ public class GameLearningController implements Observer, Initializable {
 
         int currentQuestion = this.flashcardManager.getGame().getCurrentCardIndex() + 1;
         int nbQuestions = this.flashcardManager.getGame().getSequenceCards().size();
-        if (currentQuestion >= nbQuestions) { System.out.println("test");this.gameStatus.setText(nbQuestions + "/" + nbQuestions); } 
+        if (currentQuestion >= nbQuestions) { this.gameStatus.setText(nbQuestions + "/" + nbQuestions); } 
         else { this.gameStatus.setText(currentQuestion + "/" + nbQuestions); }
 
         int previousQuestion = this.flashcardManager.getGame().getCurrentCardIndex();
