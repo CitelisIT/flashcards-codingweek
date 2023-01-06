@@ -37,7 +37,8 @@
 
 - Programmation
   - Finalisation
-    - Gestion des médias
+    - Timer :heavy_check_mark:
+    - Gestion des médias :heavy_check_mark:
     - Eventuels bonus ? 
   - Tests finaux
 - Design 
