@@ -188,7 +188,11 @@ public class HomeLearningController implements Observer, Initializable {
             deckButton.setPrefSize(130.0, 100.0);
 
             deckButton.setOnAction(event -> {
+                if (this.buttonPressed != null) {
+                    this.buttonPressed.setStyle(null);
+                }
                 this.buttonPressed = deckButton;
+                this.buttonPressed.setStyle("-fx-background-color: lightgreen");
                 this.currentDeckIndex = Integer.parseInt(deckButton.getId());
                 this.currentDeckKey = deckButton.getText().substring(0, 1).toUpperCase();
                 this.titleLabel.setText(deckButton.getText());
