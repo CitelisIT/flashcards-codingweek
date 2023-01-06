@@ -48,16 +48,11 @@ public class HomeCreationController implements Observer, Initializable {
     private Button exportDeck = new Button("Exporter");
     private Button statistics = new Button("Statistiques");
 
-    @FXML
-    private ButtonBar buttonBar;
-    @FXML
-    private Button addButton;
-    @FXML
-    private VBox listDeck;
-    @FXML
-    private Label displayedDescription;
-    @FXML
-    private Label displayedName;
+    @FXML private ButtonBar buttonBar;
+    @FXML private Button addButton;
+    @FXML private VBox listDeck;
+    @FXML private Label displayedDescription;
+    @FXML private Label displayedName;
 
     public HomeCreationController(FlashcardManager flashcardManager) {
         this.flashcardManager = flashcardManager;
@@ -148,20 +143,20 @@ public class HomeCreationController implements Observer, Initializable {
         Parent root = fxmlLoader.load();
 
         Button bestCardButton = (Button) root.lookup("#bestCardButton");
-        bestCardButton.setText(flashcardManager.getDeck(activeDeck).getBestCard().getQuestionContent(0).getData());
+        bestCardButton.setText(flashcardManager.getDeck(this.activeDeck).getBestCard().getQuestionContent(0).getData());
         bestCardButton.setOnAction(e -> {
             try {
-                showCard(flashcardManager.getDeck(activeDeck).getBestCard());
+                showCard(flashcardManager.getDeck(this.activeDeck).getBestCard());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
 
         Button worstCardButton = (Button) root.lookup("#worstCardButton");
-        worstCardButton.setText(flashcardManager.getDeck(activeDeck).getWorstCard().getQuestionContent(0).getData());
+        worstCardButton.setText(this.flashcardManager.getDeck(this.activeDeck).getWorstCard().getQuestionContent(0).getData());
         worstCardButton.setOnAction(e -> {
             try {
-                showCard(flashcardManager.getDeck(activeDeck).getBestCard());
+                showCard(this.flashcardManager.getDeck(this.activeDeck).getBestCard());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -169,8 +164,8 @@ public class HomeCreationController implements Observer, Initializable {
 
         PieChart pieChart = (PieChart) root.lookup("#deckPieChart");
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Bonnes réponses", flashcardManager.getDeck(activeDeck).getRightAnswers()),
-                new PieChart.Data("Mauvaises réponses", flashcardManager.getDeck(activeDeck).getWrongAnswers()));
+                new PieChart.Data("Bonnes réponses", this.flashcardManager.getDeck(this.activeDeck).getRightAnswers()),
+                new PieChart.Data("Mauvaises réponses", this.flashcardManager.getDeck(this.activeDeck).getWrongAnswers()));
         pieChart.setData(pieChartData);
 
         Stage stage = new Stage();
@@ -206,9 +201,7 @@ public class HomeCreationController implements Observer, Initializable {
             }
         });
         Button goBackButton = (Button) root.lookup("#goBackButton");
-        goBackButton.setOnAction(e -> {
-            stage.close();
-        });
+        goBackButton.setOnAction(e -> { stage.close(); });
 
     }
 
@@ -293,8 +286,8 @@ public class HomeCreationController implements Observer, Initializable {
                 this.buttonPressed.setStyle(null);
                 this.buttonPressed = deckij;
                 deckij.setStyle("-fx-background-color: lightgreen");
-                buttonBar.requestLayout();
-                displayedName.setText("Nouvelle pile");
+                this.buttonBar.requestLayout();
+                this.displayedName.setText("Nouvelle pile");
                 this.displayedDescription.setText("Décrivez votre pile");
                 deckButtonPress(index);
             });
@@ -303,12 +296,10 @@ public class HomeCreationController implements Observer, Initializable {
             j++;
         }
         // Clear the buttons in the button bar
-        buttonBar.getButtons().clear();
-        if (buttonPressed != null)
-
-        {
+        this.buttonBar.getButtons().clear();
+        if (buttonPressed != null) {
             // If the add button is pressed, show the new and import buttons
-            if (buttonPressed.equals(addButton)) {
+            if (this.buttonPressed.equals(this.addButton)) {
                 this.displayedName.setText("Nouvelle pile");
                 this.displayedDescription.setText("Décrivez votre pile");
                 this.buttonPressed.setStyle("-fx-background-color: lightgreen");
@@ -318,7 +309,6 @@ public class HomeCreationController implements Observer, Initializable {
                 ButtonBar.setButtonData(this.importDeck, ButtonData.APPLY);
                 this.buttonBar.getButtons().addAll(this.newDeck, this.importDeck);
             }
-
             // If a deck button is pressed, show the edit, export, delete and stats buttons
             else {
                 this.displayedName.setText(this.currentName);
@@ -330,7 +320,6 @@ public class HomeCreationController implements Observer, Initializable {
                 this.buttonBar.getButtons().addAll(this.editDeck, this.exportDeck, this.deleteDeck, this.statistics);
             }
         }
-
     }
 
     /**
@@ -417,7 +406,6 @@ public class HomeCreationController implements Observer, Initializable {
             } else {
                 line = (HBox) this.listDeck.getChildren().get(i);
             }
-
             Button deckij = new Button(this.flashcardManager.getDeck(k).getName());
             deckij.setId(this.flashcardManager.getDeck(k).getName());
             // If this button is the one that was previously pressed, highlight it
@@ -435,8 +423,6 @@ public class HomeCreationController implements Observer, Initializable {
             line.getChildren().add(deckij);
             HBox.setMargin(deckij, new Insets(10, 0, 0, 10));
             j++;
-
         }
-
     }
 }

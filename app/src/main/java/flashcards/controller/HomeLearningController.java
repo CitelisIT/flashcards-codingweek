@@ -42,28 +42,17 @@ public class HomeLearningController implements Observer, Initializable {
     private String currentDeckKey;
     private int currentDeckIndex;
 
-    @FXML
-    private Slider timerSlider;
-    @FXML
-    private ChoiceBox<String> strategyChoiceBox;
-    @FXML
-    private Spinner<Integer> nbCardSpinner;
-    @FXML
-    private VBox rightPannel;
-    @FXML
-    private Accordion accordion;
-    @FXML
-    private Label titleLabel;
-    @FXML
-    private Label descriptionLabel;
-    @FXML
-    private Label strategyLabel;
-    @FXML
-    private Label nbCardLabel;
-    @FXML
-    private Button startButton;
-    @FXML
-    private Label timerLabel;
+    @FXML private Slider timerSlider;
+    @FXML private ChoiceBox<String> strategyChoiceBox;
+    @FXML private Spinner<Integer> nbCardSpinner;
+    @FXML private VBox rightPannel;
+    @FXML private Accordion accordion;
+    @FXML private Label titleLabel;
+    @FXML private Label descriptionLabel;
+    @FXML private Label strategyLabel;
+    @FXML private Label nbCardLabel;
+    @FXML private Button startButton;
+    @FXML private Label timerLabel;
 
     public HomeLearningController(FlashcardManager flashcardManager) {
         this.flashcardManager = flashcardManager;
@@ -215,8 +204,7 @@ public class HomeLearningController implements Observer, Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.rightPannel.getChildren().clear();
         if (this.flashcardManager.getDeckManagerSize() > 0) {
-            ObservableList<String> values = FXCollections.observableArrayList("Génération aléatoire",
-                    "Combler ses lacunes", "Valider ses acquis");
+            ObservableList<String> values = FXCollections.observableArrayList("Génération aléatoire", "Combler ses lacunes", "Valider ses acquis");
             this.strategyChoiceBox.setItems(values);
             this.strategyChoiceBox.setValue("Génération aléatoire");
             this.nbCardSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 200, 10));
@@ -238,7 +226,7 @@ public class HomeLearningController implements Observer, Initializable {
         this.rightPannel.getChildren().add(this.nbCardLabel);
         this.rightPannel.getChildren().add(this.nbCardSpinner);
         this.timerSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            this.timerLabel.setText("Temps par carte : " + (int) timerSlider.getValue());
+            this.timerLabel.setText("Temps par carte : " + (int) this.timerSlider.getValue());
         });
         this.rightPannel.getChildren().add(this.timerLabel);
         this.rightPannel.getChildren().add(this.timerSlider);
