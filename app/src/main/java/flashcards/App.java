@@ -33,12 +33,14 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         FlashcardManager flashcardManager = new FlashcardManager();
         Gson gson = new Gson();
-        Type DeclList = new TypeToken<ArrayList<Deck>>() {}.getType();
+        Type DeclList = new TypeToken<ArrayList<Deck>>() {
+        }.getType();
 
         try {
             ArrayList<Deck> newDeck = gson.fromJson(new FileReader("decks.json"), DeclList);
             flashcardManager.setDeckManager(newDeck);
-        } catch (FileNotFoundException e) {}
+        } catch (FileNotFoundException e) {
+        }
         scene = new Scene(loadFXML("homeCreation", flashcardManager, 0), 900, 650);
         stage.setScene(scene);
         stage.setTitle("Application flashcard");
@@ -54,11 +56,13 @@ public class App extends Application {
         if (fxml.equals("homeCreation")) {
             fxmlLoader.setControllerFactory(controllerClass -> new HomeCreationController(flashcardManager));
         } else if (fxml.equals("editCreation")) {
-            fxmlLoader.setControllerFactory(controllerClass -> new EditCreationController(flashcardManager, activeDeck));
+            fxmlLoader
+                    .setControllerFactory(controllerClass -> new EditCreationController(flashcardManager, activeDeck));
         } else if (fxml.equals("homeLearning")) {
             fxmlLoader.setControllerFactory(controllerClass -> new HomeLearningController(flashcardManager));
         } else {
-            fxmlLoader.setControllerFactory(controllerClass -> new GameLearningController(flashcardManager));
+            fxmlLoader
+                    .setControllerFactory(controllerClass -> new GameLearningController(flashcardManager, activeDeck));
         }
         return fxmlLoader.load();
     }

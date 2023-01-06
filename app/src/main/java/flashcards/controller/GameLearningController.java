@@ -1,9 +1,16 @@
 package flashcards.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import flashcards.App;
 import flashcards.model.Card;
 import flashcards.model.Content;
@@ -17,12 +24,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 public class GameLearningController implements Observer, Initializable {
 
     private FlashcardManager flashcardManager;
+    private int activeDeck;
+
     private int timer;
     private int maxTimer;
     private Timeline timeline;
@@ -46,13 +57,16 @@ public class GameLearningController implements Observer, Initializable {
     @FXML
     private VBox displayedVBox;
 
-    public GameLearningController(FlashcardManager flashcardManager) {
+    public GameLearningController(FlashcardManager flashcardManager, int activeDeck) {
         this.flashcardManager = flashcardManager;
+        this.activeDeck = activeDeck;
         this.flashcardManager.addObserver(this);
     }
 
+    // new Deck dans le HomeLearning
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // this.flashcardManager.setDefaultGame(this.flashcardManager.getDeck(this.activeDeck));
         this.goodAnswerButton.setVisible(false);
         this.badAnswerButton.setVisible(false);
         react();
@@ -76,54 +90,107 @@ public class GameLearningController implements Observer, Initializable {
                     if (timer == maxTimer) {
                         this.goodAnswerButton.setVisible(true);
                         this.badAnswerButton.setVisible(true);
-                        showAnswer();
+                        try {
+                            showAnswer();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                         this.timeline.stop();
                     }
                 }));
-        this.timeline.setCycleCount(Timeline.INDEFINITE);
-        this.timeline.play();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
-    public void showAnswer() {
-        Card displayedCard = this.flashcardManager.getGame().getCurrentCard();
+    public void showAnswer() throws FileNotFoundException {
+        Card displayedCard = flashcardManager.getGame().getCurrentCard();
         for (int index = 0; index < displayedCard.getAnswer().size(); index++) {
             Content answer = displayedCard.getAnswerContent(index);
             if (answer.getDataType().equals("TEXT")) {
                 Label answerLabel = new Label(answer.getData());
-                this.displayedVBox.getChildren().add(answerLabel);
+                displayedVBox.getChildren().add(answerLabel);
 
+            } else if (answer.getDataType().equals("IMAGE")) {
+                InputStream stream = new FileInputStream(answer.getData());
+
+                ImageView answerImageView = new ImageView(new Image(stream));
+                displayedVBox.getChildren().add(answerImageView);
             } else {
-                // TODO : gestion des media LOL
+                Media answerMedia = new Media("file:" + answer.getData());
+                MediaPlayer mediaPlayer = new MediaPlayer(answerMedia);
+                mediaPlayer.setAutoPlay(true);
+                MediaView mediaView = new MediaView(mediaPlayer);
+                if (answer.getDataType().equals("SON")) {
+                    InputStream stream = getClass().getClassLoader().getResourceAsStream("sound.png");
+                    ImageView answerImageView = new ImageView(new Image(stream));
+                    answerImageView.setFitWidth(50);
+                    answerImageView.setFitHeight(50);
+                    displayedVBox.getChildren().add(answerImageView);
+                } else {
+                    mediaView.preserveRatioProperty();
+                    mediaView.setFitHeight(300);
+                }
+
+                displayedVBox.getChildren().addAll(mediaView);
+
             }
         }
     }
 
-    public void showQuestion() {
-        this.displayedVBox.getChildren().clear();
-        this.goBackButton.setVisible(false);
-        Card displayedCard = this.flashcardManager.getGame().getCurrentCard();
+    public void showQuestion() throws FileNotFoundException {
+        boolean timerLaunched = false;
+        displayedVBox.getChildren().clear();
+        goBackButton.setVisible(false);
+        Card displayedCard = flashcardManager.getGame().getCurrentCard();
         for (int index = 0; index < displayedCard.getQuestion().size(); index++) {
             Content question = displayedCard.getQuestionContent(index);
             if (question.getDataType().equals("TEXT")) {
-                Label answerLabel = new Label(question.getData());
-                this.displayedVBox.getChildren().add(answerLabel);
+                Label questionLabel = new Label(question.getData());
+                displayedVBox.getChildren().add(questionLabel);
 
+            } else if (question.getDataType().equals("IMAGE")) {
+                InputStream stream = new FileInputStream(question.getData());
+
+                ImageView questionImageView = new ImageView(new Image(stream));
+                displayedVBox.getChildren().add(questionImageView);
             } else {
-                // TODO : gestion des media LOL
+                Media questionMedia = new Media("file:" + question.getData());
+                MediaPlayer mediaPlayer = new MediaPlayer(questionMedia);
+                mediaPlayer.setAutoPlay(true);
+                MediaView mediaView = new MediaView(mediaPlayer);
+                if (question.getDataType().equals("SON")) {
+                    InputStream stream = getClass().getClassLoader().getResourceAsStream("sound.png");
+                    ImageView questionImageView = new ImageView(new Image(stream));
+                    questionImageView.setFitWidth(50);
+                    questionImageView.setFitHeight(50);
+                    displayedVBox.getChildren().add(questionImageView);
+                } else {
+                    mediaView.preserveRatioProperty();
+                    mediaView.setFitHeight(300);
+                }
+                mediaPlayer.setOnEndOfMedia(() -> {
+                    timerPlay();
+                });
+                timerLaunched = true;
+
+                displayedVBox.getChildren().addAll(mediaView);
             }
+        }
+        if (!timerLaunched) {
+            timerPlay();
         }
     }
 
     public void goodAnswer() {
-        this.goodAnswerButton.setVisible(false);
-        this.badAnswerButton.setVisible(false);
-        this.flashcardManager.updateGoodAnswer();
+        goodAnswerButton.setVisible(false);
+        badAnswerButton.setVisible(false);
+        flashcardManager.updateGoodAnswer();
     }
 
     public void badAnswer() {
-        this.goodAnswerButton.setVisible(false);
-        this.badAnswerButton.setVisible(false);
-        this.flashcardManager.updateBadAnswer();
+        goodAnswerButton.setVisible(false);
+        badAnswerButton.setVisible(false);
+        flashcardManager.updateBadAnswer();
     }
 
     @Override
@@ -133,7 +200,6 @@ public class GameLearningController implements Observer, Initializable {
                 / this.flashcardManager.getGame().getSequenceCards().size());
 
         this.gameDeckTitle.setText(this.flashcardManager.getGame().getDeck().getName());
-
         int currentQuestion = this.flashcardManager.getGame().getCurrentCardIndex() + 1;
         int nbQuestions = this.flashcardManager.getGame().getSequenceCards().size();
         if (currentQuestion >= nbQuestions) {
@@ -144,19 +210,22 @@ public class GameLearningController implements Observer, Initializable {
 
         int previousQuestion = this.flashcardManager.getGame().getCurrentCardIndex();
         int numberGoodAnswer = this.flashcardManager.getGame().getNbGoodAnswer();
+        this.gameStatus.setText(currentQuestion + "/" + nbQuestions);
         this.gameScore.setText("Score : " + numberGoodAnswer + "/" + previousQuestion);
 
-        if (this.flashcardManager.getGame().endOfGame()) {
-            this.displayedVBox.getChildren().clear();
+        if (flashcardManager.getGame().endOfGame()) {
+            displayedVBox.getChildren().clear();
+            Label fin = new Label("Fin de la Partie\n Merci d'avoir joué");
+            fin.setTextAlignment(TextAlignment.CENTER);
 
-            Label end = new Label("Fin de la Partie\nMerci d'avoir joué");
-            end.setTextAlignment(TextAlignment.CENTER);
-
-            this.displayedVBox.getChildren().add(end);
-            this.goBackButton.setVisible(true);
+            displayedVBox.getChildren().add(fin);
+            goBackButton.setVisible(true);
         } else {
-            showQuestion();
-            timerPlay();
+            try {
+                showQuestion();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
