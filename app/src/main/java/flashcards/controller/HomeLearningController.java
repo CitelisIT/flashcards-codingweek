@@ -160,7 +160,8 @@ public class HomeLearningController implements Observer, Initializable {
     }
 
     public void fillDico() {
-        for (Deck deck : this.flashcardManager.getDeckList()) {
+        ArrayList<Deck> sortedListDeck = this.flashcardManager.getDeckList();
+        for (Deck deck : sortedListDeck) {
             String key = deck.getName().substring(0, 1).toUpperCase();
             if (this.dico.containsKey(key)) {
                 this.dico.get(key).add(deck);
@@ -212,10 +213,14 @@ public class HomeLearningController implements Observer, Initializable {
 
     public void affDeck() {
         this.accordion.getPanes().clear();
+        ArrayList<TitledPane> paneList = new ArrayList<TitledPane>();
+
         for (Entry entry : this.dico.entrySet()) {
             TitledPane pane = new TitledPane((String) entry.getKey(), makeGrid((ArrayList<Deck>) entry.getValue(), 4));
-            this.accordion.getPanes().add(pane);
+            paneList.add(pane);
         }
+        paneList.sort((a, b) -> a.getText().compareTo(b.getText()));
+        this.accordion.getPanes().addAll(paneList);
     }
 
     @Override
