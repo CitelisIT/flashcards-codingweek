@@ -162,7 +162,7 @@ public class HomeCreationController implements Observer, Initializable {
                 .setText(this.flashcardManager.getDeck(this.activeDeck).getWorstCard().getQuestionContent(0).getData());
         worstCardButton.setOnAction(e -> {
             try {
-                showCard(this.flashcardManager.getDeck(this.activeDeck).getBestCard());
+                showCard(this.flashcardManager.getDeck(this.activeDeck).getWorstCard());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -287,7 +287,7 @@ public class HomeCreationController implements Observer, Initializable {
             }
 
             Button deckij = new Button(this.flashcardManager.getDeck(k).getName());
-            deckij.setId(this.flashcardManager.getDeck(k).getName());
+            deckij.setId(Integer.toString(k));
             deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;");
             // If this button is the one that was previously pressed, highlight it
             if (this.buttonPressed != null) {
@@ -425,7 +425,7 @@ public class HomeCreationController implements Observer, Initializable {
                 line = (HBox) this.listDeck.getChildren().get(i);
             }
             Button deckij = new Button(this.flashcardManager.getDeck(k).getName());
-            deckij.setId(this.flashcardManager.getDeck(k).getName());
+            deckij.setId(Integer.toString(k));
             // If this button is the one that was previously pressed, highlight it
             // Set the action for when this button is pressed
             int index = k;

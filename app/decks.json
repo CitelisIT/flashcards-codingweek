@@ -197,21 +197,21 @@
     "observers": []
   },
   {
-    "name": "History Trivia",
-    "description": "A collection of history questions and answers",
+    "name": "Histoire Trivia",
+    "description": "Une collection de questions et réponses sur l\u0027histoire",
     "cards": [
       {
         "question": [
           {
             "dataType": "TEXT",
-            "data": "What was the name of the first president of the United States?",
+            "data": "Qui est le premier président des États-Unis?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "George Washington was the first president of the United States.",
+            "data": "George Washington est le premier président des États-Unis.",
             "observers": []
           }
         ],
@@ -223,14 +223,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "What was the cause of the American Revolutionary War?",
+            "data": "Qui a peint la Joconde?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "The American Revolutionary War was caused by the colonies\u0027 desire for independence from British rule and the imposition of taxes without representation.",
+            "data": "La Joconde a été peinte par Leonardo da Vinci.",
             "observers": []
           }
         ],
@@ -242,14 +242,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "Who was the leader of the Soviet Union during World War II?",
+            "data": "Quand a eu lieu la Révolution française?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "Joseph Stalin was the leader of the Soviet Union during World War II.",
+            "data": "La Révolution française a eu lieu en 1789.",
             "observers": []
           }
         ],
@@ -261,14 +261,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "Who was the leader of Germany during World War II?",
+            "data": "Qui a découvert l\u0027Amérique?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "Adolf Hitler was the leader of Germany during World War II.",
+            "data": "L\u0027Amérique a été découverte par Christophe Colomb.",
             "observers": []
           }
         ],
@@ -280,14 +280,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "What was the cause of the Great Depression?",
+            "data": "Quelle est la date de la déclaration d\u0027indépendance des États-Unis?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "The Great Depression was caused by a combination of economic and financial factors, including overproduction, lack of diversification in the stock market, and reduced purchasing power.",
+            "data": "La déclaration d\u0027indépendance des États-Unis a été signée le 4 juillet 1776.",
             "observers": []
           }
         ],
@@ -335,7 +335,7 @@
     "observers": []
   },
   {
-    "name": "Lovecraftian Gods Trivia",
+    "name": "Lovecraftian Gods",
     "description": "A collection of trivia about the gods in H.P. Lovecraft\u0027s stories",
     "cards": [
       {
@@ -419,20 +419,20 @@
   },
   {
     "name": "Math Trivia",
-    "description": "A collection of math questions and answers",
+    "description": "Une collection de questions et réponses sur les mathématiques",
     "cards": [
       {
         "question": [
           {
             "dataType": "TEXT",
-            "data": "What is the value of the expression 2 + 3?",
+            "data": "Quelle est la valeur de l\u0027expression 2 + 3?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "The value of the expression 2 + 3 is 5.",
+            "data": "La valeur de l\u0027expression 2 + 3 est 5.",
             "observers": []
           }
         ],
@@ -444,14 +444,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "What is the value of the expression (5 - 3) * 4?",
+            "data": "Quelle est la valeur de l\u0027expression (5 - 3) * 4?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "The value of the expression (5 - 3) * 4 is 8.",
+            "data": "La valeur de l\u0027expression (5 - 3) * 4 est 8.",
             "observers": []
           }
         ],
@@ -463,14 +463,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "What is the value of the expression 8 / 2?",
+            "data": "Quelle est la valeur de l\u0027expression 8 / 2?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "The value of the expression 8 / 2 is 4.",
+            "data": "La valeur de l\u0027expression 8 / 2 est 4.",
             "observers": []
           }
         ],
@@ -482,14 +482,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "What is the value of the expression 5^2?",
+            "data": "Quelle est la valeur de l\u0027expression 5^2?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "The value of the expression 5^2 is 25.",
+            "data": "La valeur de l\u0027expression 5^2 is 25.",
             "observers": []
           }
         ],
@@ -501,14 +501,14 @@
         "question": [
           {
             "dataType": "TEXT",
-            "data": "What is the value of the expression sqrt(49)?",
+            "data": "Quelle est la valeur de l\u0027expression sqrt(49)?",
             "observers": []
           }
         ],
         "answer": [
           {
             "dataType": "TEXT",
-            "data": "The value of the expression sqrt(49) is 7.",
+            "data": "La valeur de l\u0027expression sqrt(49) is 7.",
             "observers": []
           }
         ],
@@ -648,7 +648,7 @@
     "observers": []
   },
   {
-    "name": "Warhammer 40k Trivia",
+    "name": "Warhammer 40k",
     "description": "A collection of trivia about the Warhammer 40k universe",
     "cards": [
       {
