@@ -32,6 +32,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -55,7 +56,7 @@ public class HomeLearningController implements Observer, Initializable {
     @FXML
     private Label titleLabel;
     @FXML
-    private Label descriptionLabel;
+    private Text descriptionLabel;
     @FXML
     private Label strategyLabel;
     @FXML
