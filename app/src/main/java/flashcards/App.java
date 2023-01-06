@@ -11,8 +11,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.checkerframework.checker.units.qual.s;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -60,13 +58,11 @@ public class App extends Application {
         if (fxml.equals("homeCreation")) {
             fxmlLoader.setControllerFactory(controllerClass -> new HomeCreationController(flashcardManager));
         } else if (fxml.equals("editCreation")) {
-            fxmlLoader
-                    .setControllerFactory(controllerClass -> new EditCreationController(flashcardManager, activeDeck));
+            fxmlLoader.setControllerFactory(controllerClass -> new EditCreationController(flashcardManager, activeDeck));
         } else if (fxml.equals("homeLearning")) {
             fxmlLoader.setControllerFactory(controllerClass -> new HomeLearningController(flashcardManager));
         } else {
-            fxmlLoader
-                    .setControllerFactory(controllerClass -> new GameLearningController(flashcardManager, activeDeck));
+            fxmlLoader.setControllerFactory(controllerClass -> new GameLearningController(flashcardManager, activeDeck));
         }
         return fxmlLoader.load();
     }
