@@ -138,6 +138,7 @@ public class GameLearningController implements Observer, Initializable {
     }
 
     public void showQuestion() throws FileNotFoundException {
+        boolean timerLaunched = false;
         displayedVBox.getChildren().clear();
         goBackButton.setVisible(false);
         Card displayedCard = flashcardManager.getGame().getCurrentCard();
@@ -167,10 +168,16 @@ public class GameLearningController implements Observer, Initializable {
                     mediaView.preserveRatioProperty();
                     mediaView.setFitHeight(300);
                 }
+                mediaPlayer.setOnEndOfMedia(() -> {
+                    timerPlay();
+                });
+                timerLaunched = true;
 
                 displayedVBox.getChildren().addAll(mediaView);
-
             }
+        }
+        if (!timerLaunched) {
+            timerPlay();
         }
     }
 
@@ -219,7 +226,6 @@ public class GameLearningController implements Observer, Initializable {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            timerPlay();
         }
     }
 }
