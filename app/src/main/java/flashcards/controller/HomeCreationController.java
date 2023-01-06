@@ -298,7 +298,7 @@ public class HomeCreationController implements Observer, Initializable {
                 deckij.setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
                 this.buttonBar.requestLayout();
                 this.displayedName.setText("Nouvelle pile");
-                this.displayedDescription.setText("Décrivez votre pile");
+                this.displayedDescription.setText("Ajouter une description à votre pile");
                 deckButtonPress(index);
             });
             line.getChildren().add(deckij);
@@ -311,7 +311,7 @@ public class HomeCreationController implements Observer, Initializable {
             // If the add button is pressed, show the new and import buttons
             if (this.buttonPressed.equals(this.addButton)) {
                 this.displayedName.setText("Nouvelle pile");
-                this.displayedDescription.setText("Décrivez votre pile");
+                this.displayedDescription.setText("Ajouter une description à votre pile");
                 this.buttonPressed
                         .setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
                 this.displayedName.setText(this.currentName);
@@ -430,7 +430,7 @@ public class HomeCreationController implements Observer, Initializable {
                 deckij.setStyle("-fx-background-color: lightgreen");
                 this.buttonBar.requestLayout();
                 this.displayedName.setText("Nouvelle pile");
-                this.displayedDescription.setText("Décrivez votre pile");
+                this.displayedDescription.setText("Ajouter une description à votre pile");
                 deckButtonPress(index);
             });
             line.getChildren().add(deckij);

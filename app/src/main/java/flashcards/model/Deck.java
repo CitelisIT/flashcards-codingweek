@@ -10,7 +10,7 @@ public class Deck extends Observable {
 
     public Deck() {
         this.name = "Nouvelle pile";
-        this.description = "Décrivez votre pile";
+        this.description = "Ajouter une description à votre pile";
         this.cards = new ArrayList<Card>();
     }
 

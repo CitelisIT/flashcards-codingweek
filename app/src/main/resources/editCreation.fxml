@@ -47,6 +47,7 @@ THE USE
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -55,6 +56,7 @@ THE USE
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flashcards.controller.EditCreationController">
    <bottom>
@@ -63,6 +65,9 @@ THE USE
             <Button fx:id="ValidationButton" layoutX="553.0" layoutY="10.0" mnemonicParsing="false" onAction="#validate" text="Valider" />
             <Button mnemonicParsing="false" onAction="#switchToHomeCreation" text="Retour liste" />
          </buttons>
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin>
       </ButtonBar>
    </bottom>
    <top>
@@ -70,15 +75,22 @@ THE USE
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Nom Pile" />
-                  <TextField fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
+                  <TextField fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="305.0">
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin></TextField>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Description" />
-                  <TextField fx:id="description" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0" prefWidth="305.0" />
+                  <TextField fx:id="description" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0" prefWidth="305.0">
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin></TextField>
                </children>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
@@ -86,12 +98,18 @@ THE USE
    <center>
       <HBox alignment="CENTER" prefHeight="382.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="341.0" prefWidth="227.0">
+            <VBox alignment="TOP_CENTER" prefHeight="506.0" prefWidth="275.0">
                <children>
-                  <Label text="question" />
-                  <VBox fx:id="VboxQuestion" prefHeight="33.0" prefWidth="227.0">
+                  <Label prefHeight="50.0" prefWidth="265.0" text="Question">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding></Label>
+                  <VBox fx:id="VboxQuestion" prefHeight="40.0" prefWidth="227.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox prefHeight="317.0" prefWidth="227.0">
                            <children>
                               <TextField />
                               <Button fx:id="delContentQuestionButton" mnemonicParsing="false" onAction="#delQuestionContent" text="-" />
@@ -99,7 +117,7 @@ THE USE
                         </HBox>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="227.0">
                      <children>
                         <Button fx:id="questionAddTextButton" alignment="CENTER" mnemonicParsing="false" onAction="#addQuestionText" text="+ Texte" />
                         <Button fx:id="questionAddMediaButton" mnemonicParsing="false" onAction="#addQuestionMedia" text="+ Media" />
@@ -107,12 +125,19 @@ THE USE
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="341.0" prefWidth="227.0">
+            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="506.0" prefWidth="275.0">
                <children>
-                  <Label text="réponse" />
-                  <VBox fx:id="VboxAnswer" prefHeight="33.0" prefWidth="227.0">
+                  <Label prefHeight="50.0" prefWidth="257.0" text="Réponse">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </Label>
+                  <VBox fx:id="VboxAnswer" prefHeight="40.0" prefWidth="227.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox prefHeight="40.0" prefWidth="227.0">
                            <children>
                               <TextField />
                               <Button fx:id="delContentAnswerButton" mnemonicParsing="false" onAction="#delAnswerContent" text="-" />
@@ -120,31 +145,40 @@ THE USE
                         </HBox>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="227.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="227.0">
                      <children>
                         <Button fx:id="answerAddTextButton" alignment="CENTER" mnemonicParsing="false" onAction="#addAnswerText" text="+ Texte" />
                         <Button fx:id="answerAddMediaButton" mnemonicParsing="false" onAction="#addAnswerMedia" text="+ Media" />
                      </children>
                   </HBox>
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </VBox>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
       </HBox>
    </center>
    <left>
-      <VBox prefHeight="559.0" prefWidth="152.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="536.0" prefWidth="159.0" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="528.0" prefWidth="152.0" vbarPolicy="ALWAYS">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="512.0" prefWidth="177.0" vbarPolicy="ALWAYS">
                <content>
                   <VBox fx:id="listCard" />
                </content>
             </ScrollPane>
-            <ButtonBar buttonMinWidth="20.0">
-               <buttons>
-                  <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard" text="+" />
-                  <Button fx:id="delCardButton" mnemonicParsing="false" onAction="#delCard" text="-" />
-               </buttons>
-            </ButtonBar>
+            <HBox prefHeight="28.0" prefWidth="152.0">
+               <children>
+                  <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard" prefHeight="24.0" prefWidth="80.0" text="+" />
+                  <Button fx:id="delCardButton" mnemonicParsing="false" onAction="#delCard" prefHeight="24.0" prefWidth="77.0" text="-" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </left>
