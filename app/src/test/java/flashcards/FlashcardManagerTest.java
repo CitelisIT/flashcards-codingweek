@@ -2,17 +2,17 @@ package flashcards;
 
 import org.junit.jupiter.api.Test;
 
-import flashcards.model.DeckManager;
+import flashcards.model.FlashcardManager;
 import flashcards.model.Card;
 import flashcards.model.Deck;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DeckManagerTest {
+public class FlashcardManagerTest {
 
     @Test
     void TestDeckManager() {
-        DeckManager deckManager = new DeckManager();
+        FlashcardManager deckManager = new FlashcardManager();
 
         Deck deck = new Deck();
         deck.setName("Deck 1");

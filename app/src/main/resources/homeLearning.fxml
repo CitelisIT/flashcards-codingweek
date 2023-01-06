@@ -88,23 +88,20 @@
    <right>
       <VBox fx:id="rightPannel" alignment="CENTER" prefHeight="363.0" prefWidth="252.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="title" text="Titre">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin></Label>
-            <Label fx:id="description" layoutX="10.0" layoutY="10.0" text="Desc">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin></Label>
-            <Label text="Stratégie :" />
-            <ChoiceBox fx:id="strategyChoiceBox">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin></ChoiceBox>
-            <Label layoutX="120.0" layoutY="172.0" text="Nombre de cartes (entre 1 et 200) :" />
-            <Spinner fx:id="nbCardSpinner" editable="true" prefWidth="100">
+            <Label fx:id="titleLabel" text="Titre" />
+            <Label fx:id="descriptionLabel" layoutX="10.0" layoutY="10.0" text="Description">
                <VBox.margin>
                   <Insets bottom="10.0" />
+               </VBox.margin></Label>
+            <Label fx:id="strategyLabel" text="Stratégie :" />
+            <ChoiceBox fx:id="strategyChoiceBox">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin></ChoiceBox>
+            <Label fx:id="nbCardLabel" layoutX="120.0" layoutY="172.0" text="Nombre de cartes (entre 1 et 200) :" />
+            <Spinner fx:id="nbCardSpinner" editable="true" prefWidth="100">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
                </VBox.margin>
             </Spinner>
             <Button fx:id="startButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGame" text="Commencer" />

@@ -12,7 +12,7 @@ import com.google.gson.JsonSyntaxException;
 import flashcards.App;
 import flashcards.model.Card;
 import flashcards.model.Deck;
-import flashcards.model.DeckManager;
+import flashcards.model.FlashcardManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,35 +35,28 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class HomeCreationController implements Observer, Initializable {
 
-    @FXML
-    private Label displayedName;
     private String currentName;
-    @FXML
-    private Label displayedDesc;
-    private String currentDesc;
-    @FXML
-    private Button addButton;
-    @FXML
-    private VBox listDeck;
-
-    private DeckManager allDeck;
+    private String currentDescription;
+    private FlashcardManager flashcardManager;
     private int activeDeck;
     private Button buttonPressed;
 
-    @FXML
-    private ButtonBar buttonBar;
+    private Button newDeck = new Button("Nouveau Deck");
+    private Button importDeck = new Button("Importer JSON");
+    private Button editDeck = new Button("Modifier");
+    private Button deleteDeck = new Button("Supprimer");
+    private Button exportDeck = new Button("Exporter");
+    private Button statistics = new Button("Statistiques");
 
-    private Button newD = new Button("Nouveau Deck");
-    private Button importD = new Button("Importer deck");
+    @FXML private ButtonBar buttonBar;
+    @FXML private Button addButton;
+    @FXML private VBox listDeck;
+    @FXML private Label displayedDescription;
+    @FXML private Label displayedName;
 
-    private Button editD = new Button("Edit deck");
-    private Button deleteD = new Button("Delete deck");
-    private Button exportD = new Button("Export deck");
 
-    private Button stats = new Button("Stats");
-
-    public HomeCreationController(DeckManager allDeck) {
-        this.allDeck = allDeck;
+    public HomeCreationController(FlashcardManager flashcardManager) {
+        this.flashcardManager = flashcardManager;
     }
 
     /**
@@ -71,7 +64,7 @@ public class HomeCreationController implements Observer, Initializable {
      * called when the "Mode Apprentissage" menu Item is pressed.
      */
     public void switchToHomeLearning() throws IOException {
-        App.setRoot("homeLearning", allDeck, 0);
+        App.setRoot("homeLearning", this.flashcardManager, 0);
     }
 
     /**
@@ -79,7 +72,7 @@ public class HomeCreationController implements Observer, Initializable {
      * called when the "Edit" or "New" button is pressed.
      */
     public void switchToEditCreation() throws IOException {
-        App.setRoot("editCreation", allDeck, activeDeck);
+        App.setRoot("editCreation", this.flashcardManager, this.activeDeck);
     }
 
     /**
@@ -87,10 +80,10 @@ public class HomeCreationController implements Observer, Initializable {
      * called when the "Add" button is pressed.
      */
     public void selectNewOrImport() {
-        currentName = "Nouvelle pile";
-        currentDesc = "Décrivez votre pile";
-        buttonPressed = addButton;
-        buttonPressed.setStyle(null);
+        this.currentName = "Ajout de pile";
+        this.currentDescription = "Créer une pile ou en importer une au format JSON";
+        this.buttonPressed = this.addButton;
+        this.buttonPressed.setStyle(null);
         react();
     }
 
@@ -104,12 +97,11 @@ public class HomeCreationController implements Observer, Initializable {
      */
     public void importDeck() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Import");
-        fileChooser.getExtensionFilters()
-                .addAll(new ExtensionFilter("JSON", "*.json"));
-        File file = fileChooser.showOpenDialog(listDeck.getScene().getWindow());
+        fileChooser.setTitle("Importer un JSON");
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("JSON", "*.json"));
+        File file = fileChooser.showOpenDialog(this.listDeck.getScene().getWindow());
         if (file != null) {
-            allDeck.addDeck(allDeck.importdeckManager(file.getPath()));
+            this.flashcardManager.addDeck(this.flashcardManager.importdeckManager(file.getPath()));
         }
         react();
     }
@@ -122,12 +114,11 @@ public class HomeCreationController implements Observer, Initializable {
      */
     public void exportDeck() throws IOException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Export");
-        fileChooser.getExtensionFilters()
-                .addAll(new ExtensionFilter("JSON", "*.json"));
-        File file = fileChooser.showSaveDialog(listDeck.getScene().getWindow());
+        fileChooser.setTitle("Exporter sous format JSON");
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("JSON", "*.json"));
+        File file = fileChooser.showSaveDialog(this.listDeck.getScene().getWindow());
         if (file != null) {
-            allDeck.exportdeckManager(allDeck.getDeck(activeDeck), file.toPath());
+            this.flashcardManager.exportdeckManager(this.flashcardManager.getDeck(this.activeDeck), file.toPath());
         }
     }
 
@@ -135,10 +126,10 @@ public class HomeCreationController implements Observer, Initializable {
      * Deletes the currently active deck. This method is called when the "Delete
      * deck" button is pressed.
      */
-    public void deleteDeck() {
-        allDeck.removeDeck(activeDeck);
-        activeDeck = 0;
-        buttonPressed = addButton;
+    public void deleteDeckeck() {
+        this.flashcardManager.removeDeck(this.activeDeck);
+        this.activeDeck = 0;
+        this.buttonPressed = this.addButton;
         react();
     }
 
@@ -152,34 +143,38 @@ public class HomeCreationController implements Observer, Initializable {
     public void statsDeck() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/deckStats.fxml"));
         Parent root = fxmlLoader.load();
+
         Button bestCardButton = (Button) root.lookup("#bestCardButton");
-        bestCardButton.setText(allDeck.getDeck(activeDeck).getBestCard().getQuestionContent(0).getData());
-        Button worstCardButton = (Button) root.lookup("#worstCardButton");
-        worstCardButton.setText(allDeck.getDeck(activeDeck).getWorstCard().getQuestionContent(0).getData());
-        PieChart pieChart = (PieChart) root.lookup("#deckPieChart");
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Bonnes réponses", allDeck.getDeck(activeDeck).getRightAnswers()),
-                new PieChart.Data("Mauvaises réponses", allDeck.getDeck(activeDeck).getWrongAnswers()));
-        pieChart.setData(pieChartData);
-        Stage stage = new Stage();
-        stage.initModality(Modality.NONE);
-        stage.setTitle("Deck Stats");
-        stage.setScene(new Scene(root));
-        stage.show();
+        bestCardButton.setText(flashcardManager.getDeck(activeDeck).getBestCard().getQuestionContent(0).getData());
         bestCardButton.setOnAction(e -> {
             try {
-                showCard(allDeck.getDeck(activeDeck).getBestCard());
+                showCard(flashcardManager.getDeck(activeDeck).getBestCard());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
+        
+        Button worstCardButton = (Button) root.lookup("#worstCardButton");
+        worstCardButton.setText(flashcardManager.getDeck(activeDeck).getWorstCard().getQuestionContent(0).getData());
         worstCardButton.setOnAction(e -> {
             try {
-                showCard(allDeck.getDeck(activeDeck).getBestCard());
+                showCard(flashcardManager.getDeck(activeDeck).getBestCard());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
+        
+        PieChart pieChart = (PieChart) root.lookup("#deckPieChart");
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Bonnes réponses", flashcardManager.getDeck(activeDeck).getRightAnswers()),
+                new PieChart.Data("Mauvaises réponses", flashcardManager.getDeck(activeDeck).getWrongAnswers()));
+        pieChart.setData(pieChartData);
+        
+        Stage stage = new Stage();
+        stage.initModality(Modality.NONE);
+        stage.setTitle("Statistiques de la pile");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     /**
@@ -191,11 +186,13 @@ public class HomeCreationController implements Observer, Initializable {
     public void showCard(Card card) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/card.fxml"));
         Parent root = fxmlLoader.load();
+
         Stage stage = new Stage();
         stage.initModality(Modality.NONE);
-        stage.setTitle("Card");
+        stage.setTitle("Carte");
         stage.setScene(new Scene(root));
         stage.show();
+
         Button questionAnswerButton = (Button) root.lookup("#questionAnswerButton");
         questionAnswerButton.setText(card.getQuestionContent(0).getData());
         questionAnswerButton.setOnAction(e -> {
@@ -220,9 +217,9 @@ public class HomeCreationController implements Observer, Initializable {
      */
     public void newDeck() throws IOException {
         Deck newDeck = new Deck();
-        allDeck.addDeck(newDeck);
-        newDeck.setName(newDeck.getName() + allDeck.getDeckManagerSize());
-        activeDeck = allDeck.sortByName(newDeck);
+        this.flashcardManager.addDeck(newDeck);
+        newDeck.setName(newDeck.getName() + this.flashcardManager.getDeckManagerSize());
+        this.activeDeck = this.flashcardManager.sortByName(newDeck);
         react();
         switchToEditCreation();
     }
@@ -232,7 +229,7 @@ public class HomeCreationController implements Observer, Initializable {
      * called when the "Save and Quit" button is pressed.
      */
     public void saveAll() {
-        allDeck.save();
+        this.flashcardManager.save();
         System.exit(0);
     }
 
@@ -258,31 +255,31 @@ public class HomeCreationController implements Observer, Initializable {
     @Override
     public void react() {
         // Clear the list of decks in the UI
-        listDeck.getChildren().clear();
+        this.listDeck.getChildren().clear();
         // Add a new row to the list with the add button
-        HBox initLigne = new HBox(addButton);
-        listDeck.getChildren().add(initLigne);
+        HBox initLigne = new HBox(this.addButton);
+        this.listDeck.getChildren().add(initLigne);
         // Initialize variables to keep track of current row and column
         int i = 0;
         int j = 1;
         // Iterate through all decks in the deck manager
-        for (int k = 0; k < allDeck.getDeckManagerSize(); k++) {
+        for (int k = 0; k < this.flashcardManager.getDeckManagerSize(); k++) {
             // If there is still space on the current row, add the deck button to it
-            HBox ligne;
+            HBox line;
             if (j == 6) {
                 i++;
                 j = 0;
-                ligne = new HBox();
-                listDeck.getChildren().add(ligne);
+                line = new HBox();
+                this.listDeck.getChildren().add(line);
             } else {
-                ligne = (HBox) listDeck.getChildren().get(i);
+                line = (HBox) this.listDeck.getChildren().get(i);
             }
 
-            Button deckij = new Button(allDeck.getDeck(k).getName());
-            deckij.setId(allDeck.getDeck(k).getName());
+            Button deckij = new Button(this.flashcardManager.getDeck(k).getName());
+            deckij.setId(this.flashcardManager.getDeck(k).getName());
             // If this button is the one that was previously pressed, highlight it
-            if (buttonPressed != null) {
-                if (deckij.getId().equals(buttonPressed.getId())) {
+            if (this.buttonPressed != null) {
+                if (deckij.getId().equals(this.buttonPressed.getId())) {
                     deckij.setStyle("-fx-background-color: lightgreen");
                 }
             }
@@ -290,15 +287,15 @@ public class HomeCreationController implements Observer, Initializable {
             int index = k;
             deckij.setPrefSize(130.0, 100.0);
             deckij.setOnAction(event -> {
-                buttonPressed.setStyle(null);
-                buttonPressed = deckij;
+                this.buttonPressed.setStyle(null);
+                this.buttonPressed = deckij;
                 deckij.setStyle("-fx-background-color: lightgreen");
                 buttonBar.requestLayout();
                 displayedName.setText("Nouvelle pile");
-                displayedDesc.setText("Décrivez votre pile");
+                this.displayedDescription.setText("Décrivez votre pile");
                 deckButtonPress(index);
             });
-            ligne.getChildren().add(deckij);
+            line.getChildren().add(deckij);
             HBox.setMargin(deckij, new Insets(10, 0, 0, 10));
             j++;
         }
@@ -309,25 +306,25 @@ public class HomeCreationController implements Observer, Initializable {
         {
             // If the add button is pressed, show the new and import buttons
             if (buttonPressed.equals(addButton)) {
-                displayedName.setText("Nouvelle pile");
-                displayedDesc.setText("Décrivez votre pile");
-                buttonPressed.setStyle("-fx-background-color: lightgreen");
-                displayedName.setText(currentName);
-                displayedDesc.setText(currentDesc);
-                ButtonBar.setButtonData(newD, ButtonData.APPLY);
-                ButtonBar.setButtonData(importD, ButtonData.APPLY);
-                buttonBar.getButtons().addAll(newD, importD);
+                this.displayedName.setText("Nouvelle pile");
+                this.displayedDescription.setText("Décrivez votre pile");
+                this.buttonPressed.setStyle("-fx-background-color: lightgreen");
+                this.displayedName.setText(this.currentName);
+                this.displayedDescription.setText(this.currentDescription);
+                ButtonBar.setButtonData(this.newDeck, ButtonData.APPLY);
+                ButtonBar.setButtonData(this.importDeck, ButtonData.APPLY);
+                this.buttonBar.getButtons().addAll(this.newDeck, this.importDeck);
             }
 
             // If a deck button is pressed, show the edit, export, delete and stats buttons
             else {
-                displayedName.setText(currentName);
-                displayedDesc.setText(currentDesc);
-                ButtonBar.setButtonData(exportD, ButtonData.APPLY);
-                ButtonBar.setButtonData(editD, ButtonData.APPLY);
-                ButtonBar.setButtonData(deleteD, ButtonData.APPLY);
-                ButtonBar.setButtonData(stats, ButtonData.APPLY);
-                buttonBar.getButtons().addAll(editD, exportD, deleteD, stats);
+                this.displayedName.setText(this.currentName);
+                this.displayedDescription.setText(this.currentDescription);
+                ButtonBar.setButtonData(this.exportDeck, ButtonData.APPLY);
+                ButtonBar.setButtonData(this.editDeck, ButtonData.APPLY);
+                ButtonBar.setButtonData(this.deleteDeck, ButtonData.APPLY);
+                ButtonBar.setButtonData(this.statistics, ButtonData.APPLY);
+                this.buttonBar.getButtons().addAll(this.editDeck, this.exportDeck, this.deleteDeck, this.statistics);
             }
         }
 
@@ -340,9 +337,9 @@ public class HomeCreationController implements Observer, Initializable {
      * @param i the index of the selected deck
      */
     public void deckButtonPress(int i) {
-        currentName = allDeck.getDeck(i).getName();
-        currentDesc = allDeck.getDeck(i).getDescription();
-        activeDeck = i;
+        this.currentName = this.flashcardManager.getDeck(i).getName();
+        this.currentDescription = this.flashcardManager.getDeck(i).getDescription();
+        this.activeDeck = i;
         react();
     }
 
@@ -354,42 +351,42 @@ public class HomeCreationController implements Observer, Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Add this object as an observer of the allDeck object.
-        allDeck.addObserver(this);
+        // Add this object as an observer of the flashcardManager object.
+        this.flashcardManager.addObserver(this);
         // Set the style of the buttonBar object to "null".
-        buttonBar.setStyle("null");
-        // Set up action event handlers for the newD, importD, editD, deleteD,
+        this.buttonBar.setStyle("null");
+        // Set up action event handlers for the newDeck, importDeck, editDeck, deleteDeck,
         // exportD and stats objects.
-        newD.setOnAction(event -> {
+        this.newDeck.setOnAction(event -> {
             try {
                 newDeck();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        importD.setOnAction(event -> {
+        this.importDeck.setOnAction(event -> {
             try {
                 importDeck();
             } catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
-        editD.setOnAction(event -> {
+        this.editDeck.setOnAction(event -> {
             try {
                 editDeck();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
-        deleteD.setOnAction(event -> deleteDeck());
-        exportD.setOnAction(event -> {
+        this.deleteDeck.setOnAction(event -> deleteDeckeck());
+        this.exportDeck.setOnAction(event -> {
             try {
                 exportDeck();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        stats.setOnAction(event -> {
+        this.statistics.setOnAction(event -> {
             try {
                 statsDeck();
             } catch (IOException e) {
@@ -397,41 +394,41 @@ public class HomeCreationController implements Observer, Initializable {
             }
         });
         // Clear the list of children for the listDeck object.
-        listDeck.getChildren().clear();
+        this.listDeck.getChildren().clear();
         // Create a new HBox object called initLigne and add it to the listDeck object.
-        HBox initLigne = new HBox(addButton);
-        listDeck.getChildren().add(initLigne);
+        HBox initLigne = new HBox(this.addButton);
+        this.listDeck.getChildren().add(initLigne);
         // Initialize loop variables.
         int i = 0;
         int j = 1;
         // Iterate through all decks in the deck manager
-        for (int k = 0; k < allDeck.getDeckManagerSize(); k++) {
+        for (int k = 0; k < this.flashcardManager.getDeckManagerSize(); k++) {
             // If there is still space on the current row, add the deck button to it
-            HBox ligne;
+            HBox line;
             if (j == 6) {
                 i++;
                 j = 0;
-                ligne = new HBox();
-                listDeck.getChildren().add(ligne);
+                line = new HBox();
+                this.listDeck.getChildren().add(line);
             } else {
-                ligne = (HBox) listDeck.getChildren().get(i);
+                line = (HBox) this.listDeck.getChildren().get(i);
             }
 
-            Button deckij = new Button(allDeck.getDeck(k).getName());
-            deckij.setId(allDeck.getDeck(k).getName());
+            Button deckij = new Button(this.flashcardManager.getDeck(k).getName());
+            deckij.setId(this.flashcardManager.getDeck(k).getName());
             // If this button is the one that was previously pressed, highlight it
             // Set the action for when this button is pressed
             int index = k;
             deckij.setPrefSize(130.0, 100.0);
             deckij.setOnAction(event -> {
-                buttonPressed = deckij;
+                this.buttonPressed = deckij;
                 deckij.setStyle("-fx-background-color: lightgreen");
-                buttonBar.requestLayout();
-                displayedName.setText("Nouvelle pile");
-                displayedDesc.setText("Décrivez votre pile");
+                this.buttonBar.requestLayout();
+                this.displayedName.setText("Nouvelle pile");
+                this.displayedDescription.setText("Décrivez votre pile");
                 deckButtonPress(index);
             });
-            ligne.getChildren().add(deckij);
+            line.getChildren().add(deckij);
             HBox.setMargin(deckij, new Insets(10, 0, 0, 10));
             j++;
 

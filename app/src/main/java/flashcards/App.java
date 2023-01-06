@@ -20,7 +20,7 @@ import flashcards.controller.GameLearningController;
 import flashcards.controller.HomeCreationController;
 import flashcards.controller.HomeLearningController;
 import flashcards.model.Deck;
-import flashcards.model.DeckManager;
+import flashcards.model.FlashcardManager;
 
 /**
  * JavaFX App
@@ -31,34 +31,34 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        DeckManager allDeck = new DeckManager();
+        FlashcardManager flashcardManager = new FlashcardManager();
         Gson gson = new Gson();
-        Type DeclList = new TypeToken<ArrayList<Deck>>() {
-        }.getType();
+        Type DeclList = new TypeToken<ArrayList<Deck>>() {}.getType();
 
         try {
             ArrayList<Deck> newDeck = gson.fromJson(new FileReader("decks.json"), DeclList);
-            allDeck.setDeckManager(newDeck);
+            flashcardManager.setDeckManager(newDeck);
         } catch (FileNotFoundException e) {}
-        scene = new Scene(loadFXML("homeCreation", allDeck, 0), 900, 650);
+        scene = new Scene(loadFXML("homeCreation", flashcardManager, 0), 900, 650);
         stage.setScene(scene);
+        stage.setTitle("Application flashcard");
         stage.show();
     }
 
-    public static void setRoot(String fxml, DeckManager allDeck, int activeDeck) throws IOException {
-        scene.setRoot(loadFXML(fxml, allDeck, activeDeck));
+    public static void setRoot(String fxml, FlashcardManager flashcardManager, int activeDeck) throws IOException {
+        scene.setRoot(loadFXML(fxml, flashcardManager, activeDeck));
     }
 
-    private static Parent loadFXML(String fxml, DeckManager allDeck, int activeDeck) throws IOException {
+    private static Parent loadFXML(String fxml, FlashcardManager flashcardManager, int activeDeck) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/" + fxml + ".fxml"));
         if (fxml.equals("homeCreation")) {
-            fxmlLoader.setControllerFactory(controllerClass -> new HomeCreationController(allDeck));
+            fxmlLoader.setControllerFactory(controllerClass -> new HomeCreationController(flashcardManager));
         } else if (fxml.equals("editCreation")) {
-            fxmlLoader.setControllerFactory(controllerClass -> new EditCreationController(allDeck, activeDeck));
+            fxmlLoader.setControllerFactory(controllerClass -> new EditCreationController(flashcardManager, activeDeck));
         } else if (fxml.equals("homeLearning")) {
-            fxmlLoader.setControllerFactory(controllerClass -> new HomeLearningController(allDeck));
+            fxmlLoader.setControllerFactory(controllerClass -> new HomeLearningController(flashcardManager));
         } else {
-            fxmlLoader.setControllerFactory(controllerClass -> new GameLearningController(allDeck, activeDeck));
+            fxmlLoader.setControllerFactory(controllerClass -> new GameLearningController(flashcardManager));
         }
         return fxmlLoader.load();
     }

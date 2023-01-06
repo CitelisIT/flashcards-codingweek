@@ -3,19 +3,19 @@ package flashcards.model;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class KnownPriorityMode implements StrategieAlgorithm {
+public class KnownPriorityMode implements StrategyAlgorithm {
 
-    ArrayList<Card> tirage = new ArrayList<Card>();
+    ArrayList<Card> draw = new ArrayList<Card>();
     Random random = new Random();
 
     public void computeSequence(int length, Deck deck, ArrayList<Card> sequenCards) {
         for (Card card : deck.getCards()) {
             for (int i = 0; i < (card.getScore()) * 10 + 1; i++) {
-                tirage.add(card);
+                this.draw.add(card);
             }
         }
         for (int i = 0; i < length; i++) {
-            sequenCards.add(tirage.get(random.nextInt(tirage.size())));
+            sequenCards.add(this.draw.get(this.random.nextInt(this.draw.size())));
         }
     }
 }

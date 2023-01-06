@@ -10,11 +10,11 @@ public class Content extends Observable {
     }
 
     public String getData() {
-        return data;
+        return this.data;
     }
 
     public String getDataType() {
-        return dataType;
+        return this.dataType;
     }
 
     public void setData(String data) {

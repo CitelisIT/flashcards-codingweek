@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 import flashcards.App;
 import flashcards.model.Card;
-import flashcards.model.DeckManager;
+import flashcards.model.FlashcardManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,62 +24,53 @@ import javafx.scene.Node;
 
 public class EditCreationController implements Observer, Initializable {
 
-    private DeckManager allDeck;
+    private FlashcardManager flashcardManager;
     private int activeDeck = 0;
     private int activeCard = 0;
     private int activeQuestionContent = 0;
     private int activeAnswerContent = 0;
+
     private Button buttonPressed;
     private Button questionAddTextButton = new Button("Question textuelle");
     private Button questionAddMediaButton = new Button("Question multimedia");
     private Button answerAddTextButton = new Button("Reponse textuelle");
     private Button answerAddMediaButton = new Button("Reponse multimedia");
     private Button validationButton = new Button("Valider");
-    @FXML
-    private VBox VboxQuestion = new VBox();
-    @FXML
-    private VBox VboxAnswer = new VBox();
-    @FXML
-    private TextField questionText = new TextField();
-    @FXML
-    private TextField answerText = new TextField();
-    @FXML
-    private TextField name = new TextField();
-    @FXML
-    private TextField description = new TextField();
-    @FXML
-    private VBox listCard;
-    @FXML
-    private Button addCardButton;
-    @FXML
-    private Button delCardButton;
-    @FXML
-    private Button delContentQuestionButton;
-    @FXML
-    private Button delContentAnswerButton;
 
-    public EditCreationController(DeckManager allDeck, int activeDeck) {
-        this.allDeck = allDeck;
+    @FXML private VBox VboxQuestion = new VBox();
+    @FXML private VBox VboxAnswer = new VBox();
+    @FXML private TextField questionText = new TextField();
+    @FXML private TextField answerText = new TextField();
+    @FXML private TextField name = new TextField();
+    @FXML private TextField description = new TextField();
+    @FXML private VBox listCard;
+    @FXML private Button addCardButton;
+    @FXML private Button delCardButton;
+    @FXML private Button delContentQuestionButton;
+    @FXML private Button delContentAnswerButton;
+
+    public EditCreationController(FlashcardManager flashcardManager, int activeDeck) {
+        this.flashcardManager = flashcardManager;
         this.activeDeck = activeDeck;
     }
 
     public void switchToHomeCreation() throws IOException {
         activeCard = 0;
         react();
-        App.setRoot("homeCreation", allDeck, 0);
+        App.setRoot("homeCreation", flashcardManager, 0);
     }
 
     public void addCard() {
-        allDeck.getDeck(activeDeck).add(new Card());
+        flashcardManager.getDeck(activeDeck).add(new Card());
         updateModel();
-        activeCard = allDeck.getDeck(activeDeck).getCards().size() - 1;
+        activeCard = flashcardManager.getDeck(activeDeck).getCards().size() - 1;
 
         react();
     }
 
     public void delCard() {
-        if (!(allDeck.getDeck(activeDeck).getCards().size() == 1)) {
-            allDeck.getDeck(activeDeck).remove(activeCard);
+        if (!(flashcardManager.getDeck(activeDeck).getCards().size() == 1)) {
+            flashcardManager.getDeck(activeDeck).remove(activeCard);
             activeCard--;
             if (activeCard < 0) {
                 activeCard = 0;
@@ -91,7 +82,7 @@ public class EditCreationController implements Observer, Initializable {
     public void addQuestionText() {
         buttonPressed = questionAddTextButton;
         updateModel();
-        allDeck.getCard(activeDeck, activeCard).addQuestionContentText("Texte");
+        flashcardManager.getCard(activeDeck, activeCard).addQuestionContentText("Texte");
         react();
     }
 
@@ -105,7 +96,7 @@ public class EditCreationController implements Observer, Initializable {
             return;
         }
         Path path = Paths.get(file.getAbsolutePath());
-        allDeck.getCard(activeDeck, activeCard).addQuestionContentMultimedia(path.toString(),
+        flashcardManager.getCard(activeDeck, activeCard).addQuestionContentMultimedia(path.toString(),
                 getFileType(path.toString()));
         react();
     }
@@ -113,8 +104,8 @@ public class EditCreationController implements Observer, Initializable {
     public void delQuestionContent() {
         delContentQuestionButton.setStyle(null);
         activeQuestionContent = Integer.parseInt(delContentQuestionButton.getId());
-        if (allDeck.getCard(activeDeck, activeCard).getQuestion().size() != 1) {
-            allDeck.getCard(activeDeck, activeCard).getQuestion().remove(activeQuestionContent);
+        if (flashcardManager.getCard(activeDeck, activeCard).getQuestion().size() != 1) {
+            flashcardManager.getCard(activeDeck, activeCard).getQuestion().remove(activeQuestionContent);
             activeQuestionContent = 0;
         }
         react();
@@ -123,8 +114,8 @@ public class EditCreationController implements Observer, Initializable {
     public void delAnswerContent() {
         delContentAnswerButton.setStyle(null);
         activeAnswerContent = Integer.parseInt(delContentAnswerButton.getId());
-        if (allDeck.getCard(activeDeck, activeCard).getAnswer().size() != 1) {
-            allDeck.getCard(activeDeck, activeCard).getAnswer().remove(activeAnswerContent);
+        if (flashcardManager.getCard(activeDeck, activeCard).getAnswer().size() != 1) {
+            flashcardManager.getCard(activeDeck, activeCard).getAnswer().remove(activeAnswerContent);
             activeAnswerContent--;
         }
         react();
@@ -133,7 +124,7 @@ public class EditCreationController implements Observer, Initializable {
     public void addAnswerText() {
         buttonPressed = answerAddTextButton;
         updateModel();
-        allDeck.getCard(activeDeck, activeCard).addAnswerContentText("Texte");
+        flashcardManager.getCard(activeDeck, activeCard).addAnswerContentText("Texte");
         react();
     }
 
@@ -147,7 +138,7 @@ public class EditCreationController implements Observer, Initializable {
             return;
         }
         Path path = Paths.get(file.getAbsolutePath());
-        allDeck.getCard(activeDeck, activeCard).addAnswerContentMultimedia(path.toString(),
+        flashcardManager.getCard(activeDeck, activeCard).addAnswerContentMultimedia(path.toString(),
                 getFileType(path.toString()));
         react();
     }
@@ -165,29 +156,29 @@ public class EditCreationController implements Observer, Initializable {
 
     public void updateModel() {
         if (!name.getText().isEmpty()) {
-            allDeck.getDeck(activeDeck).setName(name.getText());
-            activeDeck = allDeck.sortByName(allDeck.getDeck(activeDeck));
+            flashcardManager.getDeck(activeDeck).setName(name.getText());
+            activeDeck = flashcardManager.sortByName(flashcardManager.getDeck(activeDeck));
 
         } else {
-            allDeck.getDeck(activeDeck).setName("Deck sans nom");
+            flashcardManager.getDeck(activeDeck).setName("Deck sans nom");
         }
         if (!description.getText().isEmpty()) {
-            allDeck.getDeck(activeDeck).setDescription(description.getText());
+            flashcardManager.getDeck(activeDeck).setDescription(description.getText());
         } else {
-            allDeck.getDeck(activeDeck).setDescription("Deck sans description");
+            flashcardManager.getDeck(activeDeck).setDescription("Deck sans description");
         }
 
         for (int index = 0; index < VboxQuestion.getChildren().size(); index++) {
             HBox HboxQchild = (HBox) VboxQuestion.getChildren().get(index);
             Node child = HboxQchild.getChildren().get(0);
             if (child instanceof TextField) {
-                allDeck.getCard(activeDeck, activeCard).setQuestionContent(index,
+                flashcardManager.getCard(activeDeck, activeCard).setQuestionContent(index,
                         ((TextField) child).getText());
             }
             if (child instanceof Label) {
-                allDeck.getCard(activeDeck, activeCard).setQuestionContent(index,
+                flashcardManager.getCard(activeDeck, activeCard).setQuestionContent(index,
                         ((Label) child).getText());
-                allDeck.getCard(activeDeck, activeCard).setQuestionContentType(index,
+                flashcardManager.getCard(activeDeck, activeCard).setQuestionContentType(index,
                         getFileType(((Label) child).getText()));
             }
         }
@@ -196,13 +187,13 @@ public class EditCreationController implements Observer, Initializable {
             HBox HboxAchild = (HBox) VboxAnswer.getChildren().get(index);
             Node child = HboxAchild.getChildren().get(0);
             if (child instanceof TextField) {
-                allDeck.getCard(activeDeck, activeCard).setAnswerContent(index,
+                flashcardManager.getCard(activeDeck, activeCard).setAnswerContent(index,
                         ((TextField) child).getText());
             }
             if (child instanceof Label) {
-                allDeck.getCard(activeDeck, activeCard).setAnswerContent(index,
+                flashcardManager.getCard(activeDeck, activeCard).setAnswerContent(index,
                         ((Label) child).getText());
-                allDeck.getCard(activeDeck, activeCard).setAnswerContentType(index,
+                flashcardManager.getCard(activeDeck, activeCard).setAnswerContentType(index,
                         getFileType(((Label) child).getText()));
 
             }
@@ -241,13 +232,13 @@ public class EditCreationController implements Observer, Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (allDeck.getDeck(activeDeck).getCards().isEmpty()) {
-            allDeck.getDeck(activeDeck).add(new Card());
+        if (flashcardManager.getDeck(activeDeck).getCards().isEmpty()) {
+            flashcardManager.getDeck(activeDeck).add(new Card());
         }
-        allDeck.addObserver(this);
+        flashcardManager.addObserver(this);
 
-        name.setText(allDeck.getDeck(activeDeck).getName());
-        description.setText(allDeck.getDeck(activeDeck).getDescription());
+        name.setText(flashcardManager.getDeck(activeDeck).getName());
+        description.setText(flashcardManager.getDeck(activeDeck).getDescription());
         VboxQuestion.getChildren().remove(0);
         updateViewQuestions();
         VboxAnswer.getChildren().remove(0);
@@ -257,7 +248,7 @@ public class EditCreationController implements Observer, Initializable {
         addDelBar.getButtons().addAll(addCardButton, delCardButton);
         listCard.getChildren().add(addDelBar);
         // Iterate through all decks in the deck manager
-        for (int k = 0; k < allDeck.getDeck(activeDeck).getCards().size(); k++) {
+        for (int k = 0; k < flashcardManager.getDeck(activeDeck).getCards().size(); k++) {
             // If there is still space on the current row, add the deck button to it
             Button cardj = new Button("carte n°" + k);
             cardj.setId(Integer.toString(k));
@@ -291,7 +282,7 @@ public class EditCreationController implements Observer, Initializable {
         addDelBar.getButtons().addAll(addCardButton, delCardButton);
         listCard.getChildren().add(addDelBar);
         // Iterate through all decks in the deck manager
-        for (int k = 0; k < allDeck.getDeck(activeDeck).getCards().size(); k++) {
+        for (int k = 0; k < flashcardManager.getDeck(activeDeck).getCards().size(); k++) {
             // If there is still space on the current row, add the deck button to it
             Button cardj = new Button("carte n°" + k);
             cardj.setId(Integer.toString(k));
@@ -315,7 +306,7 @@ public class EditCreationController implements Observer, Initializable {
     }
 
     protected void updateViewQuestions() {
-        for (int i = 0; i < allDeck.getCard(activeDeck, activeCard).getQuestion().size(); i++) {
+        for (int i = 0; i < flashcardManager.getCard(activeDeck, activeCard).getQuestion().size(); i++) {
             Button delQuestionButton = new Button("-");
             int index = i;
             delQuestionButton.setOnAction(event -> {
@@ -326,29 +317,29 @@ public class EditCreationController implements Observer, Initializable {
             if (i == 0) {
                 delQuestionButton.setVisible(false);
             }
-            if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("TEXT")) {
+            if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("TEXT")) {
 
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new HBox(
-                                new TextField(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
+                                new TextField(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
                                 delQuestionButton));
 
-            } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("IMAGE")) {
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("IMAGE")) {
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new HBox(
-                                new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
+                                new Label(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
                                 delQuestionButton));
 
-            } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("SON")) {
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("SON")) {
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new HBox(
-                                new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
+                                new Label(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
                                 delQuestionButton));
 
-            } else if (allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("VIDEO")) {
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getDataType().equals("VIDEO")) {
                 VboxQuestion.getChildren().add(VboxQuestion.getChildren().size(),
                         new HBox(
-                                new Label(allDeck.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
+                                new Label(flashcardManager.getCard(activeDeck, activeCard).getQuestionContent(i).getData()),
                                 delQuestionButton));
 
             }
@@ -357,7 +348,7 @@ public class EditCreationController implements Observer, Initializable {
     }
 
     protected void updateViewAnswers() {
-        for (int j = 0; j < allDeck.getCard(activeDeck, activeCard).getAnswer().size(); j++) {
+        for (int j = 0; j < flashcardManager.getCard(activeDeck, activeCard).getAnswer().size(); j++) {
             Button delAnswerButton = new Button("-");
             int index = j;
             delAnswerButton.setOnAction(event -> {
@@ -369,29 +360,29 @@ public class EditCreationController implements Observer, Initializable {
                 delAnswerButton.setVisible(false);
             }
 
-            if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("TEXT")) {
+            if (flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("TEXT")) {
                 VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new HBox(
-                                new TextField(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
+                                new TextField(flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
                                 delAnswerButton));
 
-            } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
                     .equals("IMAGE")) {
                 VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new HBox(
-                                new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
+                                new Label(flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
                                 delAnswerButton));
 
-            } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("SON")) {
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType().equals("SON")) {
                 VboxAnswer.getChildren().add(VboxAnswer.getChildren().size(),
                         new HBox(
-                                new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
+                                new Label(flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
                                 delAnswerButton));
-            } else if (allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
+            } else if (flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getDataType()
                     .equals("VIDEO")) {
                 VboxAnswer.getChildren().add(VboxAnswer.getChildren().size() - 1,
                         new HBox(
-                                new Label(allDeck.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
+                                new Label(flashcardManager.getCard(activeDeck, activeCard).getAnswerContent(j).getData()),
                                 delAnswerButton));
             }
         }

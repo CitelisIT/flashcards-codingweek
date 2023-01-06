@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Game {
     private Deck deck;
-    private StrategieAlgorithm algoComputeSequence;
+    private StrategyAlgorithm algoComputeSequence;
     private int nbCards;
     private int currentCardIndex = 0;
     private int numberGoodAnswer = 0;
@@ -29,37 +29,37 @@ public class Game {
     }
 
     public Deck getDeck() {
-        return deck;
+        return this.deck;
+    }
+
+    public Card getCurrentCard() {
+        return this.sequenceCards.get(currentCardIndex);
+    }
+
+    public int getNbCards() {
+        return this.nbCards;
+    }
+
+    public int getCurrentCardIndex() {
+        return this.currentCardIndex;
+    }
+
+    public ArrayList<Card> getSequenceCards() {
+        return this.sequenceCards;
+    }
+
+    public int getNbGoodAnswer() {
+        return this.numberGoodAnswer;
     }
 
     public void nextCard() {
-        if (currentCardIndex < nbCards) {
-            currentCardIndex++;
+        if (this.currentCardIndex < this.nbCards) {
+            this.currentCardIndex++;
         }
     }
 
     public void incrGoodAnswer() {
         this.numberGoodAnswer++;
-    }
-
-    public Card getCurrentCard() {
-        return sequenceCards.get(currentCardIndex);
-    }
-
-    public int getNbCards() {
-        return nbCards;
-    }
-
-    public int getCurrentCardIndex() {
-        return currentCardIndex;
-    }
-
-    public ArrayList<Card> getSequenceCards() {
-        return sequenceCards;
-    }
-
-    public int getNbGoodAnswer() {
-        return this.numberGoodAnswer;
     }
 
     public boolean endOfGame() {

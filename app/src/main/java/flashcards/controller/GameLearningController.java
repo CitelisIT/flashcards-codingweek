@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import flashcards.App;
 import flashcards.model.Card;
 import flashcards.model.Content;
-import flashcards.model.DeckManager;
+import flashcards.model.FlashcardManager;
 import javafx.util.Duration;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
@@ -21,43 +21,27 @@ import javafx.scene.text.TextAlignment;
 
 public class GameLearningController implements Observer, Initializable {
 
-    private DeckManager flashcardManager;
-    private int activeDeck;
-
+    private FlashcardManager flashcardManager;
     private int timer;
     private Timeline timeline;
 
-    @FXML
-    private ProgressBar timerProgressBar;
-    @FXML
-    private ProgressBar cardProgressBar;
-    @FXML
-    private Button goodAnswerButton;
-    @FXML
-    private Button badAnswerButton;
-    @FXML
-    private Button goBackButton;
-    @FXML
-    private Label gameDeckTitle;
-    @FXML
-    private Label gameStatus;
-    @FXML
-    private Label gameScore;
-    @FXML
-    private VBox displayedVBox;
+    @FXML private ProgressBar timerProgressBar;
+    @FXML private ProgressBar cardProgressBar;
+    @FXML private Button goodAnswerButton;
+    @FXML private Button badAnswerButton;
+    @FXML private Button goBackButton;
+    @FXML private Label gameDeckTitle;
+    @FXML private Label gameStatus;
+    @FXML private Label gameScore;
+    @FXML private VBox displayedVBox;
 
-    // TODO Réfléchir à l'implémentation des médias par rapport au timer
-
-    public GameLearningController(DeckManager flashcardManager, int activeDeck) {
+    public GameLearningController(FlashcardManager flashcardManager) {
         this.flashcardManager = flashcardManager;
-        this.activeDeck = activeDeck;
         this.flashcardManager.addObserver(this);
     }
 
-    // new Deck dans le HomeLearning
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // this.flashcardManager.setDefaultGame(this.flashcardManager.getDeck(this.activeDeck));
         this.goodAnswerButton.setVisible(false);
         this.badAnswerButton.setVisible(false);
         react();
@@ -72,29 +56,29 @@ public class GameLearningController implements Observer, Initializable {
     }
 
     public void timerPlay() {
-        timer = 0;
-        timerProgressBar.setMaxWidth(Double.MAX_VALUE);
-        timeline = new Timeline(
+        this.timer = 0;
+        this.timerProgressBar.setMaxWidth(Double.MAX_VALUE);
+        this.timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), event -> {
-                    timerProgressBar.setProgress((double) ++timer / 10);
-                    if (timer == 10) {
-                        goodAnswerButton.setVisible(true);
-                        badAnswerButton.setVisible(true);
+                    this.timerProgressBar.setProgress((double) ++this.timer / 6);
+                    if (timer == 6) {
+                        this.goodAnswerButton.setVisible(true);
+                        this.badAnswerButton.setVisible(true);
                         showAnswer();
-                        timeline.stop();
+                        this.timeline.stop();
                     }
                 }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        this.timeline.setCycleCount(Timeline.INDEFINITE);
+        this.timeline.play();
     }
 
     public void showAnswer() {
-        Card displayedCard = flashcardManager.getGame().getCurrentCard();
+        Card displayedCard = this.flashcardManager.getGame().getCurrentCard();
         for (int index = 0; index < displayedCard.getAnswer().size(); index++) {
             Content answer = displayedCard.getAnswerContent(index);
             if (answer.getDataType().equals("TEXT")) {
                 Label answerLabel = new Label(answer.getData());
-                displayedVBox.getChildren().add(answerLabel);
+                this.displayedVBox.getChildren().add(answerLabel);
 
             } else {
                 // TODO : gestion des media LOL
@@ -103,14 +87,14 @@ public class GameLearningController implements Observer, Initializable {
     }
 
     public void showQuestion() {
-        displayedVBox.getChildren().clear();
-        goBackButton.setVisible(false);
-        Card displayedCard = flashcardManager.getGame().getCurrentCard();
+        this.displayedVBox.getChildren().clear();
+        this.goBackButton.setVisible(false);
+        Card displayedCard = this.flashcardManager.getGame().getCurrentCard();
         for (int index = 0; index < displayedCard.getQuestion().size(); index++) {
             Content question = displayedCard.getQuestionContent(index);
             if (question.getDataType().equals("TEXT")) {
                 Label answerLabel = new Label(question.getData());
-                displayedVBox.getChildren().add(answerLabel);
+                this.displayedVBox.getChildren().add(answerLabel);
 
             } else {
                 // TODO : gestion des media LOL
@@ -119,39 +103,41 @@ public class GameLearningController implements Observer, Initializable {
     }
 
     public void goodAnswer() {
-        goodAnswerButton.setVisible(false);
-        badAnswerButton.setVisible(false);
-        flashcardManager.updateGoodAnswer();
+        this.goodAnswerButton.setVisible(false);
+        this.badAnswerButton.setVisible(false);
+        this.flashcardManager.updateGoodAnswer();
     }
 
     public void badAnswer() {
-        goodAnswerButton.setVisible(false);
-        badAnswerButton.setVisible(false);
-        flashcardManager.updateBadAnswer();
+        this.goodAnswerButton.setVisible(false);
+        this.badAnswerButton.setVisible(false);
+        this.flashcardManager.updateBadAnswer();
     }
 
     @Override
     public void react() {
-        cardProgressBar.setMaxWidth(Double.MAX_VALUE);
-        cardProgressBar.setProgress((double) flashcardManager.getGame().getCurrentCardIndex()
-                / flashcardManager.getGame().getSequenceCards().size());
+        this.cardProgressBar.setMaxWidth(Double.MAX_VALUE);
+        this.cardProgressBar.setProgress((double) this.flashcardManager.getGame().getCurrentCardIndex() / this.flashcardManager.getGame().getSequenceCards().size());
 
         this.gameDeckTitle.setText(this.flashcardManager.getGame().getDeck().getName());
+
         int currentQuestion = this.flashcardManager.getGame().getCurrentCardIndex() + 1;
         int nbQuestions = this.flashcardManager.getGame().getSequenceCards().size();
-        this.gameStatus.setText(currentQuestion + "/" + nbQuestions);
+        if (currentQuestion >= nbQuestions) { System.out.println("test");this.gameStatus.setText(nbQuestions + "/" + nbQuestions); } 
+        else { this.gameStatus.setText(currentQuestion + "/" + nbQuestions); }
+
         int previousQuestion = this.flashcardManager.getGame().getCurrentCardIndex();
         int numberGoodAnswer = this.flashcardManager.getGame().getNbGoodAnswer();
-        this.gameStatus.setText(currentQuestion + "/" + nbQuestions);
         this.gameScore.setText("Score : " + numberGoodAnswer + "/" + previousQuestion);
 
-        if (flashcardManager.getGame().endOfGame()) {
-            displayedVBox.getChildren().clear();
-            Label fin = new Label("Fin de la Partie\n Merci d'avoir joué");
-            fin.setTextAlignment(TextAlignment.CENTER);
+        if (this.flashcardManager.getGame().endOfGame()) {
+            this.displayedVBox.getChildren().clear();
 
-            displayedVBox.getChildren().add(fin);
-            goBackButton.setVisible(true);
+            Label end = new Label("Fin de la Partie\nMerci d'avoir joué");
+            end.setTextAlignment(TextAlignment.CENTER);
+
+            this.displayedVBox.getChildren().add(end);
+            this.goBackButton.setVisible(true);
         } else {
             showQuestion();
             timerPlay();

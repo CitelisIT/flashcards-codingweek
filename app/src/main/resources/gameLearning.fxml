@@ -45,8 +45,8 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="120.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#switchToHomeLearning" text="Retourner aux Decks" />
-            <Label fx:id="gameScore" text="Score : 0/0" />
+            <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#switchToHomeLearning" text="Retourner aux piles" />
+            <Label fx:id="gameScore" text="Score (nb justes/nb total): 0/0" />
             <ProgressBar fx:id="timerProgressBar" prefHeight="26.0" prefWidth="472.0" progress="0.0" />
             <ButtonBar prefHeight="40.0" prefWidth="338.0">
               <buttons>
@@ -60,7 +60,7 @@
    <center>
       <VBox fx:id="displayedVBox" alignment="CENTER" prefHeight="217.0" prefWidth="389.0" style="-fx-border-color: blue; -fx-border-radius: 8;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Question / reponse" />
+            <Label text="Question / réponse" />
          </children>
       </VBox>
    </center>

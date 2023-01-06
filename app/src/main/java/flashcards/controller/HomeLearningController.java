@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 import flashcards.App;
 import flashcards.model.Card;
 import flashcards.model.Deck;
-import flashcards.model.DeckManager;
+import flashcards.model.FlashcardManager;
 import flashcards.model.Game;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,91 +29,88 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class HomeLearningController implements Observer, Initializable {
-    private DeckManager allDeck;
-    private HashMap<String, ArrayList<Deck>> dico = new HashMap<String, ArrayList<Deck>>();
-    private Button buttonPressed = null;
+    private FlashcardManager flashcardManager;
+    private HashMap<String, ArrayList<Deck>> dico;
+    private Button buttonPressed;
     private String currentDeckKey;
     private int currentDeckIndex;
 
-    @FXML
-    private ChoiceBox<String> strategyChoiceBox;
+    @FXML private ChoiceBox<String> strategyChoiceBox;
+    @FXML private Spinner<Integer> nbCardSpinner;
+    @FXML private VBox rightPannel;
+    @FXML private Accordion accordion;
+    @FXML private Label titleLabel;
+    @FXML private Label descriptionLabel;
+    @FXML private Label strategyLabel;
+    @FXML private Label nbCardLabel;
+    @FXML private Button startButton;
 
-    @FXML
-    private Spinner<Integer> nbCardSpinner;
-
-    @FXML
-    private VBox rightPannel;
-
-    @FXML
-    private Accordion accordion;
-
-    @FXML
-    private Label title;
-
-    @FXML
-    private Label description;
-
-    @FXML
-    private Button startButton;
-
-    public HomeLearningController(DeckManager allDeck) {
-        this.allDeck = allDeck;
+    public HomeLearningController(FlashcardManager flashcardManager) {
+        this.flashcardManager = flashcardManager;
+        this.dico = new HashMap<String, ArrayList<Deck>>();
+        this.buttonPressed = null;
     }
 
     public void switchToHomeCreation() throws IOException {
-        App.setRoot("homeCreation", allDeck, 0);
+        App.setRoot("homeCreation", this.flashcardManager, 0);
     }
 
     public void startGame() throws IOException {
-        int nbCards = nbCardSpinner.getValue();
-        String chosenAlgo = strategyChoiceBox.getValue();
+        int nbCards = this.nbCardSpinner.getValue();
+        String chosenAlgo = this.strategyChoiceBox.getValue();
         Game game = new Game(nbCards, chosenAlgo, getCurrentDeck());
-        allDeck.setGame(game);
-        App.setRoot("gameLearning", allDeck, 0);
+        this.flashcardManager.setGame(game);
+        App.setRoot("gameLearning", this.flashcardManager, 0);
     }
 
     public void switchToStats() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/globalStats.fxml"));
         Parent root = fxmlLoader.load();
+
         Button bestCardButton = (Button) root.lookup("#bestCardButton");
-        bestCardButton.setText(allDeck.getBestCard().getQuestionContent(0).getData());
-        Button worstCardButton = (Button) root.lookup("#worstCardButton");
-        worstCardButton.setText(allDeck.getWorstCard().getQuestionContent(0).getData());
-        Label bestDeckLabel = (Label) root.lookup("#bestDeckLabel");
-        bestDeckLabel.setText(allDeck.getBestDeck().getName());
-        Label worstDeckLabel = (Label) root.lookup("#worstDeckLabel");
-        worstDeckLabel.setText(allDeck.getWorstDeck().getName());
-        PieChart pieChart = (PieChart) root.lookup("#globalPieChart");
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Bonnes réponses", allDeck.getRightAnswers()),
-                new PieChart.Data("Mauvaises réponses", allDeck.getWrongAnswers()));
-        pieChart.setData(pieChartData);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Global Stats");
-        stage.setScene(new Scene(root));
-        stage.show();
+        bestCardButton.setText(this.flashcardManager.getBestCard().getQuestionContent(0).getData());
         bestCardButton.setOnAction(e -> {
             try {
-                showCard(allDeck.getBestCard());
+                showCard(this.flashcardManager.getBestCard());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
+
+        Button worstCardButton = (Button) root.lookup("#worstCardButton");
+        worstCardButton.setText(this.flashcardManager.getWorstCard().getQuestionContent(0).getData());
         worstCardButton.setOnAction(e -> {
             try {
-                showCard(allDeck.getWorstCard());
+                showCard(this.flashcardManager.getWorstCard());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
+
+        Label bestDeckLabel = (Label) root.lookup("#bestDeckLabel");
+        bestDeckLabel.setText(this.flashcardManager.getBestDeck().getName());
+
+        Label worstDeckLabel = (Label) root.lookup("#worstDeckLabel");
+        worstDeckLabel.setText(this.flashcardManager.getWorstDeck().getName());
+
+        PieChart pieChart = (PieChart) root.lookup("#globalPieChart");
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Bonnes réponses", this.flashcardManager.getRightAnswers()),
+                new PieChart.Data("Mauvaises réponses", this.flashcardManager.getWrongAnswers()));
+        pieChart.setData(pieChartData);
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Statistiques sur l'ensemble des piles");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void showCard(Card card) throws IOException {
@@ -124,6 +121,7 @@ public class HomeLearningController implements Observer, Initializable {
         stage.setTitle("Card");
         stage.setScene(new Scene(root));
         stage.show();
+
         Button questionAnswerButton = (Button) root.lookup("#questionAnswerButton");
         questionAnswerButton.setText(card.getQuestionContent(0).getData());
         questionAnswerButton.setOnAction(e -> {
@@ -133,97 +131,89 @@ public class HomeLearningController implements Observer, Initializable {
                 questionAnswerButton.setText(card.getQuestionContent(0).getData());
             }
         });
+
         Button goBackButton = (Button) root.lookup("#goBackButton");
-        goBackButton.setOnAction(e -> {
-            stage.close();
-        });
+        goBackButton.setOnAction(e -> { stage.close(); });
     }
 
     public void fillDico() {
-        for (Deck deck : allDeck.getDeckList()) {
-            if (dico.containsKey(deck.getName().substring(0, 1))) {
-                dico.get(deck.getName().substring(0, 1)).add(deck);
+        for (Deck deck : this.flashcardManager.getDeckList()) {
+            if (this.dico.containsKey(deck.getName().substring(0, 1))) {
+                this.dico.get(deck.getName().substring(0, 1)).add(deck);
             } else {
-                dico.put((String) deck.getName().substring(0, 1), new ArrayList<Deck>(Collections.singletonList(deck)));
+                this.dico.put((String) deck.getName().substring(0, 1), new ArrayList<Deck>(Collections.singletonList(deck)));
             }
         }
     }
 
     public Deck getCurrentDeck() {
-        return dico.get(currentDeckKey).get(currentDeckIndex);
+        return this.dico.get(this.currentDeckKey).get(this.currentDeckIndex);
     }
 
-    public VBox makeGrid(ArrayList<Deck> listDeck, int nbColonnes) {
-        System.out.println(listDeck);
+    public VBox makeGrid(ArrayList<Deck> listDeck, int nbColumn) {
         VBox table = new VBox();
         for (int i = 0; i < listDeck.size(); i++) {
-            int numLigne = i / nbColonnes;
-            int numColonne = i % nbColonnes;
-            if (numColonne == 0) {
+            int numLine = i / nbColumn;
+            int numColumn = i % nbColumn;
+            if (numColumn == 0) {
                 HBox line = new HBox();
                 table.getChildren().add(line);
             }
+            
             Button deckButton = new Button(listDeck.get(i).getName());
             deckButton.setId(Integer.toString(i));
-            HBox line = (HBox) table.getChildren().get(numLigne);
+
+            HBox line = (HBox) table.getChildren().get(numLine);
             line.getChildren().add(deckButton);
+            
             HBox.setMargin(deckButton, new Insets(10, 0, 0, 10));
             deckButton.setPrefSize(130.0, 100.0);
 
             deckButton.setOnAction(event -> {
-                buttonPressed = deckButton;
-                currentDeckIndex = Integer.parseInt(deckButton.getId());
-                currentDeckKey = deckButton.getText().substring(0, 1);
-                title.setText(deckButton.getText());
-                description.setText(getCurrentDeck().getDescription());
+                this.buttonPressed = deckButton;
+                this.currentDeckIndex = Integer.parseInt(deckButton.getId());
+                this.currentDeckKey = deckButton.getText().substring(0, 1);
+                this.titleLabel.setText(deckButton.getText());
+                this.descriptionLabel.setText(getCurrentDeck().getDescription());
                 react();
             });
-
         }
         return table;
     }
 
     public void affDeck() {
-        accordion.getPanes().clear();
-        for (Entry entry : dico.entrySet()) {
+        this.accordion.getPanes().clear();
+        for (Entry entry : this.dico.entrySet()) {
             TitledPane pane = new TitledPane((String) entry.getKey(), makeGrid((ArrayList<Deck>) entry.getValue(), 4));
-            accordion.getPanes().add(pane);
+            this.accordion.getPanes().add(pane);
         }
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        rightPannel.getChildren().clear();
-
-        if (allDeck.getDeckManagerSize() > 0) {
-            ObservableList<String> values = FXCollections.observableArrayList("Génération aléatoire",
-                    "Combler ses lacunes",
-                    "Valider ses acquis");
+        this.rightPannel.getChildren().clear();
+        if (this.flashcardManager.getDeckManagerSize() > 0) {
+            ObservableList<String> values = FXCollections.observableArrayList("Génération aléatoire","Combler ses lacunes","Valider ses acquis");
             this.strategyChoiceBox.setItems(values);
             this.strategyChoiceBox.setValue("Génération aléatoire");
             this.nbCardSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 200, 10));
             fillDico();
             affDeck();
-
-            rightPannel.getChildren().add(new Label("Selectionner une pile"));
+            this.rightPannel.getChildren().add(new Label("Selectionner une pile"));
         } else {
-            rightPannel.getChildren().add(new Label("Aucune pile"));
+            this.rightPannel.getChildren().add(new Label("Aucune pile"));
         }
-
     }
 
     @Override
     public void react() {
-        rightPannel.getChildren().clear();
-        rightPannel.getChildren().add(title);
-        rightPannel.getChildren().add(description);
-        rightPannel.getChildren().add(strategyChoiceBox);
-        rightPannel.getChildren().add(nbCardSpinner);
-        rightPannel.getChildren().add(startButton);
-        // fillDico();
-        // affDeck();
-
-        // TODO Auto-generated method stub
+        this.rightPannel.getChildren().clear();
+        this.rightPannel.getChildren().add(this.titleLabel);
+        this.rightPannel.getChildren().add(this.descriptionLabel);
+        this.rightPannel.getChildren().add(this.strategyLabel);
+        this.rightPannel.getChildren().add(this.strategyChoiceBox);
+        this.rightPannel.getChildren().add(this.nbCardLabel);
+        this.rightPannel.getChildren().add(this.nbCardSpinner);
+        this.rightPannel.getChildren().add(this.startButton);
     }
 }

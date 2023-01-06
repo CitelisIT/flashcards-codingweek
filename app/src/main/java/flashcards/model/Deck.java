@@ -15,42 +15,46 @@ public class Deck extends Observable {
     }
 
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
+
+    public int getSize() {
+        return this.cards.size();
+    }
+
+    public Card getCard(int i) {
+        return this.cards.get(i);
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public int getSize() {
-        return cards.size();
-    }
-
-    public Card getCard(int i) {
-        return cards.get(i);
-    }
-
     public void add(Card card) {
-        cards.add(card);
+        this.cards.add(card);
     }
 
     public void remove(int i) {
-        cards.remove(i);
+        this.cards.remove(i);
     }
 
     public long getScore() throws ArithmeticException {
         int denom = 0;
         int num = 0;
         try {
-            for (Card card : cards) {
+            for (Card card : this.cards) {
                 denom += card.getApperenceCount();
                 num += card.getRightCount();
             }
@@ -63,7 +67,7 @@ public class Deck extends Observable {
 
     public int getRightAnswers() {
         int num = 0;
-        for (Card card : cards) {
+        for (Card card : this.cards) {
             num += card.getRightCount();
         }
         return num;
@@ -71,15 +75,15 @@ public class Deck extends Observable {
 
     public int getWrongAnswers() {
         int num = 0;
-        for (Card card : cards) {
+        for (Card card : this.cards) {
             num += card.getApperenceCount() - card.getRightCount();
         }
         return num;
     }
 
     public Card getBestCard() {
-        Card bestCard = cards.get(0);
-        for (Card card : cards) {
+        Card bestCard = this.cards.get(0);
+        for (Card card : this.cards) {
             if (card.getScore() > bestCard.getScore()) {
                 bestCard = card;
             }
@@ -88,16 +92,12 @@ public class Deck extends Observable {
     }
 
     public Card getWorstCard() {
-        Card worstCard = cards.get(0);
-        for (Card card : cards) {
+        Card worstCard = this.cards.get(0);
+        for (Card card : this.cards) {
             if (card.getScore() < worstCard.getScore()) {
                 worstCard = card;
             }
         }
         return worstCard;
-    }
-
-    public ArrayList<Card> getCards() {
-        return cards;
     }
 }

@@ -14,12 +14,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-public class DeckManager extends Observable {
+public class FlashcardManager extends Observable {
 
     private ArrayList<Deck> deckManager;
     private Game game;
 
-    public DeckManager() {
+    public FlashcardManager() {
         this.deckManager = new ArrayList<Deck>();
     }
 
@@ -187,10 +187,6 @@ public class DeckManager extends Observable {
 
     public Game getGame() {
         return this.game;
-    }
-
-    public void setDefaultGame(Deck activeDeck) {
-        this.game = new Game(5, "Génération aléatoire", activeDeck);
     }
 
     public void setGame(Game game) {

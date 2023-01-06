@@ -66,7 +66,11 @@ public class Card extends Observable {
     }
 
     public float getScore() {
-        return (float) getRightCount() / getApperenceCount();
+        if (getApperenceCount() != 0) {
+            return (float) getRightCount() / getApperenceCount();
+        } else {
+            return 0;
+        }
     }
 
     public ArrayList<Content> getQuestion() {

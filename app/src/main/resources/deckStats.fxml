@@ -43,14 +43,14 @@
       <PieChart fx:id="deckPieChart" prefHeight="216.0" prefWidth="600.0" />
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label alignment="CENTER" prefHeight="60.0" prefWidth="81.0" text="Best card" />
-            <Button id="bestCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="490.0" text="Button" />
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="160.0" text="Carte la plus connue" />
+            <Button id="bestCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="411.0" text="Button" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label alignment="CENTER" prefHeight="60.0" prefWidth="81.0" text="Worst card" />
-            <Button fx:id="worstCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="490.0" text="Button" />
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="160.0" text="Carte la moins connue" />
+            <Button fx:id="worstCardButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="411.0" text="Button" />
          </children>
       </HBox>
       <HBox prefHeight="30.0" prefWidth="600.0" />
