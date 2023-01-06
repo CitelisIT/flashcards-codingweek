@@ -200,7 +200,7 @@ public class HomeLearningController implements Observer, Initializable {
                 }
                 this.buttonPressed = deckButton;
                 this.buttonPressed
-                        .setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightgreen");
+                        .setStyle("-fx-pref-width: 130px; -fx-pref-height: 100px;-fx-background-color: lightblue");
                 this.currentDeckIndex = Integer.parseInt(deckButton.getId());
                 this.currentDeckKey = deckButton.getText().substring(0, 1).toUpperCase();
                 this.titleLabel.setText(deckButton.getText());
