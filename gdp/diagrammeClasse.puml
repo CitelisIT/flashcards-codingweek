@@ -1,6 +1,6 @@
 @startuml
 
-    title "Diagramme de classe FlashCard"
+    title "Diagramme de classe CrocoCards"
 
     package "Modèle" <<Rectangle>> #DDFFDD {
         interface StrategyAlgorithm<<interface>>{
@@ -29,6 +29,7 @@
             + int getScore()
         }
         class FlashCardManager {
+        	+ void save()
             + void exportDeck(Deck deck)
             + void importDeck()
             + void exportDeckList()
@@ -54,10 +55,109 @@
             + void react()
         }
 
-        class GameLearningController {}
-        class EditCreationController {}
-        class HomeLearningController {}
-        class HomeCreationController {}
+        class GameLearningController {
+			-FlashcardManager flashcardManager
+			-int timer
+			-int maxTimer
+			-Timeline timeline
+			-ProgressBar timerProgressBar
+			-ProgressBar cardProgressBar
+			-Button goodAnswerButton
+			-Button badAnswerButton
+			-Button goBackButton
+			-Label gameDeckTitle
+			-Label gameStatus
+			-Label gameScore
+			-VBox displayedVBox
+			+void switchToHomeLearning()
+			+void timerPlay()
+			+void showAnswer()
+			+void react()
+		}
+        class EditCreationController {
+			-FlashcardManager flashcardManager
+			-int activeDeck
+			-int activeCard
+			-int activeQuestionContent
+			-int activeAnswerContent
+			-Button buttonPressed
+			-Button questionAddTextButton
+			-Button questionAddMediaButton
+			-Button answerAddTextButton
+			-Button answerAddMediaButton
+			-Button validationButton
+			-VBox VboxQuestion
+			-VBox VboxAnswer
+			-TextField questionText
+			-TextField answerText
+			-TextField name
+			-TextField description
+			-VBox listCard
+			-Button addCardButton
+			-Button delCardButton
+			-Button delContentQuestionButton
+			-Button delContentAnswerButton
+			+void switchToHomeCreation()
+			+void addCard()
+			+void delCard()
+			+void addQuestionText()
+			+void addQuestionMedia()
+			+void addAnswerText()
+			+void addAnswerMedia()
+			+void delContentQuestion()
+			+void delContentAnswer()
+		}
+        class HomeLearningController {
+			-FlashcardManager flashcardManager
+			-HashMap<String, ArrayList<Deck>> dico
+			-Button buttonPressed
+			-String currentDeckKey
+			-int currentDeckIndex
+			+Slider timerSlider
+			+ChoiceBox<String> strategyChoiceBox
+			+Spinner<Integer> nbCardSpinner
+			+VBox rightPannel
+			+Accordion accordion
+			+Label titleLabel
+			+Text descriptionLabel
+			+Label strategyLabel
+			+Label nbCardLabel
+			+Button startButton
+			+Label timerLabel
+			+void switchToHomeCreation()
+			+void startGame()
+			+void switchToStats()
+			+void switchToDecks()
+			+Deck getCurrentDeck()
+			+void showCard(Card card)
+		}
+        class HomeCreationController {
+			-String currentName
+			-String currentDescription
+			-FlashcardManager flashcardManager
+			-int activeDeck
+			-Button buttonPressed
+			-Button newDeck
+			-Button importDeck
+			-Button editDeck
+			-Button deleteDeck
+			-Button exportDeck
+			-Button statistics
+		    -ButtonBar buttonBar
+		    -Button addButton
+		    -VBox listDeck
+		    -Label displayedDescription
+		    -Label displayedName
+		    +void switchToHomeLearning()
+		    +void switchToEditCreation()
+		    +void selectNewOrImport()
+		    +void importDeck()
+		    +void exportDeck()
+		    +void deleteDeckeck()
+		    +void selectDeck()
+		    +void selectStatistics()
+		    +void react()
+		}
     }
 
     GameLearningController -[hidden]right- EditCreationController

@@ -273,6 +273,7 @@ public class HomeCreationController implements Observer, Initializable {
      */
     @Override
     public void react() {
+        flashcardManager.save();
         // Clear the list of decks in the UI
         this.listDeck.getChildren().clear();
         // Add a new row to the list with the add button

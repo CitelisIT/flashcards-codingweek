@@ -2,7 +2,7 @@ package flashcards.model;
 
 import java.util.ArrayList;
 
-public class Card extends Observable {
+public class Card {
     private ArrayList<Content> question = new ArrayList<Content>();
     private ArrayList<Content> answer = new ArrayList<Content>();
     private int apperenceCount = 0;

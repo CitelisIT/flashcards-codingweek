@@ -32,10 +32,10 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.ProgressBar?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -48,12 +48,15 @@
             <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#switchToHomeLearning" text="Retourner aux piles" />
             <Label fx:id="gameScore" text="Score (nb justes/nb total): 0/0" />
             <ProgressBar fx:id="timerProgressBar" prefHeight="26.0" prefWidth="472.0" progress="0.0" />
-            <ButtonBar prefHeight="40.0" prefWidth="338.0">
-              <buttons>
-                <Button fx:id="goodAnswerButton" mnemonicParsing="false" onAction="#goodAnswer" text="yes" />
-                  <Button fx:id="badAnswerButton" layoutX="525.0" layoutY="15.0" onAction="#badAnswer" mnemonicParsing="false" text="oh noes" />
-              </buttons>
-            </ButtonBar>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0">
+              <children>
+                <Button fx:id="badAnswerButton" mnemonicParsing="false" prefWidth="100.0" onAction="#badAnswer" text="Pas trouvé">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="goodAnswerButton" mnemonicParsing="false" prefWidth="100.0" onAction="#goodAnswer" text="Trouvé" />
+              </children>
+            </HBox>
          </children>
       </VBox>
    </bottom>
