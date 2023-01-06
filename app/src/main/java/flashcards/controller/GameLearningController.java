@@ -34,15 +34,24 @@ public class GameLearningController implements Observer, Initializable {
     private int maxTimer;
     private Timeline timeline;
 
-    @FXML private ProgressBar timerProgressBar;
-    @FXML private ProgressBar cardProgressBar;
-    @FXML private Button goodAnswerButton;
-    @FXML private Button badAnswerButton;
-    @FXML private Button goBackButton;
-    @FXML private Label gameDeckTitle;
-    @FXML private Label gameStatus;
-    @FXML private Label gameScore;
-    @FXML private VBox displayedVBox;
+    @FXML
+    private ProgressBar timerProgressBar;
+    @FXML
+    private ProgressBar cardProgressBar;
+    @FXML
+    private Button goodAnswerButton;
+    @FXML
+    private Button badAnswerButton;
+    @FXML
+    private Button goBackButton;
+    @FXML
+    private Label gameDeckTitle;
+    @FXML
+    private Label gameStatus;
+    @FXML
+    private Label gameScore;
+    @FXML
+    private VBox displayedVBox;
 
     public GameLearningController(FlashcardManager flashcardManager, int activeDeck) {
         this.flashcardManager = flashcardManager;
@@ -69,7 +78,7 @@ public class GameLearningController implements Observer, Initializable {
         this.maxTimer = this.flashcardManager.getGame().getTimer();
         this.timerProgressBar.setMaxWidth(Double.MAX_VALUE);
         this.timeline = new Timeline(
-            new KeyFrame(Duration.seconds(1), event -> {
+                new KeyFrame(Duration.seconds(1), event -> {
                     this.timerProgressBar.setProgress((double) ++this.timer / this.maxTimer);
                     if (this.timer == this.maxTimer) {
                         this.goodAnswerButton.setVisible(true);
@@ -81,9 +90,7 @@ public class GameLearningController implements Observer, Initializable {
                         }
                         this.timeline.stop();
                     }
-                }
-            )
-        );
+                }));
         this.timeline.setCycleCount(Timeline.INDEFINITE);
         this.timeline.play();
     }
@@ -175,15 +182,12 @@ public class GameLearningController implements Observer, Initializable {
     @Override
     public void react() {
         this.cardProgressBar.setMaxWidth(Double.MAX_VALUE);
-        this.cardProgressBar.setProgress((double) this.flashcardManager.getGame().getCurrentCardIndex() / this.flashcardManager.getGame().getSequenceCards().size());
+        this.cardProgressBar.setProgress((double) this.flashcardManager.getGame().getCurrentCardIndex()
+                / this.flashcardManager.getGame().getSequenceCards().size());
         this.gameDeckTitle.setText(this.flashcardManager.getGame().getDeck().getName());
         int currentQuestion = this.flashcardManager.getGame().getCurrentCardIndex() + 1;
         int nbQuestions = this.flashcardManager.getGame().getSequenceCards().size();
-        if (currentQuestion >= nbQuestions) {
-            this.gameStatus.setText(nbQuestions + "/" + nbQuestions);
-        } else {
-            this.gameStatus.setText(currentQuestion + "/" + nbQuestions);
-        }
+        this.gameStatus.setText(currentQuestion + "/" + nbQuestions);
 
         int previousQuestion = this.flashcardManager.getGame().getCurrentCardIndex();
         int numberGoodAnswer = this.flashcardManager.getGame().getNbGoodAnswer();
@@ -191,11 +195,12 @@ public class GameLearningController implements Observer, Initializable {
         this.gameScore.setText("Score : " + numberGoodAnswer + "/" + previousQuestion);
 
         if (flashcardManager.getGame().endOfGame()) {
-            this.displayedVBox.getChildren().clear();
-            Label end = new Label("Fin de la Partie\nMerci d'avoir joué");
-            end.setTextAlignment(TextAlignment.CENTER);
+            this.gameStatus.setText(nbQuestions + "/" + nbQuestions);
+            displayedVBox.getChildren().clear();
+            Label fin = new Label("Fin de la Partie\n Merci d'avoir joué");
+            fin.setTextAlignment(TextAlignment.CENTER);
 
-            this.displayedVBox.getChildren().add(end);
+            this.displayedVBox.getChildren().add(fin);
             this.goBackButton.setVisible(true);
         } else {
             try {

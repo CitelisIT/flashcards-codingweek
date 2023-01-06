@@ -58,7 +58,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Mode">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#switchToHomeLearning" text="Apprentisage" />
+            <MenuItem mnemonicParsing="false" onAction="#switchToHomeLearning" text="Changer pour le mode apprentisage" />
           </items>
         </Menu>
       </menus>
