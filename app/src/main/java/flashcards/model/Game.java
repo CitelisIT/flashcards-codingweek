@@ -8,11 +8,13 @@ public class Game {
     private int nbCards;
     private int currentCardIndex = 0;
     private int numberGoodAnswer = 0;
+    private int timer;
     private ArrayList<Card> sequenceCards = new ArrayList<Card>();
 
-    public Game(int nbCards, String chosenAlgo, Deck deck) {
+    public Game(int nbCards, String chosenAlgo, Deck deck, int timer) {
         this.nbCards = nbCards;
         this.deck = deck;
+        this.timer = timer;
         switch (chosenAlgo) {
             case "Combler ses lacunes":
                 this.algoComputeSequence = new GapPriorityMode();
@@ -30,6 +32,10 @@ public class Game {
 
     public Deck getDeck() {
         return this.deck;
+    }
+
+    public int getTimer() {
+        return this.timer;
     }
 
     public Card getCurrentCard() {

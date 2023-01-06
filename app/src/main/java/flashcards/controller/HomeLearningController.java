@@ -26,6 +26,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TitledPane;
@@ -41,6 +42,8 @@ public class HomeLearningController implements Observer, Initializable {
     private String currentDeckKey;
     private int currentDeckIndex;
 
+    @FXML
+    private Slider timerSlider;
     @FXML
     private ChoiceBox<String> strategyChoiceBox;
     @FXML
@@ -73,7 +76,8 @@ public class HomeLearningController implements Observer, Initializable {
     public void startGame() throws IOException {
         int nbCards = this.nbCardSpinner.getValue();
         String chosenAlgo = this.strategyChoiceBox.getValue();
-        Game game = new Game(nbCards, chosenAlgo, getCurrentDeck());
+        int timer = (int) this.timerSlider.getValue();
+        Game game = new Game(nbCards, chosenAlgo, getCurrentDeck(), timer);
         this.flashcardManager.setGame(game);
         App.setRoot("gameLearning", this.flashcardManager, 0);
     }
@@ -227,6 +231,7 @@ public class HomeLearningController implements Observer, Initializable {
         this.rightPannel.getChildren().add(this.strategyChoiceBox);
         this.rightPannel.getChildren().add(this.nbCardLabel);
         this.rightPannel.getChildren().add(this.nbCardSpinner);
+        this.rightPannel.getChildren().add(this.timerSlider);
         this.rightPannel.getChildren().add(this.startButton);
     }
 }
