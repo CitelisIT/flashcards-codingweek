@@ -90,7 +90,11 @@ public class GameLearningController implements Observer, Initializable {
                     if (timer == maxTimer) {
                         this.goodAnswerButton.setVisible(true);
                         this.badAnswerButton.setVisible(true);
-                        showAnswer();
+                        try {
+                            showAnswer();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                         this.timeline.stop();
                     }
                 }));
@@ -111,6 +115,24 @@ public class GameLearningController implements Observer, Initializable {
 
                 ImageView answerImageView = new ImageView(new Image(stream));
                 displayedVBox.getChildren().add(answerImageView);
+            } else {
+                Media answerMedia = new Media("file:" + answer.getData());
+                MediaPlayer mediaPlayer = new MediaPlayer(answerMedia);
+                mediaPlayer.setAutoPlay(true);
+                MediaView mediaView = new MediaView(mediaPlayer);
+                if (answer.getDataType().equals("SON")) {
+                    InputStream stream = getClass().getClassLoader().getResourceAsStream("sound.png");
+                    ImageView answerImageView = new ImageView(new Image(stream));
+                    answerImageView.setFitWidth(50);
+                    answerImageView.setFitHeight(50);
+                    displayedVBox.getChildren().add(answerImageView);
+                } else {
+                    mediaView.preserveRatioProperty();
+                    mediaView.setFitHeight(300);
+                }
+
+                displayedVBox.getChildren().addAll(mediaView);
+
             }
         }
     }
@@ -131,11 +153,21 @@ public class GameLearningController implements Observer, Initializable {
                 ImageView questionImageView = new ImageView(new Image(stream));
                 displayedVBox.getChildren().add(questionImageView);
             } else {
-                Media questionMedia = new Media(new File("file:" + question.getData()).toURI().toString());
-                System.out.println(questionMedia.getSource());
+                Media questionMedia = new Media("file:" + question.getData());
                 MediaPlayer mediaPlayer = new MediaPlayer(questionMedia);
                 mediaPlayer.setAutoPlay(true);
                 MediaView mediaView = new MediaView(mediaPlayer);
+                if (question.getDataType().equals("SON")) {
+                    InputStream stream = getClass().getClassLoader().getResourceAsStream("sound.png");
+                    ImageView questionImageView = new ImageView(new Image(stream));
+                    questionImageView.setFitWidth(50);
+                    questionImageView.setFitHeight(50);
+                    displayedVBox.getChildren().add(questionImageView);
+                } else {
+                    mediaView.preserveRatioProperty();
+                    mediaView.setFitHeight(300);
+                }
+
                 displayedVBox.getChildren().addAll(mediaView);
 
             }
