@@ -144,13 +144,19 @@ public class HomeLearningController implements Observer, Initializable {
         root.requestFocus();
 
         Button questionAnswerButton = (Button) root.lookup("#questionAnswerButton");
+        questionAnswerButton.setStyle(
+                "-fx-pref-width: 490px; -fx-pref-height: 338px;  -fx-font-size: 20px; -fx-font-weight: bold ; -fx-text-alignment: center;");
         questionAnswerButton.setText(card.getQuestionContent(0).getData());
-        questionAnswerButton.setStyle("-fx-pref-width: 490px; -fx-pref-height: 338px;");
+        questionAnswerButton.setWrapText(true);
         questionAnswerButton.setOnAction(e -> {
             if (questionAnswerButton.getText().equals(card.getQuestionContent(0).getData())) {
                 questionAnswerButton.setText(card.getAnswerContent(0).getData());
+                questionAnswerButton.setStyle(
+                        "-fx-pref-width: 490px; -fx-pref-height: 338px;  -fx-font-size: 16px; -fx-text-alignment: center;");
             } else {
                 questionAnswerButton.setText(card.getQuestionContent(0).getData());
+                questionAnswerButton.setStyle(
+                        "-fx-pref-width: 490px; -fx-pref-height: 338px;  -fx-font-size: 20px; -fx-font-weight: bold ; -fx-text-alignment: center;");
             }
         });
 
