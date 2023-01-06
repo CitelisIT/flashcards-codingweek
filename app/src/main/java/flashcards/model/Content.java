@@ -1,6 +1,6 @@
 package flashcards.model;
 
-public class Content extends Observable {
+public class Content {
     private String dataType;
     private String data;
 

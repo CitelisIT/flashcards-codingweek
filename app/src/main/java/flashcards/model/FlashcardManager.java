@@ -263,4 +263,10 @@ public class FlashcardManager extends Observable {
         this.game.nextCard();
         this.triggerObserver();
     }
+
+    @Override
+    public void triggerObserver() {
+        save();
+        super.triggerObserver();
+    }
 }

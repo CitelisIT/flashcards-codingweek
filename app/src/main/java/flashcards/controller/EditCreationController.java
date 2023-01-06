@@ -210,6 +210,7 @@ public class EditCreationController implements Observer, Initializable {
 
             }
         }
+        flashcardManager.save();
     }
 
     public static String getFileType(String filePath) {
