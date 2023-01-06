@@ -25,6 +25,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class GameLearningController implements Observer, Initializable {
@@ -99,9 +100,12 @@ public class GameLearningController implements Observer, Initializable {
         Card displayedCard = this.flashcardManager.getGame().getCurrentCard();
         for (int index = 0; index < displayedCard.getAnswer().size(); index++) {
             Content answer = displayedCard.getAnswerContent(index);
+            this.displayedVBox.setSpacing(40);
             if (answer.getDataType().equals("TEXT")) {
-                Label answerLabel = new Label(answer.getData());
-                this.displayedVBox.getChildren().add(answerLabel);
+                Text answerText = new Text(answer.getData());
+                answerText.setStyle("-fx-font-size: 18px; -fx-text-alignment: center;");
+                answerText.wrappingWidthProperty().set(430);
+                this.displayedVBox.getChildren().add(answerText);
             } else if (answer.getDataType().equals("IMAGE")) {
                 InputStream stream = new FileInputStream(answer.getData());
                 ImageView answerImageView = new ImageView(new Image(stream));
@@ -134,8 +138,10 @@ public class GameLearningController implements Observer, Initializable {
         for (int index = 0; index < displayedCard.getQuestion().size(); index++) {
             Content question = displayedCard.getQuestionContent(index);
             if (question.getDataType().equals("TEXT")) {
-                Label questionLabel = new Label(question.getData());
-                this.displayedVBox.getChildren().add(questionLabel);
+                Text questionText = new Text(question.getData());
+                questionText.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-alignment: center;");
+                questionText.wrappingWidthProperty().set(430);
+                this.displayedVBox.getChildren().add(questionText);
             } else if (question.getDataType().equals("IMAGE")) {
                 InputStream stream = new FileInputStream(question.getData());
                 ImageView questionImageView = new ImageView(new Image(stream));
@@ -182,7 +188,8 @@ public class GameLearningController implements Observer, Initializable {
     @Override
     public void react() {
         this.cardProgressBar.setMaxWidth(Double.MAX_VALUE);
-        this.cardProgressBar.setProgress((double) this.flashcardManager.getGame().getCurrentCardIndex() / this.flashcardManager.getGame().getSequenceCards().size());
+        this.cardProgressBar.setProgress((double) this.flashcardManager.getGame().getCurrentCardIndex()
+                / this.flashcardManager.getGame().getSequenceCards().size());
         this.gameDeckTitle.setText(this.flashcardManager.getGame().getDeck().getName());
         int currentQuestion = this.flashcardManager.getGame().getCurrentCardIndex() + 1;
         int nbQuestions = this.flashcardManager.getGame().getSequenceCards().size();

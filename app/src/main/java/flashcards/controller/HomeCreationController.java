@@ -162,7 +162,7 @@ public class HomeCreationController implements Observer, Initializable {
                 .setText(this.flashcardManager.getDeck(this.activeDeck).getWorstCard().getQuestionContent(0).getData());
         worstCardButton.setOnAction(e -> {
             try {
-                showCard(this.flashcardManager.getDeck(this.activeDeck).getBestCard());
+                showCard(this.flashcardManager.getDeck(this.activeDeck).getWorstCard());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
