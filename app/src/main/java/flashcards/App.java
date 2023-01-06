@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.checkerframework.checker.units.qual.s;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -43,7 +45,9 @@ public class App extends Application {
         }
         scene = new Scene(loadFXML("homeCreation", flashcardManager, 0), 900, 650);
         stage.setScene(scene);
-        stage.setTitle("Application flashcard");
+
+        scene.getStylesheets().add(getClass().getResource("/bootstrap3.css").toExternalForm());
+        stage.setTitle("CrocoCards");
         stage.show();
     }
 
