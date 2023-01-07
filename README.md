@@ -21,7 +21,7 @@ Il consiste en la création d'une application JavaFX de flashcard.
 [Sujet complet](./gdp/sujet.pdf)
 
 ## Vidéo de démonstration
-[Vidéo de démonstration]()
+[Vidéo de démonstration](https://youtu.be/HVbVkDfm7KI)
 
 
 # Mode d'emploi
