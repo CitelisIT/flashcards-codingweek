@@ -17,6 +17,8 @@ Ce projet est réalisé dans le cadre de la semaine bloquée "Coding Week" du mo
 
 Il consiste en la création d'une application JavaFX de flashcard.
 
+EN : This project was made during the "Coding week" of the "Design and Development Project" module of TELECOM Nancy. We had a week to create a flashcard application in JavaFX. 
+
 ## Sujet complet
 [Sujet complet](./gdp/sujet.pdf)
 
